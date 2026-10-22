@@ -7,7 +7,7 @@
 <meta name="description" content="Portfólio de Nathalia Messias, criadora de conteúdo UGC em São Paulo. Vídeos com narrativa real e estética editorial para marcas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Damion&family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ===== PALETA: troque as cores aqui ===== */
   :root{
@@ -28,7 +28,7 @@
     --sombra:0 1px 2px rgba(68,25,16,.05),0 14px 40px rgba(68,25,16,.10);
     --serif:'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;   /* letra dos títulos */
     --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    --script:'Damion','Brush Script MT',cursive;   /* letra cursiva */
+    --script:'Pacifico','Brush Script MT',cursive;   /* letra cursiva */
     --max:1180px;
     --topo-h:106px;          /* altura do topo: faixa Black Friday + menu */
   }
@@ -39,7 +39,7 @@
   img{max-width:100%;display:block}
   a{color:inherit}
   h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.08;margin:0;letter-spacing:-.025em}
-  em{font-style:italic;color:var(--vinho)}
+  em{font-style:italic;color:var(--rosa-forte)}   /* palavras em destaque: itálico e tom rosado */
   p{margin:0}
   :focus-visible{outline:2px solid var(--rosa-forte);outline-offset:3px;border-radius:4px}
   .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
@@ -102,7 +102,7 @@
   .topo.rolou{background:rgba(254,239,220,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linha)}
   .topo-nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
   .marca{font-family:var(--serif);font-size:1.3rem;text-decoration:none;white-space:nowrap;color:var(--vinho)}
-  .marca{font-weight:700;letter-spacing:-.02em}.marca em{font-family:var(--script);font-style:normal;font-weight:400;font-size:1.12em;letter-spacing:0;color:var(--rosa-forte)}
+  .marca{font-weight:700;letter-spacing:-.02em}.marca em{font-family:var(--script);font-style:normal;font-weight:400;font-size:.95em;letter-spacing:0;color:var(--rosa-forte)}
   .menu ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
   .menu a{text-decoration:none;font-size:.86rem;font-weight:500;position:relative;padding:4px 0}
   .menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--vinho);transition:width .3s}
@@ -126,7 +126,7 @@
   .capa-grade{flex:1;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding-top:10px;padding-bottom:14px}
   .capa h1{margin:10px 0 12px}
   .titulo-forte{display:block;font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(4.6vw,6.6vh),4rem);line-height:1;letter-spacing:-.015em;color:var(--vinho)}
-  .titulo-script{display:block;font-family:var(--script);font-weight:400;font-size:clamp(2.5rem,min(5.4vw,7.6vh),4.9rem);line-height:1.05;color:var(--rosa-forte);margin-top:.02em;letter-spacing:0}
+  .titulo-script{display:block;font-family:var(--script);font-weight:400;font-size:clamp(2.1rem,min(4.4vw,6.2vh),4rem);line-height:1.25;color:var(--rosa-forte);margin-top:.02em;letter-spacing:0}
   .capa-frase{font-size:1rem;color:var(--tinta-2);max-width:500px}
   .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 16px}
   .capa-numeros{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:.93rem;color:var(--tinta-2)}
@@ -175,7 +175,7 @@
   .promessas{list-style:none;padding:0;margin:28px 0 32px;display:grid;gap:12px}
   .promessas li{display:flex;gap:16px;align-items:baseline;padding-bottom:12px;border-bottom:1px solid var(--linha)}
   .promessas b{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--rosa-forte);font-size:1.1rem;min-width:30px}
-  .assinatura{font-family:var(--script);font-size:2.3rem;color:var(--vinho);font-weight:400;line-height:1.2}
+  .assinatura{font-family:var(--script);font-size:1.8rem;color:var(--vinho);font-weight:400;line-height:1.4}
   .assinatura small{display:block;font-family:var(--sans);font-style:normal;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2);margin-top:4px}
 
   /* ===== DESTAQUES ===== */
@@ -201,7 +201,7 @@
   .filtro small{font-size:.72rem;opacity:.7;margin-left:4px}
   .trab-cab{text-align:center;margin-bottom:28px}
   .trab-cab p{color:var(--tinta-2);max-width:520px;margin:6px auto 0}
-  .titulo-cursivo{font-family:var(--script);font-weight:400;font-size:clamp(2.7rem,5.2vw,4.2rem);line-height:1.15;color:var(--vinho);margin-top:8px;letter-spacing:0}
+  .titulo-cursivo{font-family:var(--script);font-weight:400;font-size:clamp(2.2rem,4.2vw,3.5rem);line-height:1.35;color:var(--vinho);margin-top:4px;letter-spacing:0}
   #trabalhos .filtros{justify-content:center;margin-bottom:34px}
   .nicho-topo{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
   .nicho-topo h3{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--vinho)}
@@ -318,7 +318,7 @@
   .redes{display:flex;gap:22px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
   .redes a{text-decoration:none;font-size:.92rem;color:#F7DCE2}
   .redes a:hover{color:#fff;text-decoration:underline}
-  .rodape-gigante{font-family:var(--script);font-weight:400;font-size:clamp(4.4rem,17vw,14rem);line-height:1.15;color:var(--rosa);margin:4px 0 8px;white-space:nowrap}
+  .rodape-gigante{font-family:var(--script);font-weight:400;font-size:clamp(3.6rem,13vw,11rem);line-height:1.4;color:var(--rosa);margin:0 0 4px;white-space:nowrap}
   .rodape-base{padding-top:20px;border-top:1px solid rgba(254,239,220,.2);font-size:.82rem;color:#F7DCE2;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
   /* ===== CARD DE CAPTURA ===== */
