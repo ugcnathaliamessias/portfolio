@@ -127,8 +127,8 @@
     background-size:40px 40px}
   .capa-grade{flex:1;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding-top:10px;padding-bottom:14px}
   .capa h1{margin:10px 0 12px}
-  .titulo-forte{display:block;font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(4.6vw,6.6vh),4rem);line-height:1;letter-spacing:-.015em;color:var(--vinho)}
-  .titulo-script{display:block;font-family:var(--serif);font-style:italic;font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(4.6vw,6.6vh),4rem);line-height:1.05;letter-spacing:-.015em;color:var(--rosa-forte)}
+  .titulo-forte{display:block;font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,min(5.4vw,9.4vh),5.6rem);line-height:.98;letter-spacing:-.025em;color:var(--vinho)}
+  .titulo-script{display:block;font-family:var(--serif);font-style:italic;font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,min(5.4vw,9.4vh),5.6rem);line-height:1.02;letter-spacing:-.025em;color:var(--rosa-forte)}
   /* Cursiva fina com palavras em negrito (como "como <b>criar</b> para a <b>sua marca</b>") */
   .capa-frase{font-size:.98rem;color:var(--tinta-2);max-width:570px}
   .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 16px}
@@ -183,15 +183,23 @@
 
   /* ===== DESTAQUES ===== */
   .dest-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-  .dest-card{display:block;text-decoration:none;color:inherit;transition:transform .35s}
+  .dest-card{display:block;width:100%;padding:0;border:0;background:none;font:inherit;text-align:left;cursor:pointer;text-decoration:none;color:inherit;transition:transform .35s}
+  .dest-card .midia img{object-fit:cover}
+  .dest-intro{justify-self:end;max-width:470px}
+  .dest-intro p{color:var(--tinta-2)}
+  .dest-intro b{color:var(--vinho)}
+  .dest-titulo{display:block;font-family:var(--serif);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;color:var(--tinta);margin:2px 0 6px}
+  .dest-texto{display:block;color:var(--tinta-2);font-size:.92rem}
+  .dest-fecho{margin:44px auto 0;max-width:640px;text-align:center;font-family:var(--serif);font-weight:600;font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.35;letter-spacing:-.01em;color:var(--tinta)}
+  .dest-fecho em{font-weight:700}
   .dest-card:hover{transform:translateY(-6px)}
   .dest-card .midia{aspect-ratio:9/16}
   .play{position:absolute;top:50%;left:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;background:rgba(255,248,239,.92);display:grid;place-items:center;box-shadow:0 8px 30px rgba(68,25,16,.2);transition:transform .3s,background .3s}
   .play svg{width:22px;height:22px;margin-left:4px;fill:var(--vinho)}
   .dest-card:hover .play{transform:scale(1.08);background:#fff}
   .dest-plataforma{position:absolute;top:14px;left:14px;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--vinho);color:#fff;padding:6px 10px;border-radius:999px}
-  .dest-info{padding:22px 4px 0}
-  .dest-num{font-family:var(--serif);font-weight:800;letter-spacing:-.03em;font-size:2.5rem;line-height:1;color:var(--vinho)}
+  .dest-info{display:block;padding:22px 4px 0}
+  .dest-num{display:block;font-family:var(--serif);font-style:italic;font-weight:800;letter-spacing:-.03em;font-size:1.1rem;line-height:1;color:var(--rosa-forte)}
   .dest-rotulo{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rosa-forte);font-weight:600;margin:6px 0 12px}
   .dest-info h3{font-size:1.3rem;margin-bottom:6px}
   .dest-info p{color:var(--tinta-2);font-size:.92rem}
@@ -332,6 +340,11 @@
   .redes a:hover{color:var(--rosa);text-decoration:underline}
   .rodape-base{padding-top:18px;border-top:1px solid rgba(254,239,220,.18);font-size:.78rem;color:rgba(254,239,220,.72);display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap}
 
+  /* ===== BOTÃO FIXO "VALORES E PACOTES" ===== */
+  .btn-valores{position:fixed;right:20px;bottom:20px;z-index:250;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border:0;border-radius:999px;background:var(--vinho-escuro);color:var(--creme);font:700 .88rem var(--sans);cursor:pointer;box-shadow:0 10px 30px rgba(68,25,16,.3);transition:transform .25s,background .25s}
+  .btn-valores:hover{transform:translateY(-2px);background:var(--vinho)}
+  .btn-valores svg{width:18px;height:18px;fill:none;stroke:var(--rosa);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
   /* ===== CARD DE CAPTURA ===== */
   .captura{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;background:rgba(68,25,16,.55);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
   .captura.aberta{opacity:1;visibility:visible}
@@ -383,7 +396,7 @@
     .capa-card{position:static;width:auto;margin-top:10px}
     .sobre-grade .celular{margin:0 auto;width:100%}
     .secao-cab{grid-template-columns:1fr;gap:14px;margin-bottom:36px}
-    .secao-cab p{justify-self:start}
+    .secao-cab p,.dest-intro{justify-self:start}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
     .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
     .fotos-grade{grid-template-columns:1fr 1fr}
@@ -478,16 +491,14 @@
     <div>
       <span class="sobretitulo revelar" data-en="UGC Creator · São Paulo, Brazil">UGC Creator · São Paulo</span>
       <h1 id="titulo-capa" class="revelar atraso-1">
-        <span class="titulo-forte" data-en="Content that makes your brand">Conteúdo que faz sua marca</span>
+        <span class="titulo-forte" data-en="Content that<br>makes your brand">Conteúdo que<br>faz sua marca</span>
         <span class="titulo-script" data-en="be chosen">ser escolhida</span>
       </h1>
       <p class="capa-frase revelar atraso-2" data-en="Real-life stories with an editorial eye, from the first second to the buying decision, made for organic content and ads.">Vídeos com narrativa real e estética editorial, do primeiro segundo à decisão de compra, pensados para o orgânico e para anúncios.</p>
       <div class="capa-botoes revelar atraso-2">
-        <a class="btn btn-vinho" href="#contato" data-en="Let's create together">Quero criar com a Nathalia</a>
+        <a class="btn btn-vinho" href="#contato" data-en="Let's create together">Quero criar com a Nath</a>
         <a class="btn btn-contorno" href="#trabalhos" data-en="See my work">Ver os trabalhos</a>
       </div>
-      <!-- Os números da capa vêm do array "numerosCapa" no script -->
-      <div class="capa-numeros revelar atraso-3" id="capa-numeros"></div>
     </div>
     <div class="capa-foto revelar atraso-2" id="capa-foto">
       <div class="janela" data-url="instagram.com/nathaliaamessiass">
@@ -546,14 +557,16 @@
       <div class="janela-corpo">
         <div class="secao-cab">
           <div>
-            <span class="sobretitulo" data-en="Featured content">Conteúdos de destaque</span>
-            <h2 id="titulo-destaques" data-en="Three videos that <em>show</em> how I create">Três vídeos que <em>contam</em> a minha forma de criar</h2>
+            <span class="sobretitulo" data-en="One mask, three conversations">Uma máscara, três conversas</span>
+            <h2 id="titulo-destaques" data-en="One product, <em>three formats</em>">Um produto, <em>três formatos</em></h2>
           </div>
-          <p data-en="Tap a card to watch the full video on the original platform.">Toque em um card para assistir ao vídeo completo na plataforma original.</p>
+          <div class="dest-intro">
+            <p data-en="Hand me a product and I'll give you back several ways to communicate it. I used a <b>WidiCare</b> hair mask as the starting point to explore different ways of connecting, because before I think about filming, I think about the message.">Me entregue um produto e eu te devolvo várias possibilidades de comunicação. Usei uma máscara da <b>WidiCare</b> como ponto de partida para explorar diferentes formas de conexão, porque antes de pensar na gravação, eu penso na mensagem.</p>
+          </div>
         </div>
-        <!-- Os cards vêm do array "destaques" no script.
-             LINK DO VÍDEO: campo "link". CAPA: campo "capa" (deixe vazio para usar o degradê). -->
+        <!-- Os cards vêm do array "destaques" no script (vídeos do YouTube; toque para assistir aqui mesmo). -->
         <div class="dest-grade" id="dest-grade"></div>
+        <p class="dest-fecho" data-en="In the end, it's not about the product. It's about the story it can tell. <em>How many stories can your product tell?</em>">No final, não é sobre o produto. É sobre a história que ele tem potencial para contar. <em>Quantas histórias o seu produto pode contar?</em></p>
       </div>
     </div>
   </div>
@@ -694,14 +707,20 @@
   </div>
 </footer>
 
-<!-- ===================== CARD DE CAPTURA (mídia kit) ===================== -->
+<!-- ===================== BOTÃO FIXO "VALORES E PACOTES" (abre o card abaixo) ===================== -->
+<button class="btn-valores" id="btn-valores" type="button" aria-haspopup="dialog">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+  <span data-en="Rates &amp; packages">Valores e pacotes</span>
+</button>
+
+<!-- ===================== CARD DE CAPTURA (valores e pacotes) ===================== -->
 <div class="captura" id="captura" aria-hidden="true">
   <div class="janela" data-url="midia-kit" role="dialog" aria-modal="true" aria-labelledby="titulo-captura">
     <button class="fechar" id="fechar-captura" aria-label="Fechar" data-en-aria-label="Close">×</button>
     <div class="janela-corpo" id="captura-conteudo">
-      <span class="sobretitulo" data-en="Media kit">Mídia kit</span>
-      <h2 id="titulo-captura" data-en="Want my full <em>media kit?</em>">Quer meu mídia kit <em>completo?</em></h2>
-      <p class="captura-texto" data-en="Leave your name and email and I'll send you rates, formats and case studies.">Deixe seu nome e e-mail que eu te envio valores, formatos e cases.</p>
+      <span class="sobretitulo" data-en="Rates and packages">Valores e pacotes</span>
+      <h2 id="titulo-captura" data-en="Want my <em>rates and packages?</em>">Quer receber meus <em>valores e pacotes?</em></h2>
+      <p class="captura-texto" data-en="Leave your name and email and I'll send you my rate card, formats and package options.">Deixe seu nome e e-mail que eu te envio minha tabela de valores, formatos e opções de pacotes.</p>
       <form id="form-captura" novalidate>
         <div class="campo"><label for="c-nome" data-en="Name">Nome</label><input id="c-nome" type="text" autocomplete="name" required></div>
         <div class="campo"><label for="c-email" data-en="Email">E-mail</label><input id="c-email" type="email" autocomplete="email" required></div>
@@ -736,13 +755,6 @@ const blackFriday = {
   fim:    '2026-11-30T23:59:59-03:00'
 };
 
-// Números da capa (dados reais do Instagram em 22/10/2026: 12 reels somam 12.234 views)
-const numerosCapa = [
-  { valor: '+12 mil', rotulo: 'views nos reels', en: { valor: '12K+', rotulo: 'reel views' } },
-  { valor: '23',      rotulo: 'marcas',          en: { rotulo: 'brands' } },
-  { valor: '7',       rotulo: 'nichos',          en: { rotulo: 'niches' } }
-];
-
 // Destaques que flutuam em volta da foto da capa. Use **texto** para deixar em negrito.
 const destaquesCapa = [
   { texto: 'Já criei para **Nestlé, C&A, Shopee** e mais',
@@ -768,7 +780,7 @@ const marcas = [
   { nome: '3 Corações',   logo: 'logos/3coracoes.webp', zoom: 1.9 },
   { nome: 'C&A',          logo: 'logos/cea.svg', zoom: 1.1 },
   { nome: 'Crocs',        logo: 'logos/crocs.png', zoom: 1.6 },
-  { nome: 'Cotton On',    logo: 'logos/cottonon.png', zoom: 1.5 },
+  { nome: 'Cotton On',    logo: 'logos/cottonon.svg', zoom: 1.35 },
   { nome: 'Chilli Beans', logo: 'logos/chillibeans.svg', zoom: 1.3 },
   { nome: 'Principia',    logo: 'logos/principia.jpg', fundo: '#000', zoom: 1.2 },
   { nome: 'WidiCare',     logo: 'logos/widicare.png', zoom: 1.25 },
@@ -780,27 +792,19 @@ const marcas = [
   { nome: 'Shopee',       logo: 'logos/shopee.svg', zoom: 1.35 }
 ];
 
-// Conteúdos de destaque.
-// link  = LINK DO VÍDEO (abre em nova aba)
-// capa  = CAPA DO VÍDEO: coloque o caminho de uma imagem vertical 9:16 (ex.: 'capa1.jpg').
-//         Deixe '' para usar o degradê.
-// Views dos reels conferidas no Instagram em 22/10/2026.
+// Um produto, três formatos (máscara WidiCare). Texto baseado no post do Instagram:
+// https://www.instagram.com/p/DZVU_09EXti/
+// video = link do YouTube. capa = opcional, imagem vertical 9:16 no lugar da capa do YouTube.
 const destaques = [
-  { link: 'https://www.instagram.com/reels/DeuctQ-BA9u/', capa: '', plataforma: 'Reels',
-    numero: '698', rotulo: 'views no reels', titulo: 'Cappuccino Caramelo Salgado',
-    contexto: '3 Corações: degustação real que desperta vontade de provar.',
-    en: { rotulo: 'reel views', titulo: 'Salted Caramel Cappuccino',
-          contexto: '3 Corações: a real tasting that makes you want to try it.' } },
-  { link: 'https://www.instagram.com/p/DYz0f6Bx-3p/', capa: '', plataforma: 'Reels',
-    numero: '1.348', rotulo: 'views no reels', titulo: 'Conteúdo que converte',
-    contexto: 'Bastidores: pesquisa, intenção e estratégia antes de ligar a câmera.',
-    en: { numero: '1,348', rotulo: 'reel views', titulo: 'Content that converts',
-          contexto: 'Behind the scenes: research, intention and strategy before the camera rolls.' } },
-  { link: 'https://www.youtube.com/shorts/PO3-Ip2v5CE?feature=share', capa: '', plataforma: 'Shorts',
-    numero: 'UGC', rotulo: 'demonstração de produto', titulo: 'Aspirador PureCare',
-    contexto: 'Produto em uso real, do jeito que o consumidor vive em casa.',
-    en: { rotulo: 'product demo', titulo: 'PureCare vacuum',
-          contexto: 'The product in real use, the way consumers live with it at home.' } }
+  { video: 'https://youtu.be/5aKWuwLP_BQ', marca: 'WidiCare', formato: 'Problema x solução',
+    texto: 'Para quem precisa entender um problema antes de enxergar valor na solução.',
+    en: { formato: 'Problem x solution', texto: 'For people who need to understand a problem before they see the value in the solution.' } },
+  { video: 'https://youtube.com/shorts/HnmCzq6CmaQ', marca: 'WidiCare', formato: 'Sensorial',
+    texto: 'Para quem compra pela experiência: textura, som e sensação do produto.',
+    en: { formato: 'Sensory', texto: 'For people who buy for the experience: the texture, sound and feel of the product.' } },
+  { video: 'https://youtube.com/shorts/th3TTF4YBR0', marca: 'WidiCare', formato: 'Vlog',
+    texto: 'Para quem se identifica com uma rotina parecida com a sua.',
+    en: { formato: 'Vlog', texto: 'For people who relate to a routine that looks like their own.' } }
 ];
 
 // Nichos (aparece um por vez; o primeiro da lista abre primeiro)
@@ -909,7 +913,7 @@ const ui = {
     bfFaltam: (d) => d === 1 ? 'Falta <b>1 dia</b><span class="bf-extra"> pra Black Friday</span>' : d === 0 ? 'A Black Friday é <b>amanhã</b>' : `Faltam <b>${d} dias</b><span class="bf-extra"> pra Black Friday</span>`,
     bfHoje: 'É <b>Black Friday</b>!<span class="bf-extra"> Agenda aberta para a sua campanha</span>',
     enviada: 'Mensagem enviada', obrigada: 'Obrigada', recebi: 'Recebi a sua mensagem e respondo em até um dia útil.',
-    tudoCerto: 'Tudo certo', kitChega: 'Em breve o mídia kit chega no seu e-mail.', fechar: 'Fechar'
+    tudoCerto: 'Tudo certo', kitChega: 'Em breve minha tabela de valores e pacotes chega no seu e-mail.', fechar: 'Fechar'
   },
   en: {
     titulo: 'Nathalia Messias | UGC Creator Portfolio',
@@ -922,7 +926,7 @@ const ui = {
     bfFaltam: (d) => d === 1 ? '<b>1 day</b><span class="bf-extra"> to Black Friday</span>' : d === 0 ? 'Black Friday is <b>tomorrow</b>' : `<b>${d} days</b><span class="bf-extra"> to Black Friday</span>`,
     bfHoje: "It's <b>Black Friday</b>!<span class=\"bf-extra\"> Booking open for your campaign</span>",
     enviada: 'Message sent', obrigada: 'Thank you', recebi: "I got your message and will reply within one business day.",
-    tudoCerto: 'All set', kitChega: 'My media kit will reach your inbox soon.', fechar: 'Close'
+    tudoCerto: 'All set', kitChega: 'My rates and packages will reach your inbox soon.', fechar: 'Close'
   }
 };
 
@@ -1061,6 +1065,10 @@ $('#trab-grade').addEventListener('click', (e) => {
   const b = e.target.closest('[data-trabalho]');
   if (b) abrirPlayer(trabalhos[+b.dataset.trabalho]);
 });
+$('#dest-grade').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-destaque]');
+  if (b) abrirPlayer(destaques[+b.dataset.destaque]);
+});
 
 // Fotos UGC: abrem ampliadas no mesmo visualizador dos vídeos
 function abrirFoto(f) {
@@ -1105,26 +1113,28 @@ const obsNum = ('IntersectionObserver' in window && !reduzMovimento) ? new Inter
 
 // Desenha todas as partes que vêm dos arrays (é chamado de novo quando troca o idioma)
 function renderizar() {
-  // Capa: números e destaques flutuantes
-  $('#capa-numeros').innerHTML = numerosCapa.map(n => `<span><b>${esc(T(n, 'valor'))}</b> ${esc(T(n, 'rotulo'))}</span>`).join('<span class="sep" aria-hidden="true">|</span>');
+  // Capa: destaques flutuantes (12.234 views somadas nos reels, conferido no Instagram em 22/10/2026)
   document.querySelectorAll('.capa-card').forEach(c => c.remove());
   $('#capa-foto').insertAdjacentHTML('beforeend', destaquesCapa.map((d, i) => `<p class="capa-card c${i + 1}"><i aria-hidden="true">✦</i><span>${negrito(T(d, 'texto'))}</span></p>`).join(''));
 
   // Destaques (capa dentro de moldura de celular)
-  $('#dest-grade').innerHTML = destaques.map((d, i) => `
-    <a class="dest-card" href="${esc(d.link)}" target="_blank" rel="noopener" aria-label="${esc(U('assistir'))}: ${esc(T(d, 'titulo'))} (${esc(U('novaAba'))})">
-      <div class="celular" style="position:relative">
-        ${midia(d.capa, U('capaVideoAlt') + ' ' + T(d, 'titulo'), U('capaVideo'), i + 1)}
-        <span class="dest-plataforma">${esc(d.plataforma)}</span>
+  $('#dest-grade').innerHTML = destaques.map((d, i) => {
+    const id = idYoutube(d.video);
+    const capa = d.capa || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '');
+    return `
+    <button class="dest-card" type="button" data-destaque="${i}" aria-label="${esc(U('assistir'))}: ${esc(d.marca)}, ${esc(T(d, 'formato'))}">
+      <span class="celular" style="position:relative;display:block">
+        ${midia(capa, U('capaVideoAlt') + ' ' + d.marca + ' ' + T(d, 'formato'), U('capaVideo'), i + 1)}
+        <span class="dest-plataforma">${esc(d.marca)}</span>
         <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
-      </div>
-      <div class="dest-info">
-        <div class="dest-num">${esc(T(d, 'numero'))}</div>
-        <div class="dest-rotulo">${esc(T(d, 'rotulo'))}</div>
-        <h3>${esc(T(d, 'titulo'))}</h3>
-        <p>${esc(T(d, 'contexto'))}</p>
-      </div>
-    </a>`).join('');
+      </span>
+      <span class="dest-info">
+        <span class="dest-num">${String(i + 1).padStart(2, '0')}</span>
+        <span class="dest-titulo">${esc(T(d, 'formato'))}</span>
+        <span class="dest-texto">${esc(T(d, 'texto'))}</span>
+      </span>
+    </button>`;
+  }).join('');
 
   // Filtros e trabalhos
   $('#filtros').innerHTML = nichos.map((n) => `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${n.id === nichoAtual}">${esc(T(n, 'nome'))}</button>`).join('');
@@ -1265,9 +1275,10 @@ const captura = $('#captura');
 let focoAnterior = null;
 function lerSessao() { try { return sessionStorage.getItem('midiaKitVisto'); } catch (e) { return null; } }
 function gravarSessao() { try { sessionStorage.setItem('midiaKitVisto', '1'); } catch (e) {} }
-function abrirCaptura() {
-  if (lerSessao()) return;
-  if (player.classList.contains('aberto')) { setTimeout(abrirCaptura, 5000); return; }
+function abrirCaptura(forcar) {
+  if (!forcar && lerSessao()) return;
+  if (!forcar && player.classList.contains('aberto')) { setTimeout(abrirCaptura, 5000); return; }
+  if (captura.classList.contains('aberta')) return;
   gravarSessao();
   focoAnterior = document.activeElement;
   captura.classList.add('aberta');
@@ -1279,7 +1290,9 @@ function fecharCaptura() {
   captura.setAttribute('aria-hidden', 'true');
   if (focoAnterior) focoAnterior.focus();
 }
-setTimeout(abrirCaptura, 7000);
+setTimeout(() => abrirCaptura(false), 7000);
+// O botão fixo "Valores e pacotes" abre o card a qualquer momento
+$('#btn-valores').addEventListener('click', () => abrirCaptura(true));
 $('#fechar-captura').addEventListener('click', fecharCaptura);
 captura.addEventListener('click', (e) => { if (e.target === captura) fecharCaptura(); });
 document.addEventListener('keydown', (e) => {
