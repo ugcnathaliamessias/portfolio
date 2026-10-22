@@ -193,7 +193,22 @@
   .filtro:hover{border-color:var(--vinho)}
   .filtro[aria-pressed="true"]{background:var(--vinho);color:#fff;border-color:var(--vinho)}
   .filtro small{font-size:.72rem;opacity:.7;margin-left:4px}
-  .trab-grade{display:grid;grid-template-columns:repeat(5,1fr);gap:22px 18px}
+  .trab-cab{text-align:center;margin-bottom:28px}
+  .trab-cab p{color:var(--tinta-2);max-width:520px;margin:6px auto 0}
+  .titulo-cursivo{font-family:var(--script);font-weight:400;font-size:clamp(3rem,6vw,4.8rem);line-height:1.05;color:var(--vinho);margin-top:8px;letter-spacing:0}
+  #trabalhos .filtros{justify-content:center;margin-bottom:34px}
+  .nicho-topo{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+  .nicho-topo h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--vinho)}
+  .nicho-qtd{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-forte)}
+  .car-setas{margin-left:auto;display:flex;gap:8px;align-self:center}
+  .car-setas button{width:42px;height:42px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);color:var(--vinho);font-size:1.3rem;line-height:1;cursor:pointer;transition:background .2s,color .2s,opacity .2s}
+  .car-setas button:hover:not(:disabled){background:var(--vinho);color:#fff}
+  .car-setas button:disabled{opacity:.35;cursor:default}
+  /* Fileira de vídeos que desliza para o lado */
+  .carrossel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 4 * 16px) / 5);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+  .carrossel::-webkit-scrollbar{display:none}
+  .carrossel .trab-card{scroll-snap-align:start}
+  .trab-marca{position:absolute;top:10px;left:10px;z-index:1;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(255,253,251,.94);color:var(--vinho);font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
   .trab-card{animation:surgir .45s ease both}
   .trab-video{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit}
   .trab-capa{display:block;position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:linear-gradient(155deg,#f4ebe8 0%,#e3cfcd 60%,#c9a7ab 130%);box-shadow:var(--sombra)}
@@ -203,7 +218,7 @@
   .trab-capa .play{width:52px;height:52px;margin:-26px 0 0 -26px;z-index:1}
   .trab-capa .play svg{width:17px;height:17px;margin-left:3px}
   .trab-video:hover .play{transform:scale(1.08);background:#fff}
-  .trab-capa .trab-tag{position:absolute;left:10px;bottom:10px;z-index:1;margin:0;color:#fff;font-size:.62rem}
+  .trab-capa .trab-tag{position:absolute;left:8px;right:8px;bottom:12px;z-index:1;margin:0;color:#fff;font-size:.62rem;text-align:center}
   .trab-card h3{font-size:1.1rem;margin:10px 0 0}
   .trab-card p{font-size:.82rem;color:var(--tinta-2)}
   .trab-tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-forte);font-weight:600;margin-top:14px;display:block}
@@ -307,7 +322,7 @@
     .capa-card.c3{left:-110px}
   }
   @media (max-width:1024px){
-    .trab-grade{grid-template-columns:repeat(4,1fr)}
+    .carrossel{grid-auto-columns:calc((100% - 3 * 16px) / 4)}
     .metricas{grid-template-columns:repeat(2,1fr)}
     .serv-grade{grid-template-columns:repeat(2,1fr)}
     .janela-corpo{padding:44px}
@@ -328,8 +343,8 @@
     .secao-cab{grid-template-columns:1fr;gap:14px;margin-bottom:36px}
     .secao-cab p{justify-self:start}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
-    .trab-grade{grid-template-columns:repeat(3,1fr);gap:16px 12px}
-    .filtros{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px 28px;padding:0 24px 6px;scrollbar-width:none}
+    .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
+    #trabalhos .filtros{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin:0 -24px 26px;padding:0 24px 6px;scrollbar-width:none}
     .filtro{flex:0 0 auto}
     .resultados{grid-template-columns:1fr}
     .depoimentos{grid-template-columns:1fr}
@@ -345,8 +360,9 @@
     .form{padding:24px 18px}
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
-    .trab-grade{grid-template-columns:repeat(2,1fr)}
-    .filtros{margin:0 -18px 24px;padding:0 18px 6px}
+    .carrossel{grid-auto-columns:42%}
+    #trabalhos .filtros{margin:0 -18px 22px;padding:0 18px 6px}
+    .car-setas{display:none}
     .selo-marca{width:72px;height:72px}
     .janela-corpo{padding:28px 18px}
     .setas{display:none}
@@ -499,15 +515,22 @@
   <div class="container">
     <div class="janela revelar" data-url="trabalhos">
       <div class="janela-corpo">
-        <div class="secao-cab">
-          <div>
-            <span class="sobretitulo" data-en="Work by niche">Trabalhos por nicho</span>
-            <h2 id="titulo-trabalhos" data-en="Different brands, routines and <em>niches</em>">Marcas, rotinas e <em>nichos</em> diferentes</h2>
-          </div>
-          <p data-en="Pick a niche and tap any video to watch it right here.">Escolha um nicho e toque no vídeo para assistir aqui mesmo.</p>
+        <div class="trab-cab">
+          <span class="sobretitulo" data-en="Browse by niche">Navegue por nichos</span>
+          <h2 id="titulo-trabalhos" class="titulo-cursivo" data-en="Content I've produced">Conteúdos produzidos</h2>
+          <p data-en="Pick a niche, swipe sideways and tap a video to watch it right here.">Escolha um nicho, deslize para o lado e toque no vídeo para assistir aqui mesmo.</p>
         </div>
-        <div class="filtros" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho" data-en-aria-label="Filter work by niche"></div>
-        <div class="trab-grade" id="trab-grade" aria-live="polite"></div>
+        <div class="filtros" id="filtros" role="group" aria-label="Escolher nicho" data-en-aria-label="Choose a niche"></div>
+        <!-- Um nicho por vez, numa fileira que desliza para o lado -->
+        <div class="nicho-topo">
+          <h3 id="nicho-nome"></h3>
+          <span class="nicho-qtd" id="nicho-qtd"></span>
+          <div class="car-setas">
+            <button type="button" id="car-ant" aria-label="Vídeos anteriores" data-en-aria-label="Previous videos">‹</button>
+            <button type="button" id="car-prox" aria-label="Próximos vídeos" data-en-aria-label="Next videos">›</button>
+          </div>
+        </div>
+        <div class="carrossel" id="trab-grade" aria-live="polite"></div>
       </div>
     </div>
   </div>
@@ -711,9 +734,8 @@ const destaques = [
           contexto: 'The product in real use, the way consumers live with it at home.' } }
 ];
 
-// Nichos dos filtros (o primeiro, "todos", mostra tudo)
+// Nichos (aparece um por vez; o primeiro da lista abre primeiro)
 const nichos = [
-  { id: 'todos',       nome: 'Todos',               en: { nome: 'All' } },
   { id: 'camping',     nome: 'Camping',             en: { nome: 'Camping' } },
   { id: 'gastronomia', nome: 'Gastronomia',         en: { nome: 'Food' } },
   { id: 'wellness',    nome: 'Wellness',            en: { nome: 'Wellness' } },
@@ -800,7 +822,7 @@ const ui = {
     titulo: 'Nathalia Messias | Portfólio UGC Creator',
     servico: 'Serviço', assistir: 'Assistir', novaAba: 'abre em nova aba',
     capaVideo: 'capa do vídeo 9:16', capaVideoAlt: 'Capa do vídeo', fotoTrabalho: 'foto do trabalho 4:5', trabalhoPara: 'Trabalho para',
-    'Vídeo UGC': 'Vídeo UGC',
+    'Vídeo UGC': 'Vídeo UGC', video: 'vídeo', videos: 'vídeos',
     abrirMenu: 'Abrir menu', fecharMenu: 'Fechar menu',
     bfFaltam: (d) => d === 1 ? 'Falta <b>1 dia</b><span class="bf-extra"> pra Black Friday</span>' : d === 0 ? 'A Black Friday é <b>amanhã</b>' : `Faltam <b>${d} dias</b><span class="bf-extra"> pra Black Friday</span>`,
     bfHoje: 'É <b>Black Friday</b>!<span class="bf-extra"> Agenda aberta para a sua campanha</span>',
@@ -811,7 +833,7 @@ const ui = {
     titulo: 'Nathalia Messias | UGC Creator Portfolio',
     servico: 'Service', assistir: 'Watch', novaAba: 'opens in a new tab',
     capaVideo: 'video cover 9:16', capaVideoAlt: 'Video cover', fotoTrabalho: 'work photo 4:5', trabalhoPara: 'Work for',
-    'Vídeo UGC': 'UGC video',
+    'Vídeo UGC': 'UGC video', video: 'video', videos: 'videos',
     abrirMenu: 'Open menu', fecharMenu: 'Close menu',
     bfFaltam: (d) => d === 1 ? '<b>1 day</b><span class="bf-extra"> to Black Friday</span>' : d === 0 ? 'Black Friday is <b>tomorrow</b>' : `<b>${d} days</b><span class="bf-extra"> to Black Friday</span>`,
     bfHoje: "It's <b>Black Friday</b>!<span class=\"bf-extra\"> Booking open for your campaign</span>",
@@ -861,31 +883,64 @@ const listaMarcas = `<ul>${marcas.map(itemMarca).join('')}</ul>`;
 $('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul aria-hidden="true">');
 
 // Trabalhos com filtro
-let nichoAtual = 'todos';
+let nichoAtual = nichos[0].id;
 const nomeNicho = (id) => { const n = nichos.find(x => x.id === id); return n ? T(n, 'nome') : id; };
 // Pega o código do vídeo de qualquer link do YouTube (shorts, youtu.be ou watch?v=)
 const idYoutube = (url) => (String(url).match(/(?:shorts\/|youtu\.be\/|[?&]v=|embed\/)([\w-]{11})/) || [])[1] || '';
 function mostrarTrabalhos(nicho) {
   nichoAtual = nicho;
-  const lista = trabalhos.map((t, i) => ({ t, i })).filter(({ t }) => nicho === 'todos' || t.nicho === nicho);
-  $('#trab-grade').innerHTML = lista.map(({ t, i }, n) => {
+  const lista = trabalhos.map((t, i) => ({ t, i })).filter(({ t }) => t.nicho === nicho);
+  $('#nicho-nome').textContent = nomeNicho(nicho);
+  $('#nicho-qtd').textContent = `${lista.length} ${U(lista.length === 1 ? 'video' : 'videos')}`;
+  const grade = $('#trab-grade');
+  grade.innerHTML = lista.map(({ t, i }, n) => {
     const id = idYoutube(t.video);
     const capa = t.capa || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '');
     const formato = U(T(t, 'formato')) || T(t, 'formato');
     return `
-    <article class="trab-card" style="animation-delay:${Math.min(n, 8) * 50}ms">
+    <article class="trab-card" style="animation-delay:${Math.min(n, 8) * 60}ms">
       <button class="trab-video" type="button" data-trabalho="${i}" aria-label="${esc(U('assistir'))}: ${esc(t.marca)}, ${esc(formato)}">
         <span class="trab-capa">
           ${capa ? `<img src="${esc(capa)}" alt="" loading="lazy">` : ''}
+          <span class="trab-marca">${esc(t.marca)}</span>
           <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
-          <span class="trab-tag">${esc(nomeNicho(t.nicho))}</span>
+          <span class="trab-tag">${esc(formato)}</span>
         </span>
-        <h3>${esc(t.marca)}</h3>
-        <p>${esc(formato)}</p>
       </button>
     </article>`;
   }).join('');
+  grade.scrollLeft = 0;
+  atualizarSetas();
 }
+// Setas da fileira de vídeos
+function atualizarSetas() {
+  const g = $('#trab-grade');
+  $('#car-ant').disabled = g.scrollLeft <= 2;
+  $('#car-prox').disabled = g.scrollLeft + g.clientWidth >= g.scrollWidth - 2;
+}
+function passarVideos(direcao) {
+  const g = $('#trab-grade');
+  const card = g.querySelector('.trab-card');
+  const passo = card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(g).columnGap || 16) : g.clientWidth;
+  const pulo = Math.max(1, Math.floor((g.clientWidth + 2) / passo)) * passo;
+  const inicio = g.scrollLeft;
+  const alvo = Math.max(0, Math.min(g.scrollWidth - g.clientWidth, Math.round((inicio + direcao * pulo) / passo) * passo));
+  if (reduzMovimento) { g.scrollLeft = alvo; atualizarSetas(); return; }
+  // Animação própria (funciona em qualquer navegador)
+  const t0 = performance.now(), dur = 420;
+  g.style.scrollSnapType = 'none';
+  const anima = () => {
+    const p = Math.min((performance.now() - t0) / dur, 1);
+    g.scrollLeft = inicio + (alvo - inicio) * (1 - Math.pow(1 - p, 3));
+    if (p < 1) setTimeout(anima, 16);
+    else { g.style.scrollSnapType = ''; atualizarSetas(); }
+  };
+  anima();
+}
+$('#car-ant').addEventListener('click', () => passarVideos(-1));
+$('#car-prox').addEventListener('click', () => passarVideos(1));
+$('#trab-grade').addEventListener('scroll', atualizarSetas, { passive: true });
+window.addEventListener('resize', atualizarSetas);
 $('#filtros').addEventListener('click', (e) => {
   const b = e.target.closest('.filtro');
   if (!b) return;
@@ -969,10 +1024,7 @@ function renderizar() {
     </a>`).join('');
 
   // Filtros e trabalhos
-  $('#filtros').innerHTML = nichos.map((n) => {
-    const qtd = n.id === 'todos' ? trabalhos.length : trabalhos.filter(t => t.nicho === n.id).length;
-    return `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${n.id === nichoAtual}">${esc(T(n, 'nome'))}<small>${qtd}</small></button>`;
-  }).join('');
+  $('#filtros').innerHTML = nichos.map((n) => `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${n.id === nichoAtual}">${esc(T(n, 'nome'))}</button>`).join('');
   mostrarTrabalhos(nichoAtual);
 
   // Serviços (cards com aba)
