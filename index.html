@@ -225,7 +225,8 @@
 
   /* ===== FOTOS UGC ===== */
   .fotos-cab{text-align:center;margin:64px 0 24px;padding-top:44px;border-top:1px solid var(--linha)}
-  .fotos-titulo{font-size:clamp(2.6rem,5vw,3.8rem);margin:0}
+  .fotos-titulo{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.2;color:var(--tinta);max-width:640px;margin:14px auto 0}
+  .fotos-titulo em{color:var(--vinho)}
   .fotos-cab p{color:var(--tinta-2);max-width:480px;margin:4px auto 0}
   .fotos-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .foto-card{position:relative;display:block;width:100%;padding:0;border:0;background:var(--creme-2);border-radius:16px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4;box-shadow:var(--sombra)}
@@ -422,7 +423,6 @@
         <li><a href="#destaques" data-en="Highlights">Destaques</a></li>
         <li><a href="#trabalhos" data-en="Work">Trabalhos</a></li>
         <li><a href="#servicos" data-en="Services">Serviços</a></li>
-        <li><a href="#numeros" data-en="Numbers">Números</a></li>
         <li><a href="#contato" data-en="Contact">Contato</a></li>
       </ul>
     </nav>
@@ -534,8 +534,7 @@
     <div class="janela revelar" data-url="trabalhos">
       <div class="janela-corpo">
         <div class="trab-cab">
-          <span class="sobretitulo" data-en="Browse by niche">Navegue por nichos</span>
-          <h2 id="titulo-trabalhos" class="titulo-cursivo" data-en="Content I've produced">Conteúdos produzidos</h2>
+          <h2 id="titulo-trabalhos" class="titulo-cursivo" data-en="My content">Meus conteúdos</h2>
           <p data-en="Pick a niche, swipe sideways and tap a video to watch it right here.">Escolha um nicho, deslize para o lado e toque no vídeo para assistir aqui mesmo.</p>
         </div>
         <div class="filtros" id="filtros" role="group" aria-label="Escolher nicho" data-en-aria-label="Choose a niche"></div>
@@ -552,8 +551,8 @@
 
         <!-- FOTOS UGC: as fotos vêm do array "fotos" no script (arquivos na pasta "fotos") -->
         <div class="fotos-cab">
-          <h3 class="titulo-cursivo fotos-titulo" data-en="UGC photos">Fotos UGC</h3>
-          <p data-en="Product photos with natural light and real life, ready for feed, website and ads.">Fotos de produto com luz natural e vida real, prontas para feed, site e anúncios.</p>
+          <span class="sobretitulo" data-en="UGC photos">Fotos UGC</span>
+          <h3 class="fotos-titulo" data-en="All my content is shot and edited <em>in the highest quality</em>">Todos os meus conteúdos são gravados e editados <em>em altíssima qualidade</em></h3>
         </div>
         <div class="fotos-grade" id="fotos-grade"></div>
       </div>
@@ -576,7 +575,9 @@
 </section>
 
 <!-- ===================== 6. NÚMEROS E DEPOIMENTOS ===================== -->
-<section class="secao" id="numeros" aria-labelledby="titulo-numeros">
+<!-- ESCONDIDA POR ENQUANTO: quando tiver resultados e depoimentos, apague a palavra "hidden"
+     da linha abaixo e devolva o link "Números" no menu lá em cima. -->
+<section class="secao" id="numeros" aria-labelledby="titulo-numeros" hidden>
   <div class="container">
     <div class="janela revelar" data-url="numeros-e-depoimentos">
       <div class="janela-corpo">
