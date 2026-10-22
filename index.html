@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathalia Messias Martins | Portfólio UGC Creator</title>
+<meta name="description" content="Portfólio de Nathalia Messias Martins, criadora de conteúdo UGC em São Paulo. Vídeos com narrativa real e estética editorial para marcas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#f3eee9;
+    --creme-2:#ebe4dc;
+    --papel:#fbf8f5;
+    --tinta:#14110d;
+    --tinta-2:#4a433b;
+    --azul:#0049a4;
+    --azul-escuro:#003478;
+    --laranja:#df7900;
+    --linha:rgba(20,17,13,.12);
+    --raio:10px;
+    --sombra:0 1px 2px rgba(20,17,13,.04),0 10px 30px rgba(20,17,13,.07);
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --max:1180px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--creme);color:var(--tinta);font-family:var(--sans);font-size:16px;line-height:1.65;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;margin:0;letter-spacing:-.01em}
+  em{font-style:italic;color:var(--azul)}
+  p{margin:0}
+  :focus-visible{outline:2px solid var(--azul);outline-offset:3px;border-radius:4px}
+  .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .pular{position:absolute;left:16px;top:-60px;background:var(--tinta);color:var(--creme);padding:10px 16px;border-radius:6px;z-index:200;text-decoration:none}
+  .pular:focus{top:12px}
+
+  /* Rótulos editoriais */
+  .sobretitulo{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-2)}
+  .sobretitulo::before{content:"";width:28px;height:1px;background:var(--laranja)}
+  .secao{padding:120px 0}
+  .secao-cab{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:64px}
+  .secao-cab h2{font-size:clamp(2.3rem,5vw,3.8rem);margin-top:18px}
+  .secao-cab p{color:var(--tinta-2);max-width:440px;justify-self:end}
+
+  /* Botões */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-family:var(--sans);font-size:.95rem;font-weight:600;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .25s}
+  .btn-azul{background:var(--azul);color:#fff}
+  .btn-azul:hover{background:var(--azul-escuro);transform:translateY(-1px)}
+  .btn-contorno{border-color:var(--tinta);color:var(--tinta);background:transparent}
+  .btn-contorno:hover{background:var(--tinta);color:var(--creme)}
+
+  /* ===== MENU ===== */
+  .topo{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .3s,box-shadow .3s,backdrop-filter .3s}
+  .topo.rolou{background:rgba(243,238,233,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linha)}
+  .topo .container{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .marca{font-family:var(--serif);font-size:1.3rem;text-decoration:none;white-space:nowrap}
+  .marca em{color:var(--laranja)}
+  .menu ul{display:flex;gap:32px;list-style:none;margin:0;padding:0}
+  .menu a{text-decoration:none;font-size:.88rem;font-weight:500;position:relative;padding:4px 0}
+  .menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--azul);transition:width .3s}
+  .menu a:hover::after{width:100%}
+  .sanduiche{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative;z-index:110}
+  .sanduiche span{display:block;width:24px;height:1.5px;background:var(--tinta);margin:6px auto;transition:transform .3s,opacity .3s}
+  .sanduiche[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .sanduiche[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .sanduiche[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+  /* ===== CAPA ===== */
+  .capa{padding:150px 0 0;position:relative}
+  .capa-grade{display:grid;grid-template-columns:1.25fr .9fr;gap:64px;align-items:center}
+  .capa h1{font-size:clamp(3.1rem,8.4vw,7.2rem);font-weight:350;line-height:.96;margin:22px 0 28px}
+  .capa h1 em{font-weight:300}
+  .capa-frase{font-size:1.12rem;color:var(--tinta-2);max-width:520px}
+  .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:36px 0 52px}
+  .capa-numeros{display:flex;gap:44px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--linha)}
+  .capa-numeros strong{display:block;font-family:var(--serif);font-size:2.2rem;font-weight:400;line-height:1;color:var(--azul)}
+  .capa-numeros span{font-size:.8rem;color:var(--tinta-2);letter-spacing:.04em}
+  .capa-foto{position:relative}
+  .capa-foto .midia{aspect-ratio:4/5}
+  .capa-selo{position:absolute;left:-28px;bottom:72px;background:var(--papel);padding:16px 20px;border-radius:var(--raio);box-shadow:var(--sombra);font-size:.82rem;line-height:1.4}
+  .capa-selo b{display:block;font-family:var(--serif);font-weight:500;font-style:italic;font-size:1.05rem;color:var(--laranja)}
+
+  /* Blocos de mídia (placeholder com degradê) */
+  .midia{position:relative;width:100%;border-radius:var(--raio);overflow:hidden;background:linear-gradient(155deg,#d9cfc4 0%,#c3cfe2 55%,#9fb4d6 100%);box-shadow:var(--sombra)}
+  .midia img,.midia video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .midia .legenda{position:absolute;left:14px;bottom:14px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--tinta);background:rgba(251,248,245,.82);padding:6px 10px;border-radius:999px}
+  .mid-2{background:linear-gradient(160deg,#ead7c3 0%,#e3b98d 50%,#df7900 130%)}
+  .mid-3{background:linear-gradient(170deg,#c7d3e6 0%,#7f9fcf 60%,#0049a4 140%)}
+  .mid-4{background:linear-gradient(150deg,#efe7de 0%,#d6c9ba 100%)}
+
+  /* Faixa de marcas */
+  .faixa{margin-top:96px;border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);overflow:hidden;padding:20px 0;background:var(--papel)}
+  .faixa-trilho{display:flex;width:max-content;animation:correr 55s linear infinite}
+  .faixa:hover .faixa-trilho{animation-play-state:paused}
+  .faixa ul{display:flex;list-style:none;margin:0;padding:0}
+  .faixa li{font-family:var(--serif);font-size:1.25rem;white-space:nowrap;padding:0 28px;display:flex;align-items:center;gap:56px}
+  .faixa li::after{content:"✦";font-size:.7rem;color:var(--laranja);margin-left:28px}
+  @keyframes correr{to{transform:translateX(-50%)}}
+
+  /* ===== SOBRE ===== */
+  .sobre-grade{display:grid;grid-template-columns:.85fr 1.15fr;gap:88px;align-items:center}
+  .sobre-grade .midia{aspect-ratio:4/5}
+  .sobre h2{font-size:clamp(2.3rem,5vw,3.6rem);margin:18px 0 28px}
+  .sobre-texto p{color:var(--tinta-2);margin-bottom:16px;font-size:1.05rem}
+  .promessas{list-style:none;padding:0;margin:32px 0 36px;display:grid;gap:14px}
+  .promessas li{display:flex;gap:16px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--linha)}
+  .promessas b{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--laranja);font-size:1.1rem;min-width:30px}
+  .assinatura{font-family:var(--serif);font-style:italic;font-size:2rem;color:var(--azul);font-weight:300}
+  .assinatura small{display:block;font-family:var(--sans);font-style:normal;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2);margin-top:4px}
+
+  /* ===== DESTAQUES ===== */
+  .destaques{background:var(--papel)}
+  .dest-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .dest-card{display:block;text-decoration:none;color:inherit;transition:transform .35s}
+  .dest-card:hover{transform:translateY(-6px)}
+  .dest-card .midia{aspect-ratio:9/16}
+  .play{position:absolute;top:50%;left:50%;width:74px;height:74px;margin:-37px 0 0 -37px;border-radius:50%;background:rgba(251,248,245,.92);display:grid;place-items:center;box-shadow:0 8px 30px rgba(20,17,13,.18);transition:transform .3s,background .3s}
+  .play svg{width:22px;height:22px;margin-left:4px;fill:var(--azul)}
+  .dest-card:hover .play{transform:scale(1.08);background:#fff}
+  .dest-plataforma{position:absolute;top:14px;left:14px;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--tinta);color:var(--creme);padding:6px 10px;border-radius:999px}
+  .dest-info{padding:22px 4px 0}
+  .dest-num{font-family:var(--serif);font-size:2.6rem;line-height:1;color:var(--azul)}
+  .dest-rotulo{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--laranja);font-weight:600;margin:6px 0 14px}
+  .dest-info h3{font-size:1.35rem;margin-bottom:6px}
+  .dest-info p{color:var(--tinta-2);font-size:.92rem}
+
+  /* ===== TRABALHOS ===== */
+  .filtros{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+  .filtro{font-family:var(--sans);font-size:.88rem;font-weight:500;padding:10px 20px;border-radius:999px;border:1px solid var(--linha);background:transparent;color:var(--tinta);cursor:pointer;transition:all .25s}
+  .filtro:hover{border-color:var(--tinta)}
+  .filtro[aria-pressed="true"]{background:var(--tinta);color:var(--creme);border-color:var(--tinta)}
+  .trab-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .trab-card{animation:surgir .45s ease both}
+  .trab-card .midia{aspect-ratio:4/5}
+  .trab-card h3{font-size:1.15rem;margin:14px 0 2px}
+  .trab-card p{font-size:.85rem;color:var(--tinta-2)}
+  .trab-tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);font-weight:600;margin-top:14px;display:block}
+  @keyframes surgir{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* ===== SERVIÇOS ===== */
+  .servicos{background:var(--tinta);color:var(--creme)}
+  .servicos .sobretitulo,.servicos .secao-cab p{color:#bdb4a9}
+  .servicos em{color:#8db4ec}
+  .serv-grade{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(243,238,233,.16)}
+  .serv{padding:40px 32px 44px 0;border-bottom:1px solid rgba(243,238,233,.16)}
+  .serv:not(:nth-child(3n+1)){padding-left:32px;border-left:1px solid rgba(243,238,233,.16)}
+  .serv-num{font-family:var(--serif);font-style:italic;color:var(--laranja);font-size:1.05rem}
+  .serv h3{font-size:1.6rem;margin:18px 0 12px}
+  .serv p{color:#c9c0b5;font-size:.95rem}
+
+  /* ===== NÚMEROS E DEPOIMENTOS ===== */
+  .metricas{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:96px}
+  .metrica{background:var(--papel);padding:34px 28px;border-radius:var(--raio);box-shadow:var(--sombra)}
+  .metrica strong{display:block;font-family:var(--serif);font-weight:350;font-size:clamp(2.6rem,4.6vw,3.6rem);line-height:1;color:var(--azul)}
+  .metrica span{display:block;margin-top:12px;color:var(--tinta-2);font-size:.9rem}
+  .sub-titulo{font-family:var(--serif);font-size:1.6rem;margin-bottom:28px}
+  .sub-titulo em{color:var(--laranja)}
+  .resultados{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:96px}
+  .resultado{border-top:2px solid var(--tinta);padding-top:22px}
+  .resultado .marca-r{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--laranja)}
+  .resultado b{display:block;font-family:var(--serif);font-weight:400;font-size:2.4rem;color:var(--azul);margin:10px 0 6px;line-height:1}
+  .resultado p{color:var(--tinta-2);font-size:.93rem}
+  .depoimentos{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .depo{background:var(--papel);border-radius:var(--raio);padding:36px;box-shadow:var(--sombra);margin:0}
+  .depo blockquote{margin:0 0 24px;font-family:var(--serif);font-size:1.18rem;line-height:1.5;font-weight:350}
+  .depo blockquote::before{content:"“";display:block;font-size:3rem;line-height:.6;color:var(--laranja);margin-bottom:10px}
+  .depo figcaption{font-size:.88rem}
+  .depo figcaption b{display:block}
+  .depo figcaption span{color:var(--tinta-2)}
+
+  /* ===== CONTATO ===== */
+  .contato{background:var(--creme-2)}
+  .contato-grade{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:start}
+  .contato h2{font-size:clamp(2.6rem,6vw,4.6rem);margin:18px 0 22px}
+  .contato-texto p{color:var(--tinta-2);margin-bottom:32px;max-width:440px}
+  .canais{display:grid;gap:12px;max-width:380px}
+  .canal{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;border-radius:var(--raio);background:var(--papel);text-decoration:none;box-shadow:var(--sombra);transition:transform .25s}
+  .canal:hover{transform:translateX(4px)}
+  .canal small{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);font-weight:600}
+  .canal span{font-weight:600;word-break:break-all}
+  .canal i{font-style:normal;color:var(--azul);font-size:1.2rem}
+  .form{background:var(--papel);padding:44px;border-radius:var(--raio);box-shadow:var(--sombra)}
+  .campo{margin-bottom:20px}
+  .campo label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.06em;margin-bottom:8px}
+  .campo input,.campo textarea{width:100%;font:inherit;font-size:1rem;color:var(--tinta);background:var(--creme);border:1px solid var(--linha);border-radius:8px;padding:14px 16px;transition:border-color .2s,background .2s}
+  .campo input:focus,.campo textarea:focus{outline:none;border-color:var(--azul);background:#fff;box-shadow:0 0 0 3px rgba(0,73,164,.14)}
+  .campo textarea{min-height:140px;resize:vertical}
+  .form .btn{width:100%}
+  .confirmacao{text-align:center;padding:30px 0}
+  .confirmacao h3{font-size:2rem;margin-bottom:10px}
+  .confirmacao p{color:var(--tinta-2)}
+
+  /* ===== RODAPÉ ===== */
+  .rodape{background:var(--tinta);color:var(--creme);padding:64px 0 36px}
+  .rodape-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid rgba(243,238,233,.16)}
+  .rodape .marca{font-size:clamp(1.8rem,4vw,2.8rem)}
+  .redes{display:flex;gap:22px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+  .redes a{text-decoration:none;font-size:.92rem;color:#d9d1c7}
+  .redes a:hover{color:#fff;text-decoration:underline}
+  .rodape-base{padding-top:24px;font-size:.82rem;color:#a39a8f;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  /* ===== CARD DE CAPTURA ===== */
+  .captura{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;background:rgba(20,17,13,.55);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+  .captura.aberta{opacity:1;visibility:visible}
+  .captura-card{position:relative;width:100%;max-width:440px;background:var(--papel);border-radius:14px;padding:44px 36px 36px;box-shadow:0 30px 80px rgba(20,17,13,.3);transform:translateY(16px);transition:transform .35s}
+  .captura.aberta .captura-card{transform:none}
+  .captura-card h2{font-size:2rem;margin:14px 0 10px}
+  .captura-card > p{color:var(--tinta-2);margin-bottom:24px;font-size:.95rem}
+  .fechar{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:transparent;font-size:1.6rem;line-height:1;cursor:pointer;color:var(--tinta)}
+  .fechar:hover{background:var(--creme)}
+
+  /* ===== ANIMAÇÃO DE ENTRADA ===== */
+  .revelar{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .revelar.visivel{opacity:1;transform:none}
+  .atraso-1{transition-delay:.12s}.atraso-2{transition-delay:.24s}.atraso-3{transition-delay:.36s}
+
+  /* ===== RESPONSIVO ===== */
+  @media (max-width:1024px){
+    .trab-grade{grid-template-columns:repeat(3,1fr)}
+    .metricas{grid-template-columns:repeat(2,1fr)}
+    .serv-grade{grid-template-columns:repeat(2,1fr)}
+    .serv:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+    .serv:nth-child(even){padding-left:32px;border-left:1px solid rgba(243,238,233,.16)}
+  }
+  @media (max-width:860px){
+    .secao{padding:84px 0}
+    .sanduiche{display:block}
+    .menu{position:fixed;inset:0;background:var(--creme);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+    .menu.aberto{opacity:1;visibility:visible}
+    .menu ul{flex-direction:column;align-items:center;gap:26px}
+    .menu a{font-family:var(--serif);font-size:2rem;font-weight:400}
+    .capa{padding-top:120px}
+    .capa-grade,.sobre-grade,.contato-grade{grid-template-columns:1fr;gap:48px}
+    .capa-foto{max-width:420px}
+    .capa-selo{left:12px}
+    .secao-cab{grid-template-columns:1fr;gap:16px;margin-bottom:44px}
+    .secao-cab p{justify-self:start}
+    .dest-grade{grid-template-columns:1fr;gap:56px;max-width:420px;margin:0 auto}
+    .trab-grade{grid-template-columns:repeat(2,1fr);gap:16px}
+    .resultados{grid-template-columns:1fr}
+    .depoimentos{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .container{padding:0 18px}
+    .capa-numeros{gap:24px}
+    .capa-numeros strong{font-size:1.8rem}
+    .capa-botoes .btn{flex:1 1 100%}
+    .serv-grade{grid-template-columns:1fr}
+    .serv,.serv:nth-child(even){padding:32px 0;border-left:0}
+    .metricas{grid-template-columns:1fr 1fr;gap:12px}
+    .metrica{padding:24px 18px}
+    .form{padding:28px 20px}
+    .depo{padding:28px 22px}
+    .faixa li{font-size:1.05rem;padding:0 18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+    .revelar{opacity:1;transform:none}
+    .faixa-trilho{animation:none;flex-wrap:wrap;width:auto}
+  }
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ===================== MENU ===================== -->
+<header class="topo" id="topo">
+  <div class="container">
+    <a class="marca" href="#capa">Nathalia <em>Messias</em></a>
+    <button class="sanduiche" id="sanduiche" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menu" aria-label="Menu principal">
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#destaques">Destaques</a></li>
+        <li><a href="#trabalhos">Trabalhos</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#numeros">Números</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<!-- ===================== 1. CAPA ===================== -->
+<section class="capa" id="capa" aria-labelledby="titulo-capa">
+  <div class="container capa-grade">
+    <div>
+      <span class="sobretitulo revelar">UGC Creator · São Paulo</span>
+      <h1 id="titulo-capa" class="revelar atraso-1">Nathalia <em>Messias</em> Martins</h1>
+      <p class="capa-frase revelar atraso-2">Crio conteúdos com narrativa real e estética editorial que geram identificação, confiança e ação para a sua marca, no orgânico e nos anúncios.</p>
+      <div class="capa-botoes revelar atraso-2">
+        <a class="btn btn-azul" href="#contato">Falar comigo</a>
+        <a class="btn btn-contorno" href="#trabalhos">Ver os trabalhos</a>
+      </div>
+      <!-- Os três números da capa vêm do array "numerosCapa" no script -->
+      <div class="capa-numeros revelar atraso-3" id="capa-numeros"></div>
+    </div>
+    <div class="capa-foto revelar atraso-2">
+      <!-- FOTO DA CAPA: troque o span.legenda por
+           <img src="sua-foto.jpg" alt="Nathalia Messias Martins sorrindo segurando um produto">
+           (formato vertical 4:5, de preferência .webp ou .jpg com até 300 KB) -->
+      <div class="midia" role="img" aria-label="Espaço para foto da creator">
+        <span class="legenda">foto da creator 4:5</span>
+      </div>
+      <div class="capa-selo"><b>Agenda aberta</b>para novas parcerias</div>
+    </div>
+  </div>
+
+  <!-- Faixa de marcas: os nomes vêm do array "marcas" no script -->
+  <div class="faixa" aria-label="Marcas com quem já trabalhei">
+    <div class="faixa-trilho" id="faixa-trilho"></div>
+  </div>
+</section>
+
+<!-- ===================== 2. SOBRE MIM ===================== -->
+<section class="secao sobre" id="sobre" aria-labelledby="titulo-sobre">
+  <div class="container sobre-grade">
+    <div class="revelar">
+      <!-- FOTO DO SOBRE: troque o span.legenda por
+           <img src="sobre.jpg" alt="Nathalia gravando um vídeo em casa"> (formato 4:5) -->
+      <div class="midia mid-2" role="img" aria-label="Espaço para foto de bastidores">
+        <span class="legenda">foto de bastidores 4:5</span>
+      </div>
+    </div>
+    <div class="sobre-texto">
+      <span class="sobretitulo revelar">Sobre mim</span>
+      <h2 id="titulo-sobre" class="revelar atraso-1">Histórias reais que <em>vendem</em> com verdade</h2>
+      <p class="revelar atraso-1">Oi, eu sou a Nathalia. Sou criadora de conteúdo UGC com foco em narrativas reais, estética editorial e vídeos pensados para a experiência do consumidor.</p>
+      <p class="revelar atraso-2">Crio conteúdos a partir da rotina, do comportamento e da intenção da marca, sempre buscando gerar identificação, confiança e ação, tanto no orgânico quanto em anúncios.</p>
+      <ul class="promessas revelar atraso-2">
+        <li><b>01</b><span>Roteiro aprovado por você antes de eu gravar</span></li>
+        <li><b>02</b><span>Uma rodada de ajuste inclusa em cada entrega</span></li>
+        <li><b>03</b><span>Entrega em até 72 horas úteis</span></li>
+      </ul>
+      <p class="assinatura revelar atraso-3">Nathalia Messias Martins<small>UGC Creator · São Paulo</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. CONTEÚDOS DE DESTAQUE ===================== -->
+<section class="secao destaques" id="destaques" aria-labelledby="titulo-destaques">
+  <div class="container">
+    <div class="secao-cab">
+      <div>
+        <span class="sobretitulo revelar">Conteúdos de destaque</span>
+        <h2 id="titulo-destaques" class="revelar atraso-1">Três vídeos que <em>contam</em> a minha forma de criar</h2>
+      </div>
+      <p class="revelar atraso-2">Toque em um card para assistir ao vídeo completo na plataforma original.</p>
+    </div>
+    <!-- Os cards vêm do array "destaques" no script.
+         LINK DO VÍDEO: campo "link". CAPA: campo "capa" (deixe vazio para usar o degradê). -->
+    <div class="dest-grade" id="dest-grade"></div>
+  </div>
+</section>
+
+<!-- ===================== 4. TRABALHOS POR NICHO ===================== -->
+<section class="secao" id="trabalhos" aria-labelledby="titulo-trabalhos">
+  <div class="container">
+    <div class="secao-cab">
+      <div>
+        <span class="sobretitulo revelar">Trabalhos por nicho</span>
+        <h2 id="titulo-trabalhos" class="revelar atraso-1">Marcas, rotinas e <em>nichos</em> diferentes</h2>
+      </div>
+      <p class="revelar atraso-2">Escolha um nicho para ver só os trabalhos daquele universo.</p>
+    </div>
+    <div class="filtros revelar" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
+    <div class="trab-grade" id="trab-grade" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ===================== 5. COMO EU TE AJUDO ===================== -->
+<section class="secao servicos" id="servicos" aria-labelledby="titulo-servicos">
+  <div class="container">
+    <div class="secao-cab">
+      <div>
+        <span class="sobretitulo revelar">Como eu te ajudo</span>
+        <h2 id="titulo-servicos" class="revelar atraso-1">Formatos para cada <em>momento</em> da marca</h2>
+      </div>
+      <p class="revelar atraso-2">Do vídeo único ao pacote mensal, tudo com roteiro aprovado e entrega pronta para postar ou anunciar.</p>
+    </div>
+    <div class="serv-grade" id="serv-grade"></div>
+  </div>
+</section>
+
+<!-- ===================== 6. NÚMEROS E DEPOIMENTOS ===================== -->
+<section class="secao" id="numeros" aria-labelledby="titulo-numeros">
+  <div class="container">
+    <div class="secao-cab">
+      <div>
+        <span class="sobretitulo revelar">Números e depoimentos</span>
+        <h2 id="titulo-numeros" class="revelar atraso-1">Resultados que <em>falam</em> por mim</h2>
+      </div>
+      <p class="revelar atraso-2">O que já construí até aqui e o que dizem as marcas que confiaram no meu trabalho.</p>
+    </div>
+    <div class="metricas" id="metricas"></div>
+    <h3 class="sub-titulo revelar">Resultados de <em>campanha</em></h3>
+    <div class="resultados" id="resultados"></div>
+    <h3 class="sub-titulo revelar">O que dizem os <em>clientes</em></h3>
+    <div class="depoimentos" id="depoimentos"></div>
+  </div>
+</section>
+
+<!-- ===================== 7. BORA CRIAR JUNTOS ===================== -->
+<section class="secao contato" id="contato" aria-labelledby="titulo-contato">
+  <div class="container contato-grade">
+    <div class="contato-texto">
+      <span class="sobretitulo revelar">Contato</span>
+      <h2 id="titulo-contato" class="revelar atraso-1">Bora criar <em>juntos?</em></h2>
+      <p class="revelar atraso-2">Me conta sobre a sua marca e o que você precisa. Respondo em até um dia útil com uma proposta pensada para o seu objetivo.</p>
+      <div class="canais revelar atraso-3">
+        <a class="canal" href="https://wa.me/5511980869201" target="_blank" rel="noopener"><div><small>WhatsApp</small><span>(11) 98086-9201</span></div><i aria-hidden="true">↗</i></a>
+        <a class="canal" href="mailto:messiasmnathalia@gmail.com"><div><small>E-mail</small><span>messiasmnathalia@gmail.com</span></div><i aria-hidden="true">↗</i></a>
+        <a class="canal" href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener"><div><small>Instagram</small><span>@nathaliaamessiass</span></div><i aria-hidden="true">↗</i></a>
+      </div>
+    </div>
+    <!-- FORMULÁRIO: hoje ele só mostra a confirmação na tela.
+         Para receber as mensagens de verdade, use um serviço como Formspree e
+         coloque a URL dele no "action" do form (veja o comentário no script). -->
+    <div class="form revelar atraso-2" id="form-caixa">
+      <form id="form-contato" novalidate>
+        <div class="campo"><label for="f-nome">Nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" required></div>
+        <div class="campo"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="campo"><label for="f-msg">Mensagem</label><textarea id="f-msg" name="mensagem" required placeholder="Conte sobre a sua marca, o produto e o prazo"></textarea></div>
+        <button class="btn btn-azul" type="submit">Enviar mensagem</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== 8. RODAPÉ ===================== -->
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape-topo">
+      <a class="marca" href="#capa">Nathalia <em>Messias</em> Martins</a>
+      <ul class="redes">
+        <li><a href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://wa.me/5511980869201" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="mailto:messiasmnathalia@gmail.com">E-mail</a></li>
+        <!-- TikTok: troque @seuusuario pelo seu perfil ou apague esta linha -->
+        <li><a href="https://www.tiktok.com/@seuusuario" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+    <div class="rodape-base">
+      <span>© <span id="ano"></span> Nathalia Messias Martins. Todos os direitos reservados.</span>
+      <span>UGC Creator · São Paulo</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== CARD DE CAPTURA (mídia kit) ===================== -->
+<div class="captura" id="captura" aria-hidden="true">
+  <div class="captura-card" role="dialog" aria-modal="true" aria-labelledby="titulo-captura">
+    <button class="fechar" id="fechar-captura" aria-label="Fechar">×</button>
+    <div id="captura-conteudo">
+      <span class="sobretitulo">Mídia kit</span>
+      <h2 id="titulo-captura">Quer meu mídia kit <em>completo?</em></h2>
+      <p>Deixe seu nome e e-mail que eu te envio valores, formatos e cases.</p>
+      <form id="form-captura" novalidate>
+        <div class="campo"><label for="c-nome">Nome</label><input id="c-nome" type="text" autocomplete="name" required></div>
+        <div class="campo"><label for="c-email">E-mail</label><input id="c-email" type="email" autocomplete="email" required></div>
+        <button class="btn btn-azul" type="submit" style="width:100%">Quero receber</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   DADOS DO SITE: edite aqui, sem mexer no HTML
+   ===================================================================== */
+
+// Números da capa. Troque os "00" pelos seus números reais.
+const numerosCapa = [
+  { valor: '00',  rotulo: 'vídeos entregues' },   // PLACEHOLDER: seu total de vídeos
+  { valor: '18',  rotulo: 'marcas atendidas' },   // conta das marcas que você passou
+  { valor: '00M', rotulo: 'views somadas' }       // PLACEHOLDER: suas views somadas
+];
+
+// Marcas da faixa da capa
+const marcas = [
+  'Bestway','GuardeMais','Arosa','Hemmer','Nestlé','3 Corações','C&A','Crocs','Cotton On',
+  'Chilli Beans','Principia','WidiCare','Felps','Isdin','Duolingo','Méliuz','Enjoei','Shopee'
+];
+
+// Conteúdos de destaque.
+// link  = LINK DO VÍDEO (abre em nova aba)
+// capa  = CAPA DO VÍDEO: coloque o caminho de uma imagem vertical 9:16 (ex.: 'capa1.jpg').
+//         Deixe '' para usar o degradê.
+// numero e rotulo: PLACEHOLDER, troque pelos números reais de cada vídeo.
+const destaques = [
+  { link: 'https://www.instagram.com/reels/DeuctQ-BA9u/', capa: '', plataforma: 'Reels',
+    numero: '+0,0M', rotulo: 'views no reels', titulo: 'Título do conteúdo 01',
+    contexto: 'Uma linha de contexto: marca, objetivo e formato.' },
+  { link: 'https://www.instagram.com/p/DYz0f6Bx-3p/', capa: '', plataforma: 'Instagram',
+    numero: '+0,0K', rotulo: 'curtidas no post', titulo: 'Título do conteúdo 02',
+    contexto: 'Uma linha de contexto: marca, objetivo e formato.' },
+  { link: 'https://www.youtube.com/shorts/PO3-Ip2v5CE?feature=share', capa: '', plataforma: 'Shorts',
+    numero: '+0,0K', rotulo: 'views no shorts', titulo: 'Título do conteúdo 03',
+    contexto: 'Uma linha de contexto: marca, objetivo e formato.' }
+];
+
+// Nichos dos filtros (o primeiro, "todos", mostra tudo)
+const nichos = [
+  { id: 'todos',   nome: 'Todos' },
+  { id: 'beleza',  nome: 'Beleza' },
+  { id: 'moda',    nome: 'Moda' },
+  { id: 'comida',  nome: 'Comida' },
+  { id: 'casa',    nome: 'Casa e decoração' },
+  { id: 'viagem',  nome: 'Viagem' },
+  { id: 'tech',    nome: 'Tech' }
+];
+
+// Trabalhos da galeria. Confira se cada marca está no nicho certo.
+// imagem = caminho da foto 4:5 (deixe '' para usar o degradê)
+const trabalhos = [
+  { nicho: 'beleza', marca: 'Isdin',       formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'beleza', marca: 'Principia',   formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'beleza', marca: 'WidiCare',    formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'moda',   marca: 'C&A',         formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'moda',   marca: 'Crocs',       formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'moda',   marca: 'Cotton On',   formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'moda',   marca: 'Chilli Beans',formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'comida', marca: 'Nestlé',      formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'comida', marca: '3 Corações',  formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'comida', marca: 'Hemmer',      formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'casa',   marca: 'Bestway',     formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'casa',   marca: 'GuardeMais',  formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'casa',   marca: 'Arosa',       formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'viagem', marca: 'Marca 01',    formato: 'Vídeo UGC', imagem: '' }, // PLACEHOLDER
+  { nicho: 'tech',   marca: 'Duolingo',    formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'tech',   marca: 'Méliuz',      formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'tech',   marca: 'Shopee',      formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'tech',   marca: 'Enjoei',      formato: 'Vídeo UGC', imagem: '' },
+  { nicho: 'moda',   marca: 'Felps',       formato: 'Vídeo UGC', imagem: '' }
+];
+
+// Serviços
+const servicos = [
+  { titulo: 'Vídeo UGC', texto: 'Vídeo vertical com roteiro, gravação e edição, pensado para gerar identificação com quem assiste.' },
+  { titulo: 'Corte para anúncio', texto: 'Versões curtas com ganchos diferentes para você testar nos anúncios e escalar o que performa.' },
+  { titulo: 'Fotos do produto', texto: 'Fotos com estética editorial e luz natural, prontas para feed, site e catálogo.' },
+  { titulo: 'Unboxing', texto: 'A primeira impressão real do produto, da embalagem ao uso, do jeito que o consumidor vive.' },
+  { titulo: 'Publicação no meu perfil', texto: 'O conteúdo postado no meu Instagram em collab com a sua marca, para alcançar a minha audiência.' },
+  { titulo: 'Pacote mensal', texto: 'Uma quantidade fixa de conteúdos por mês, com calendário combinado e prioridade na agenda.' }
+];
+
+// Métricas com contador (só números, o contador anima até "valor")
+const metricas = [
+  { valor: 18, prefixo: '',      sufixo: '',  rotulo: 'marcas atendidas' },
+  { valor: 6,  prefixo: '',      sufixo: '',  rotulo: 'nichos atendidos' },
+  { valor: 72, prefixo: 'até ',  sufixo: 'h', rotulo: 'úteis para entregar' },
+  { valor: 1,  prefixo: '',      sufixo: '',  rotulo: 'rodada de ajuste inclusa' }
+];
+
+// Resultados de campanha. PLACEHOLDER: troque pelos seus resultados reais.
+const resultados = [
+  { marca: 'Marca 01', numero: '+00%', texto: 'Descreva aqui o resultado da campanha e o que foi entregue.' },
+  { marca: 'Marca 02', numero: '+00%', texto: 'Descreva aqui o resultado da campanha e o que foi entregue.' },
+  { marca: 'Marca 03', numero: '+00%', texto: 'Descreva aqui o resultado da campanha e o que foi entregue.' }
+];
+
+// Depoimentos. PLACEHOLDER: troque pelo texto real de cada cliente.
+const depoimentos = [
+  { texto: 'Espaço para o depoimento do cliente. Cole aqui o feedback que você recebeu.', nome: 'Cliente 01', empresa: 'Marca 01' },
+  { texto: 'Espaço para o depoimento do cliente. Cole aqui o feedback que você recebeu.', nome: 'Cliente 02', empresa: 'Marca 02' },
+  { texto: 'Espaço para o depoimento do cliente. Cole aqui o feedback que você recebeu.', nome: 'Cliente 03', empresa: 'Marca 03' },
+  { texto: 'Espaço para o depoimento do cliente. Cole aqui o feedback que você recebeu.', nome: 'Cliente 04', empresa: 'Marca 04' }
+];
+
+/* =====================================================================
+   A PARTIR DAQUI É O FUNCIONAMENTO DO SITE
+   ===================================================================== */
+const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s) => document.querySelector(s);
+const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gradientes = ['', 'mid-2', 'mid-3', 'mid-4'];
+
+// Bloco de mídia: usa a imagem se houver, senão o degradê com legenda
+function midia(img, alt, legenda, i) {
+  const fundo = img ? `<img src="${esc(img)}" alt="${esc(alt)}" loading="lazy">` : `<span class="legenda">${esc(legenda)}</span>`;
+  return `<div class="midia ${gradientes[i % 4]}" ${img ? '' : `role="img" aria-label="${esc(alt)}"`}>${fundo}`;
+}
+
+// Capa: números
+$('#capa-numeros').innerHTML = numerosCapa.map(n => `<div><strong>${esc(n.valor)}</strong><span>${esc(n.rotulo)}</span></div>`).join('');
+
+// Faixa de marcas (duplicada para o movimento contínuo)
+const listaMarcas = `<ul>${marcas.map(m => `<li>${esc(m)}</li>`).join('')}</ul>`;
+$('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul aria-hidden="true">');
+
+// Destaques
+$('#dest-grade').innerHTML = destaques.map((d, i) => `
+  <a class="dest-card revelar atraso-${i + 1}" href="${esc(d.link)}" target="_blank" rel="noopener" aria-label="Assistir: ${esc(d.titulo)} (abre em nova aba)">
+    ${midia(d.capa, 'Capa do vídeo ' + d.titulo, 'capa do vídeo 9:16', i + 1)}
+      <span class="dest-plataforma">${esc(d.plataforma)}</span>
+      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
+    </div>
+    <div class="dest-info">
+      <div class="dest-num">${esc(d.numero)}</div>
+      <div class="dest-rotulo">${esc(d.rotulo)}</div>
+      <h3>${esc(d.titulo)}</h3>
+      <p>${esc(d.contexto)}</p>
+    </div>
+  </a>`).join('');
+
+// Trabalhos com filtro
+const nomeNicho = (id) => (nichos.find(n => n.id === id) || {}).nome || id;
+$('#filtros').innerHTML = nichos.map((n, i) => `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${i === 0}">${esc(n.nome)}</button>`).join('');
+function mostrarTrabalhos(nicho) {
+  const lista = nicho === 'todos' ? trabalhos : trabalhos.filter(t => t.nicho === nicho);
+  $('#trab-grade').innerHTML = lista.map((t, i) => `
+    <article class="trab-card" style="animation-delay:${Math.min(i, 8) * 50}ms">
+      ${midia(t.imagem, 'Trabalho para ' + t.marca, 'foto do trabalho 4:5', i)}</div>
+      <span class="trab-tag">${esc(nomeNicho(t.nicho))}</span>
+      <h3>${esc(t.marca)}</h3>
+      <p>${esc(t.formato)}</p>
+    </article>`).join('');
+}
+$('#filtros').addEventListener('click', (e) => {
+  const b = e.target.closest('.filtro');
+  if (!b) return;
+  document.querySelectorAll('.filtro').forEach(f => f.setAttribute('aria-pressed', f === b));
+  mostrarTrabalhos(b.dataset.nicho);
+});
+mostrarTrabalhos('todos');
+
+// Serviços
+$('#serv-grade').innerHTML = servicos.map((s, i) => `
+  <article class="serv revelar atraso-${(i % 3) + 1}">
+    <span class="serv-num">${String(i + 1).padStart(2, '0')}</span>
+    <h3>${esc(s.titulo)}</h3>
+    <p>${esc(s.texto)}</p>
+  </article>`).join('');
+
+// Métricas, resultados e depoimentos
+$('#metricas').innerHTML = metricas.map((m, i) => `
+  <div class="metrica revelar atraso-${i % 4}">
+    <strong><span class="sr-only">${esc(m.prefixo)}${m.valor}${esc(m.sufixo)}</span><span aria-hidden="true">${esc(m.prefixo)}<span class="contador" data-alvo="${m.valor}">0</span>${esc(m.sufixo)}</span></strong>
+    <span>${esc(m.rotulo)}</span>
+  </div>`).join('');
+$('#resultados').innerHTML = resultados.map((r, i) => `
+  <article class="resultado revelar atraso-${i + 1}">
+    <span class="marca-r">${esc(r.marca)}</span>
+    <b>${esc(r.numero)}</b>
+    <p>${esc(r.texto)}</p>
+  </article>`).join('');
+$('#depoimentos').innerHTML = depoimentos.map((d, i) => `
+  <figure class="depo revelar atraso-${(i % 2) + 1}">
+    <blockquote>${esc(d.texto)}</blockquote>
+    <figcaption><b>${esc(d.nome)}</b><span>${esc(d.empresa)}</span></figcaption>
+  </figure>`).join('');
+
+// Ano automático
+$('#ano').textContent = new Date().getFullYear();
+
+// Menu: fundo ao rolar
+const topo = $('#topo');
+const aoRolar = () => topo.classList.toggle('rolou', window.scrollY > 20);
+window.addEventListener('scroll', aoRolar, { passive: true });
+aoRolar();
+
+// Menu sanduíche
+const sanduiche = $('#sanduiche'), menu = $('#menu');
+function alternarMenu(abrir) {
+  sanduiche.setAttribute('aria-expanded', abrir);
+  sanduiche.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
+  menu.classList.toggle('aberto', abrir);
+  document.body.style.overflow = abrir ? 'hidden' : '';
+}
+sanduiche.addEventListener('click', () => alternarMenu(sanduiche.getAttribute('aria-expanded') !== 'true'));
+menu.addEventListener('click', (e) => { if (e.target.closest('a')) alternarMenu(false); });
+
+// Contador animado
+function animarContador(el) {
+  const alvo = +el.dataset.alvo;
+  if (reduzMovimento) { el.textContent = alvo; return; }
+  const duracao = 1600, inicio = performance.now();
+  const passo = (agora) => {
+    const p = Math.min((agora - inicio) / duracao, 1);
+    el.textContent = Math.round(alvo * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+}
+
+// Animação de entrada ao rolar
+const elementos = document.querySelectorAll('.revelar');
+if ('IntersectionObserver' in window && !reduzMovimento) {
+  const obs = new IntersectionObserver((entradas) => {
+    entradas.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('visivel');
+      en.target.querySelectorAll('.contador').forEach(animarContador);
+      obs.unobserve(en.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  elementos.forEach(el => obs.observe(el));
+} else {
+  elementos.forEach(el => el.classList.add('visivel'));
+  document.querySelectorAll('.contador').forEach(animarContador);
+}
+
+// Formulário de contato: confirmação na tela.
+// Para receber as mensagens, crie um form no Formspree e troque o bloco abaixo por um
+// fetch('https://formspree.io/f/SEU_CODIGO', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+const form = $('#form-contato');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+  const nome = esc(form.nome.value.trim().split(' ')[0]);
+  $('#form-caixa').innerHTML = `<div class="confirmacao" role="status" tabindex="-1"><span class="sobretitulo">Mensagem enviada</span><h3>Obrigada, <em>${nome}!</em></h3><p>Recebi a sua mensagem e respondo em até um dia útil.</p></div>`;
+  $('#form-caixa .confirmacao').focus();
+});
+
+// Card de captura: aparece depois de 7 segundos, uma vez por visita
+const captura = $('#captura');
+let focoAnterior = null;
+function lerSessao() { try { return sessionStorage.getItem('midiaKitVisto'); } catch (e) { return null; } }
+function gravarSessao() { try { sessionStorage.setItem('midiaKitVisto', '1'); } catch (e) {} }
+function abrirCaptura() {
+  if (lerSessao()) return;
+  gravarSessao();
+  focoAnterior = document.activeElement;
+  captura.classList.add('aberta');
+  captura.setAttribute('aria-hidden', 'false');
+  setTimeout(() => { const c = $('#c-nome'); (c || $('#fechar-captura')).focus(); }, 60);
+}
+function fecharCaptura() {
+  captura.classList.remove('aberta');
+  captura.setAttribute('aria-hidden', 'true');
+  if (focoAnterior) focoAnterior.focus();
+}
+setTimeout(abrirCaptura, 7000);
+$('#fechar-captura').addEventListener('click', fecharCaptura);
+captura.addEventListener('click', (e) => { if (e.target === captura) fecharCaptura(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (captura.classList.contains('aberta')) fecharCaptura();
+    else if (menu.classList.contains('aberto')) { alternarMenu(false); sanduiche.focus(); }
+  }
+  // Mantém o foco dentro do card enquanto ele está aberto
+  if (e.key === 'Tab' && captura.classList.contains('aberta')) {
+    const foco = captura.querySelectorAll('button, input, [tabindex="-1"]');
+    const prim = foco[0], ult = foco[foco.length - 1];
+    if (e.shiftKey && document.activeElement === prim) { e.preventDefault(); ult.focus(); }
+    else if (!e.shiftKey && document.activeElement === ult) { e.preventDefault(); prim.focus(); }
+  }
+});
+$('#form-captura').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.checkValidity()) { f.reportValidity(); return; }
+  const nome = esc($('#c-nome').value.trim().split(' ')[0]);
+  $('#captura-conteudo').innerHTML = `<span class="sobretitulo">Tudo certo</span><h2 id="titulo-captura">Obrigada, <em>${nome}!</em></h2><p>Em breve o mídia kit chega no seu e-mail.</p><button class="btn btn-azul" type="button" id="ok-captura" style="width:100%">Fechar</button>`;
+  $('#ok-captura').addEventListener('click', fecharCaptura);
+  $('#ok-captura').focus();
+});
+</script>
+</body>
+</html>
