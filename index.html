@@ -185,7 +185,10 @@
   .dest-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
   .dest-card{display:block;width:100%;padding:0;border:0;background:none;font:inherit;text-align:left;cursor:pointer;text-decoration:none;color:inherit;transition:transform .35s}
   .dest-card .midia img{object-fit:cover}
-  .dest-intro{justify-self:end;max-width:470px}
+  .dest-cab{display:grid;grid-template-columns:1fr;gap:22px;margin-bottom:44px}
+  .dest-cab .dest-intro{justify-self:start;max-width:640px}
+  .titulo-grande{font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2.6rem,6.2vw,5.4rem);line-height:.95;letter-spacing:-.035em;margin-top:16px;color:var(--tinta)}
+  .dest-intro{justify-self:end;max-width:420px}
   .dest-intro p{color:var(--tinta-2)}
   .dest-intro b{color:var(--vinho)}
   .dest-titulo{display:block;font-family:var(--serif);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;color:var(--tinta);margin:2px 0 6px}
@@ -397,6 +400,7 @@
     .sobre-grade .celular{margin:0 auto;width:100%}
     .secao-cab{grid-template-columns:1fr;gap:14px;margin-bottom:36px}
     .secao-cab p,.dest-intro{justify-self:start}
+    .dest-cab{grid-template-columns:1fr;gap:18px;margin-bottom:36px}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
     .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
     .fotos-grade{grid-template-columns:1fr 1fr}
@@ -415,8 +419,13 @@
     .metrica{padding:22px 16px}
     .form{padding:24px 18px}
     .campos-dupla{grid-template-columns:1fr;gap:0}
-    .faq{grid-template-columns:1fr;gap:16px}
+    /* No celular, as perguntas viram cartões que passam para o lado (sozinhos ou com o dedo) */
+    .faq{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;scrollbar-width:none;margin:0 -16px;padding:0 16px 24px}
+    .faq::-webkit-scrollbar{display:none}
+    .faq p{flex:0 0 82%;scroll-snap-align:start;background:rgba(254,239,220,.07);border:1px solid rgba(254,239,220,.14);border-radius:16px;padding:18px}
     .rodape-base{flex-direction:column;align-items:flex-start}
+    .rodape{padding-bottom:84px}
+    .btn-valores{right:12px;bottom:12px;padding:11px 16px;font-size:.82rem}
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
     .carrossel{grid-auto-columns:42%}
@@ -555,10 +564,10 @@
   <div class="container">
     <div class="janela revelar" data-url="destaques">
       <div class="janela-corpo">
-        <div class="secao-cab">
+        <div class="dest-cab">
           <div>
-            <span class="sobretitulo" data-en="One mask, three conversations">Uma máscara, três conversas</span>
-            <h2 id="titulo-destaques" data-en="One product, <em>three formats</em>">Um produto, <em>três formatos</em></h2>
+            <span class="sobretitulo" data-en="Case / WidiCare">Case / WidiCare</span>
+            <h2 id="titulo-destaques" class="titulo-grande" data-en="One product.<br><em>Three formats.</em>">Um produto.<br><em>Três formatos.</em></h2>
           </div>
           <div class="dest-intro">
             <p data-en="Hand me a product and I'll give you back several ways to communicate it. I used a <b>WidiCare</b> hair mask as the starting point to explore different ways of connecting, because before I think about filming, I think about the message.">Me entregue um produto e eu te devolvo várias possibilidades de comunicação. Usei uma máscara da <b>WidiCare</b> como ponto de partida para explorar diferentes formas de conexão, porque antes de pensar na gravação, eu penso na mensagem.</p>
@@ -670,7 +679,7 @@
           <li><a href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@nathaliaamessiass</a></li>
           <li><a href="https://wa.me/5511980869201" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/><path d="M9 8.6c.2-.5.6-.5.9-.5h.4c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.6c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.4c0 .3 0 .7-.5.9-.6.3-1.5.5-2.6.1a9 9 0 0 1-5.3-5.3c-.4-1.1-.2-2 .1-2.6z"/></svg>(11) 98086-9201</a></li>
           <li><a href="mailto:messiasmnathalia@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>messiasmnathalia@gmail.com</a></li>
-          <li><a href="https://www.tiktok.com/@nathaliaamessiass" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg>TikTok @nathaliaamessiass</a></li>
+          <li><a href="https://www.tiktok.com/@nathaliaamessiass" target="_blank" rel="noopener" aria-label="TikTok @nathaliaamessiass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg>@nathaliaamessiass</a></li>
         </ul>
         <p class="contato-assina" data-en="looking forward to it <span aria-hidden='true'>♡</span>">te aguardo <span aria-hidden="true">♡</span></p>
       </div>
@@ -723,6 +732,7 @@
       <p class="captura-texto" data-en="Leave your name and email and I'll send you my rate card, formats and package options.">Deixe seu nome e e-mail que eu te envio minha tabela de valores, formatos e opções de pacotes.</p>
       <form id="form-captura" novalidate>
         <div class="campo"><label for="c-nome" data-en="Name">Nome</label><input id="c-nome" type="text" autocomplete="name" required></div>
+        <div class="campo"><label for="c-marca" data-en="Brand name">Nome da marca</label><input id="c-marca" type="text" autocomplete="organization" required></div>
         <div class="campo"><label for="c-email" data-en="Email">E-mail</label><input id="c-email" type="email" autocomplete="email" required></div>
         <button class="btn btn-vinho" type="submit" style="width:100%" data-en="Send it to me">Quero receber</button>
       </form>
@@ -1261,6 +1271,33 @@ if ('IntersectionObserver' in window && !reduzMovimento) {
 // Formulário de contato: confirmação na tela.
 // Para receber as mensagens, crie um form no Formspree e troque o bloco abaixo por um
 // fetch('https://formspree.io/f/SEU_CODIGO', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+// Perguntas frequentes passando sozinhas no celular (param quando a pessoa toca)
+(function () {
+  const faq = $('.faq');
+  const celular = window.matchMedia('(max-width: 560px)');
+  if (!faq || reduzMovimento) return;
+  let pausaAte = 0;
+  ['touchstart', 'pointerdown', 'wheel'].forEach(ev => faq.addEventListener(ev, () => { pausaAte = Date.now() + 8000; }, { passive: true }));
+  setInterval(() => {
+    if (!celular.matches || Date.now() < pausaAte || document.hidden) return;
+    const card = faq.querySelector('p');
+    if (!card) return;
+    const passo = card.getBoundingClientRect().width + 12;
+    const fim = faq.scrollWidth - faq.clientWidth;
+    const inicio = faq.scrollLeft;
+    const atual = Math.round(inicio / passo);
+    const alvo = inicio >= fim - 4 ? 0 : Math.min(fim, (atual + 1) * passo);
+    const t0 = performance.now(), dur = 600;
+    faq.style.scrollSnapType = 'none';
+    const anima = () => {
+      const p = Math.min((performance.now() - t0) / dur, 1);
+      faq.scrollLeft = inicio + (alvo - inicio) * (1 - Math.pow(1 - p, 3));
+      if (p < 1) setTimeout(anima, 16); else faq.style.scrollSnapType = '';
+    };
+    anima();
+  }, 4000);
+})();
+
 const form = $('#form-contato');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
