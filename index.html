@@ -93,6 +93,8 @@
   .bf-selo{background:var(--rosa);color:var(--vinho-escuro);font-weight:800;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
   .bf-texto b{color:#fff}
   .bf-timer{font-variant-numeric:tabular-nums;letter-spacing:.04em;color:var(--rosa);font-weight:700}
+  .bf-expressa{padding:0 14px;border-left:1px solid rgba(254,239,220,.25);border-right:1px solid rgba(254,239,220,.25)}
+  .bf-expressa b{color:var(--rosa)}
   .bf-link{color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4)}
   .bf-link:hover{border-color:#fff}
   html.sem-bf .bf-barra{display:none}
@@ -414,6 +416,8 @@
     .setas{display:none}
     .bf-conteudo{gap:10px;font-size:.74rem}
     .bf-timer{display:none}
+    .bf-link{display:none}
+    .bf-expressa{border-right:0;padding-right:0}
     .marca{font-size:1.15rem}
   }
   @media (prefers-reduced-motion:reduce){
@@ -438,6 +442,7 @@
     <div class="container bf-conteudo">
       <span class="bf-selo">Black Friday</span>
       <span class="bf-texto" id="bf-texto"></span>
+      <span class="bf-expressa" data-en="⚡ <span class='bf-extra'>Express delivery in </span><b>72 business hours</b>">⚡ <span class="bf-extra">Entrega expressa em </span><b>72h úteis</b></span>
       <span class="bf-timer" id="bf-timer" aria-hidden="true"></span>
       <a class="bf-link" href="#contato" data-en="book your slot →">reservar agenda →</a>
     </div>
@@ -525,7 +530,7 @@
           <ul class="promessas">
             <li><b>01</b><span data-en="Script approved by you before I film">Roteiro aprovado por você antes de eu gravar</span></li>
             <li><b>02</b><span data-en="One round of edits included in every delivery">Uma rodada de ajuste inclusa em cada entrega</span></li>
-            <li><b>03</b><span data-en="Delivery within 72 business hours">Entrega em até 72 horas úteis</span></li>
+            <li><b>03</b><span data-en="Delivery within 7 days after the product arrives">Entrega em até 7 dias depois que o produto chega</span></li>
           </ul>
           <p class="assinatura">Nathalia <em>Messias</em><small>UGC Creator · São Paulo</small></p>
         </div>
@@ -742,8 +747,8 @@ const numerosCapa = [
 const destaquesCapa = [
   { texto: 'Já criei para **Nestlé, C&A, Shopee** e mais',
     en:  { texto: "I've created for **Nestlé, C&A, Shopee** and more" } },
-  { texto: 'Roteiro aprovado antes de gravar e entrega em até **72h úteis**',
-    en:  { texto: 'Script approved before filming and delivery within **72 business hours**' } },
+  { texto: 'Roteiro aprovado antes de gravar e entrega em até **7 dias**',
+    en:  { texto: 'Script approved before filming and delivery within **7 days**' } },
   { texto: '**+12 mil views** somadas nos meus reels',
     en:  { texto: '**12K+ views** across my reels' } }
 ];
@@ -874,7 +879,7 @@ const servicos = [
 const metricas = [
   { valor: 23, prefixo: '',      sufixo: '',  rotulo: 'marcas atendidas',         en: { rotulo: 'brands served' } },
   { valor: 7,  prefixo: '',      sufixo: '',  rotulo: 'nichos atendidos',         en: { rotulo: 'niches covered' } },
-  { valor: 72, prefixo: 'até ',  sufixo: 'h', rotulo: 'úteis para entregar',      en: { prefixo: 'up to ', rotulo: 'business hours to deliver' } },
+  { valor: 7,  prefixo: 'até ',  sufixo: ' dias', rotulo: 'para entregar depois que o produto chega', en: { prefixo: 'up to ', sufixo: ' days', rotulo: 'to deliver after the product arrives' } },
   { valor: 1,  prefixo: '',      sufixo: '',  rotulo: 'rodada de ajuste inclusa', en: { rotulo: 'round of edits included' } }
 ];
 
@@ -1144,7 +1149,7 @@ function renderizar() {
   // Métricas, resultados e depoimentos
   $('#metricas').innerHTML = metricas.map((m) => `
     <div class="metrica">
-      <strong><span class="sr-only">${esc(T(m, 'prefixo'))}${m.valor}${esc(m.sufixo)}</span><span aria-hidden="true">${esc(T(m, 'prefixo'))}<span class="contador" data-alvo="${m.valor}">${metricasVistas || !obsNum ? m.valor : 0}</span>${esc(m.sufixo)}</span></strong>
+      <strong><span class="sr-only">${esc(T(m, 'prefixo'))}${m.valor}${esc(T(m, 'sufixo'))}</span><span aria-hidden="true">${esc(T(m, 'prefixo'))}<span class="contador" data-alvo="${m.valor}">${metricasVistas || !obsNum ? m.valor : 0}</span>${esc(T(m, 'sufixo'))}</span></strong>
       <span>${esc(T(m, 'rotulo'))}</span>
     </div>`).join('');
   if (obsNum && !metricasVistas) document.querySelectorAll('.contador').forEach(c => obsNum.observe(c));
