@@ -192,12 +192,32 @@
   .filtro{font-family:var(--sans);font-size:.88rem;font-weight:500;padding:10px 20px;border-radius:999px;border:1px solid var(--linha);background:var(--creme);color:var(--tinta);cursor:pointer;transition:all .25s}
   .filtro:hover{border-color:var(--vinho)}
   .filtro[aria-pressed="true"]{background:var(--vinho);color:#fff;border-color:var(--vinho)}
-  .trab-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .filtro small{font-size:.72rem;opacity:.7;margin-left:4px}
+  .trab-grade{display:grid;grid-template-columns:repeat(5,1fr);gap:22px 18px}
   .trab-card{animation:surgir .45s ease both}
-  .trab-card .midia{aspect-ratio:4/5}
-  .trab-card h3{font-size:1.15rem;margin:4px 0 2px}
-  .trab-card p{font-size:.85rem;color:var(--tinta-2)}
+  .trab-video{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit}
+  .trab-capa{display:block;position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:linear-gradient(155deg,#f4ebe8 0%,#e3cfcd 60%,#c9a7ab 130%);box-shadow:var(--sombra)}
+  .trab-capa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .trab-capa::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(31,13,18,.55) 100%)}
+  .trab-video:hover .trab-capa img{transform:scale(1.04)}
+  .trab-capa .play{width:52px;height:52px;margin:-26px 0 0 -26px;z-index:1}
+  .trab-capa .play svg{width:17px;height:17px;margin-left:3px}
+  .trab-video:hover .play{transform:scale(1.08);background:#fff}
+  .trab-capa .trab-tag{position:absolute;left:10px;bottom:10px;z-index:1;margin:0;color:#fff;font-size:.62rem}
+  .trab-card h3{font-size:1.1rem;margin:10px 0 0}
+  .trab-card p{font-size:.82rem;color:var(--tinta-2)}
   .trab-tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-forte);font-weight:600;margin-top:14px;display:block}
+
+  /* ===== PLAYER DE VÍDEO (abre por cima da página) ===== */
+  .player{position:fixed;inset:0;z-index:320;display:grid;place-items:center;padding:20px;background:rgba(31,13,18,.82);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  .player.aberto{opacity:1;visibility:visible}
+  .player-caixa{position:relative;width:min(92vw,calc(80vh * 9 / 16));text-align:center}
+  .player-video{aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+  .player-video iframe{width:100%;height:100%;border:0;display:block}
+  .player-info{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;color:#f3e4e6;font-size:.85rem}
+  .player-info a{color:#fff;font-weight:600}
+  .player-fechar{position:absolute;top:-48px;right:-4px;color:#fff;font-size:2rem}
+  .player-fechar:hover{background:rgba(255,255,255,.12)}
   @keyframes surgir{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
   /* ===== SERVIÇOS (cards com aba, estilo pasta) ===== */
@@ -287,7 +307,7 @@
     .capa-card.c3{left:-110px}
   }
   @media (max-width:1024px){
-    .trab-grade{grid-template-columns:repeat(3,1fr)}
+    .trab-grade{grid-template-columns:repeat(4,1fr)}
     .metricas{grid-template-columns:repeat(2,1fr)}
     .serv-grade{grid-template-columns:repeat(2,1fr)}
     .janela-corpo{padding:44px}
@@ -308,7 +328,9 @@
     .secao-cab{grid-template-columns:1fr;gap:14px;margin-bottom:36px}
     .secao-cab p{justify-self:start}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
-    .trab-grade{grid-template-columns:repeat(2,1fr);gap:16px}
+    .trab-grade{grid-template-columns:repeat(3,1fr);gap:16px 12px}
+    .filtros{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px 28px;padding:0 24px 6px;scrollbar-width:none}
+    .filtro{flex:0 0 auto}
     .resultados{grid-template-columns:1fr}
     .depoimentos{grid-template-columns:1fr}
     .janela-corpo{padding:32px 24px}
@@ -323,6 +345,8 @@
     .form{padding:24px 18px}
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
+    .trab-grade{grid-template-columns:repeat(2,1fr)}
+    .filtros{margin:0 -18px 24px;padding:0 18px 6px}
     .selo-marca{width:72px;height:72px}
     .janela-corpo{padding:28px 18px}
     .setas{display:none}
@@ -480,7 +504,7 @@
             <span class="sobretitulo" data-en="Work by niche">Trabalhos por nicho</span>
             <h2 id="titulo-trabalhos" data-en="Different brands, routines and <em>niches</em>">Marcas, rotinas e <em>nichos</em> diferentes</h2>
           </div>
-          <p data-en="Pick a niche to see only the work from that world.">Escolha um nicho para ver só os trabalhos daquele universo.</p>
+          <p data-en="Pick a niche and tap any video to watch it right here.">Escolha um nicho e toque no vídeo para assistir aqui mesmo.</p>
         </div>
         <div class="filtros" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho" data-en-aria-label="Filter work by niche"></div>
         <div class="trab-grade" id="trab-grade" aria-live="polite"></div>
@@ -595,6 +619,18 @@
   </div>
 </div>
 
+<!-- ===================== PLAYER DE VÍDEO (abre ao tocar num trabalho) ===================== -->
+<div class="player" id="player" aria-hidden="true">
+  <div class="player-caixa" role="dialog" aria-modal="true" aria-labelledby="player-titulo">
+    <button class="fechar player-fechar" id="player-fechar" aria-label="Fechar vídeo" data-en-aria-label="Close video">×</button>
+    <div class="player-video" id="player-video"></div>
+    <div class="player-info">
+      <span id="player-titulo"></span>
+      <a id="player-link" href="#" target="_blank" rel="noopener" data-en="Open on YouTube ↗">Abrir no YouTube ↗</a>
+    </div>
+  </div>
+</div>
+
 <script>
 /* =====================================================================
    DADOS DO SITE: edite aqui, sem mexer no HTML
@@ -611,8 +647,8 @@ const blackFriday = {
 // Números da capa (dados reais do Instagram em 22/10/2026: 12 reels somam 12.234 views)
 const numerosCapa = [
   { valor: '+12 mil', rotulo: 'views nos reels', en: { valor: '12K+', rotulo: 'reel views' } },
-  { valor: '18',      rotulo: 'marcas',          en: { rotulo: 'brands' } },
-  { valor: '6',       rotulo: 'nichos',          en: { rotulo: 'niches' } }
+  { valor: '23',      rotulo: 'marcas',          en: { rotulo: 'brands' } },
+  { valor: '7',       rotulo: 'nichos',          en: { rotulo: 'niches' } }
 ];
 
 // Destaques que flutuam em volta da foto da capa. Use **texto** para deixar em negrito.
@@ -669,45 +705,54 @@ const destaques = [
     en: { numero: '1,348', rotulo: 'reel views', titulo: 'Content that converts',
           contexto: 'Behind the scenes: research, intention and strategy before the camera rolls.' } },
   { link: 'https://www.youtube.com/shorts/PO3-Ip2v5CE?feature=share', capa: '', plataforma: 'Shorts',
-    numero: 'UGC', rotulo: 'demonstração de produto', titulo: 'Aspirador na rotina',
+    numero: 'UGC', rotulo: 'demonstração de produto', titulo: 'Aspirador PureCare',
     contexto: 'Produto em uso real, do jeito que o consumidor vive em casa.',
-    en: { rotulo: 'product demo', titulo: 'Vacuum in real life',
+    en: { rotulo: 'product demo', titulo: 'PureCare vacuum',
           contexto: 'The product in real use, the way consumers live with it at home.' } }
 ];
 
 // Nichos dos filtros (o primeiro, "todos", mostra tudo)
 const nichos = [
-  { id: 'todos',   nome: 'Todos',            en: { nome: 'All' } },
-  { id: 'beleza',  nome: 'Beleza',           en: { nome: 'Beauty' } },
-  { id: 'moda',    nome: 'Moda',             en: { nome: 'Fashion' } },
-  { id: 'comida',  nome: 'Comida',           en: { nome: 'Food' } },
-  { id: 'casa',    nome: 'Casa e decoração', en: { nome: 'Home & decor' } },
-  { id: 'viagem',  nome: 'Viagem',           en: { nome: 'Travel' } },
-  { id: 'tech',    nome: 'Tech',             en: { nome: 'Tech' } }
+  { id: 'todos',       nome: 'Todos',               en: { nome: 'All' } },
+  { id: 'camping',     nome: 'Camping',             en: { nome: 'Camping' } },
+  { id: 'gastronomia', nome: 'Gastronomia',         en: { nome: 'Food' } },
+  { id: 'wellness',    nome: 'Wellness',            en: { nome: 'Wellness' } },
+  { id: 'beleza',      nome: 'Beleza',              en: { nome: 'Beauty' } },
+  { id: 'casa',        nome: 'Casa e organização',  en: { nome: 'Home & organization' } },
+  { id: 'apps',        nome: 'Aplicativos e sites', en: { nome: 'Apps & websites' } },
+  { id: 'moda',        nome: 'Moda e vestuário',    en: { nome: 'Fashion & apparel' } }
 ];
 
-// Trabalhos da galeria. Confira se cada marca está no nicho certo.
-// imagem = caminho da foto 4:5 (deixe '' para usar o degradê)
+// Trabalhos da galeria: um vídeo do YouTube por item.
+// video = link do YouTube (Shorts ou normal). A capa vem do próprio YouTube.
+// capa  = opcional: caminho de uma imagem vertical 9:16 para usar no lugar da capa do YouTube.
+// formato = o tipo do vídeo que aparece embaixo da marca.
 const trabalhos = [
-  { nicho: 'beleza', marca: 'Isdin',       formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'beleza', marca: 'Principia',   formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'beleza', marca: 'WidiCare',    formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'moda',   marca: 'C&A',         formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'moda',   marca: 'Crocs',       formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'moda',   marca: 'Cotton On',   formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'moda',   marca: 'Chilli Beans',formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'comida', marca: 'Nestlé',      formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'comida', marca: '3 Corações',  formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'comida', marca: 'Hemmer',      formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'casa',   marca: 'Bestway',     formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'casa',   marca: 'GuardeMais',  formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'comida', marca: 'Arosa',       formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'viagem', marca: 'Marca 01',    formato: 'Vídeo UGC', imagem: '' }, // PLACEHOLDER
-  { nicho: 'tech',   marca: 'Duolingo',    formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'tech',   marca: 'Méliuz',      formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'tech',   marca: 'Shopee',      formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'tech',   marca: 'Enjoei',      formato: 'Vídeo UGC', imagem: '' },
-  { nicho: 'moda',   marca: 'Felps',       formato: 'Vídeo UGC', imagem: '' }
+  { nicho: 'camping',     marca: 'Bestway',          video: 'https://youtube.com/shorts/0q-4tCV8TJY', formato: 'Vídeo UGC' },
+  { nicho: 'camping',     marca: 'Camping Zé Roque', video: 'https://youtube.com/shorts/72OwKxBbi48', formato: 'Vídeo UGC' },
+  { nicho: 'camping',     marca: 'GuardeMais',       video: 'https://youtube.com/shorts/t4fX-B6PC6I', formato: 'Vídeo UGC' },
+  { nicho: 'gastronomia', marca: '3 Corações',       video: 'https://youtube.com/shorts/PF-CSh8Ub6s', formato: 'Vídeo UGC' },
+  { nicho: 'gastronomia', marca: 'Hemmer',           video: 'https://youtube.com/shorts/wZNH8bubQTg', formato: 'Vídeo UGC' },
+  { nicho: 'gastronomia', marca: 'Arosa',            video: 'https://youtube.com/shorts/0hWZ4SaDxaU', formato: 'Vídeo UGC' },
+  { nicho: 'gastronomia', marca: 'Nestlé',           video: 'https://youtube.com/shorts/V_DATR9Ft6Y', formato: 'Vídeo UGC' },
+  { nicho: 'wellness',    marca: 'Mini Band',        video: 'https://youtube.com/shorts/t0O2BprP3rs', formato: 'Vídeo UGC' },
+  { nicho: 'wellness',    marca: 'New Millen',       video: 'https://youtube.com/shorts/I_GKaSfiGGw', formato: 'Vídeo UGC' },
+  { nicho: 'beleza',      marca: 'Isdin',            video: 'https://youtube.com/shorts/UfkdhxekSJg', formato: 'Vídeo UGC' },
+  { nicho: 'beleza',      marca: 'Felps',            video: 'https://youtube.com/shorts/qCX-SNKpQFs', formato: 'Vídeo UGC' },
+  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtube.com/shorts/HnmCzq6CmaQ', formato: 'Vídeo sensorial', en: { formato: 'Sensory video' } },
+  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtube.com/shorts/th3TTF4YBR0', formato: 'Vlog', en: { formato: 'Vlog' } },
+  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtu.be/5aKWuwLP_BQ',          formato: 'Problema x solução', en: { formato: 'Problem x solution' } },
+  { nicho: 'beleza',      marca: 'Principia',        video: 'https://youtube.com/shorts/ETxCZbWZ3Qo', formato: 'Vídeo UGC' },
+  { nicho: 'casa',        marca: 'PureCare',         video: 'https://youtube.com/shorts/PO3-Ip2v5CE', formato: 'Vídeo UGC' },
+  { nicho: 'casa',        marca: 'Shopee',           video: 'https://youtube.com/shorts/3YfqJuMgDjA', formato: 'Vídeo UGC' },
+  { nicho: 'apps',        marca: 'Méliuz',           video: 'https://youtube.com/shorts/yBZg-7v0uZs', formato: 'Vídeo UGC' },
+  { nicho: 'apps',        marca: 'Enjoei',           video: 'https://youtube.com/shorts/NAbYur3cZbc', formato: 'Vídeo UGC' },
+  { nicho: 'apps',        marca: 'Duolingo',         video: 'https://youtube.com/shorts/f1jwuJGsSpc', formato: 'Vídeo UGC' },
+  { nicho: 'moda',        marca: 'C&A',              video: 'https://youtube.com/shorts/-3oqHSE1FDs', formato: 'Vídeo UGC' },
+  { nicho: 'moda',        marca: 'Cotton On',        video: 'https://youtube.com/shorts/6PM0Ct6JKn4', formato: 'Vídeo UGC' },
+  { nicho: 'moda',        marca: 'Crocs',            video: 'https://youtube.com/shorts/yuMlUOF8Csw', formato: 'Vídeo UGC' },
+  { nicho: 'moda',        marca: 'Chilli Beans',     video: 'https://youtube.com/shorts/ogy--BgxfWk', formato: 'Vídeo UGC' },
+  { nicho: 'moda',        marca: 'Use Soffi',        video: 'https://youtube.com/shorts/nqgXRWrypKU', formato: 'Vídeo UGC' }
 ];
 
 // Serviços
@@ -728,8 +773,8 @@ const servicos = [
 
 // Métricas com contador (só números, o contador anima até "valor")
 const metricas = [
-  { valor: 18, prefixo: '',      sufixo: '',  rotulo: 'marcas atendidas',         en: { rotulo: 'brands served' } },
-  { valor: 6,  prefixo: '',      sufixo: '',  rotulo: 'nichos atendidos',         en: { rotulo: 'niches covered' } },
+  { valor: 23, prefixo: '',      sufixo: '',  rotulo: 'marcas atendidas',         en: { rotulo: 'brands served' } },
+  { valor: 7,  prefixo: '',      sufixo: '',  rotulo: 'nichos atendidos',         en: { rotulo: 'niches covered' } },
   { valor: 72, prefixo: 'até ',  sufixo: 'h', rotulo: 'úteis para entregar',      en: { prefixo: 'up to ', rotulo: 'business hours to deliver' } },
   { valor: 1,  prefixo: '',      sufixo: '',  rotulo: 'rodada de ajuste inclusa', en: { rotulo: 'round of edits included' } }
 ];
@@ -818,16 +863,28 @@ $('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul ar
 // Trabalhos com filtro
 let nichoAtual = 'todos';
 const nomeNicho = (id) => { const n = nichos.find(x => x.id === id); return n ? T(n, 'nome') : id; };
+// Pega o código do vídeo de qualquer link do YouTube (shorts, youtu.be ou watch?v=)
+const idYoutube = (url) => (String(url).match(/(?:shorts\/|youtu\.be\/|[?&]v=|embed\/)([\w-]{11})/) || [])[1] || '';
 function mostrarTrabalhos(nicho) {
   nichoAtual = nicho;
-  const lista = nicho === 'todos' ? trabalhos : trabalhos.filter(t => t.nicho === nicho);
-  $('#trab-grade').innerHTML = lista.map((t, i) => `
-    <article class="trab-card" style="animation-delay:${Math.min(i, 8) * 50}ms">
-      ${midia(t.imagem, U('trabalhoPara') + ' ' + t.marca, U('fotoTrabalho'), i)}
-      <span class="trab-tag">${esc(nomeNicho(t.nicho))}</span>
-      <h3>${esc(t.marca)}</h3>
-      <p>${esc(U(t.formato) || t.formato)}</p>
-    </article>`).join('');
+  const lista = trabalhos.map((t, i) => ({ t, i })).filter(({ t }) => nicho === 'todos' || t.nicho === nicho);
+  $('#trab-grade').innerHTML = lista.map(({ t, i }, n) => {
+    const id = idYoutube(t.video);
+    const capa = t.capa || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '');
+    const formato = U(T(t, 'formato')) || T(t, 'formato');
+    return `
+    <article class="trab-card" style="animation-delay:${Math.min(n, 8) * 50}ms">
+      <button class="trab-video" type="button" data-trabalho="${i}" aria-label="${esc(U('assistir'))}: ${esc(t.marca)}, ${esc(formato)}">
+        <span class="trab-capa">
+          ${capa ? `<img src="${esc(capa)}" alt="" loading="lazy">` : ''}
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
+          <span class="trab-tag">${esc(nomeNicho(t.nicho))}</span>
+        </span>
+        <h3>${esc(t.marca)}</h3>
+        <p>${esc(formato)}</p>
+      </button>
+    </article>`;
+  }).join('');
 }
 $('#filtros').addEventListener('click', (e) => {
   const b = e.target.closest('.filtro');
@@ -835,6 +892,36 @@ $('#filtros').addEventListener('click', (e) => {
   document.querySelectorAll('.filtro').forEach(f => f.setAttribute('aria-pressed', f === b));
   mostrarTrabalhos(b.dataset.nicho);
 });
+
+// Player: abre o vídeo do YouTube por cima da página
+const player = $('#player');
+let focoAntesPlayer = null;
+function abrirPlayer(t) {
+  const id = idYoutube(t.video);
+  if (!id) { window.open(t.video, '_blank', 'noopener'); return; }
+  focoAntesPlayer = document.activeElement;
+  $('#player-video').innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0" title="${esc(t.marca)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  $('#player-titulo').textContent = `${t.marca} · ${U(T(t, 'formato')) || T(t, 'formato')}`;
+  $('#player-link').href = t.video;
+  player.classList.add('aberto');
+  player.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => $('#player-fechar').focus(), 60);
+}
+function fecharPlayer() {
+  if (!player.classList.contains('aberto')) return;
+  player.classList.remove('aberto');
+  player.setAttribute('aria-hidden', 'true');
+  $('#player-video').innerHTML = '';
+  document.body.style.overflow = '';
+  if (focoAntesPlayer) focoAntesPlayer.focus();
+}
+$('#trab-grade').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-trabalho]');
+  if (b) abrirPlayer(trabalhos[+b.dataset.trabalho]);
+});
+$('#player-fechar').addEventListener('click', fecharPlayer);
+player.addEventListener('click', (e) => { if (e.target === player) fecharPlayer(); });
 
 // Contador animado
 let metricasVistas = false;
@@ -882,7 +969,10 @@ function renderizar() {
     </a>`).join('');
 
   // Filtros e trabalhos
-  $('#filtros').innerHTML = nichos.map((n) => `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${n.id === nichoAtual}">${esc(T(n, 'nome'))}</button>`).join('');
+  $('#filtros').innerHTML = nichos.map((n) => {
+    const qtd = n.id === 'todos' ? trabalhos.length : trabalhos.filter(t => t.nicho === n.id).length;
+    return `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${n.id === nichoAtual}">${esc(T(n, 'nome'))}<small>${qtd}</small></button>`;
+  }).join('');
   mostrarTrabalhos(nichoAtual);
 
   // Serviços (cards com aba)
@@ -1014,6 +1104,7 @@ function lerSessao() { try { return sessionStorage.getItem('midiaKitVisto'); } c
 function gravarSessao() { try { sessionStorage.setItem('midiaKitVisto', '1'); } catch (e) {} }
 function abrirCaptura() {
   if (lerSessao()) return;
+  if (player.classList.contains('aberto')) { setTimeout(abrirCaptura, 5000); return; }
   gravarSessao();
   focoAnterior = document.activeElement;
   captura.classList.add('aberta');
@@ -1030,7 +1121,8 @@ $('#fechar-captura').addEventListener('click', fecharCaptura);
 captura.addEventListener('click', (e) => { if (e.target === captura) fecharCaptura(); });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    if (captura.classList.contains('aberta')) fecharCaptura();
+    if (player.classList.contains('aberto')) fecharPlayer();
+    else if (captura.classList.contains('aberta')) fecharCaptura();
     else if (menu.classList.contains('aberto')) { alternarMenu(false); sanduiche.focus(); }
   }
   // Mantém o foco dentro do card enquanto ele está aberto
