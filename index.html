@@ -185,9 +185,9 @@
   .dest-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
   .dest-card{display:block;width:100%;padding:0;border:0;background:none;font:inherit;text-align:left;cursor:pointer;text-decoration:none;color:inherit;transition:transform .35s}
   .dest-card .midia img{object-fit:cover}
-  .dest-cab{display:grid;grid-template-columns:1fr;gap:22px;margin-bottom:44px}
-  .dest-cab .dest-intro{justify-self:start;max-width:640px}
-  .titulo-grande{font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2.6rem,6.2vw,5.4rem);line-height:.95;letter-spacing:-.035em;margin-top:16px;color:var(--tinta)}
+  .dest-cab{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:end;margin-bottom:44px}
+  .dest-cab .dest-intro{justify-self:end;max-width:400px}
+  .titulo-grande{font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,4.4vw,3.9rem);line-height:.95;letter-spacing:-.035em;margin-top:16px;color:var(--tinta);white-space:nowrap}
   .dest-intro{justify-self:end;max-width:420px}
   .dest-intro p{color:var(--tinta-2)}
   .dest-intro b{color:var(--vinho)}
@@ -338,6 +338,9 @@
   .faq{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-bottom:28px}
   .faq p{font-size:.84rem;line-height:1.55;color:rgba(254,239,220,.72)}
   .faq b{display:block;color:var(--creme);font-weight:700;margin-bottom:4px}
+  .faq-pontos{display:none}
+  .faq-pontos i{width:7px;height:7px;border-radius:50%;background:rgba(254,239,220,.3);transition:background .3s,width .3s}
+  .faq-pontos i.ativo{width:20px;border-radius:999px;background:var(--rosa)}
   .redes{display:flex;gap:18px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
   .redes a{text-decoration:none;color:var(--creme)}
   .redes a:hover{color:var(--rosa);text-decoration:underline}
@@ -401,6 +404,8 @@
     .secao-cab{grid-template-columns:1fr;gap:14px;margin-bottom:36px}
     .secao-cab p,.dest-intro{justify-self:start}
     .dest-cab{grid-template-columns:1fr;gap:18px;margin-bottom:36px}
+    .dest-cab .dest-intro{justify-self:start}
+    .titulo-grande{font-size:clamp(2rem,9vw,3.4rem)}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
     .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
     .fotos-grade{grid-template-columns:1fr 1fr}
@@ -419,10 +424,11 @@
     .metrica{padding:22px 16px}
     .form{padding:24px 18px}
     .campos-dupla{grid-template-columns:1fr;gap:0}
-    /* No celular, as perguntas viram cartões que passam para o lado (sozinhos ou com o dedo) */
-    .faq{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;scrollbar-width:none;margin:0 -16px;padding:0 16px 24px}
+    /* No celular, uma pergunta por vez, trocando sozinha a cada 3 segundos */
+    .faq{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:14px}
     .faq::-webkit-scrollbar{display:none}
-    .faq p{flex:0 0 82%;scroll-snap-align:start;background:rgba(254,239,220,.07);border:1px solid rgba(254,239,220,.14);border-radius:16px;padding:18px}
+    .faq p{flex:0 0 100%;scroll-snap-align:start;padding-right:8px;font-size:.9rem}
+    .faq-pontos{display:flex!important;gap:7px;padding-bottom:22px}
     .rodape-base{flex-direction:column;align-items:flex-start}
     .rodape{padding-bottom:84px}
     .btn-valores{right:12px;bottom:12px;padding:11px 16px;font-size:.82rem}
@@ -703,6 +709,7 @@
       <p data-en="<b>Is there exclusivity?</b> To secure exclusivity in your niche, we need a conversation and an extra investment."><b>Tem exclusividade?</b> Para garantir exclusividade no seu nicho, é necessária uma conversa e um investimento extra.</p>
       <p data-en="<b>Delivery time?</b> Content is delivered within 7 days after the product arrives at my home."><b>Tempo de entrega?</b> Os conteúdos são entregues em até 7 dias depois que o produto chega na minha casa.</p>
     </div>
+    <div class="faq-pontos" id="faq-pontos" aria-hidden="true"></div>
     <div class="rodape-base">
       <span>© <span id="ano"></span> Nathalia Messias. <span data-en="All rights reserved.">Todos os direitos reservados.</span></span>
       <ul class="redes">
@@ -941,7 +948,7 @@ const ui = {
 };
 
 // Texto que aparece na barra de endereço das janelas
-const enderecoBase = 'ugcnathaliamessias.github.io/portfolio/';
+const enderecoBase = 'nathaliamessias/portfolio/';
 
 /* =====================================================================
    A PARTIR DAQUI É O FUNCIONAMENTO DO SITE
@@ -1271,31 +1278,39 @@ if ('IntersectionObserver' in window && !reduzMovimento) {
 // Formulário de contato: confirmação na tela.
 // Para receber as mensagens, crie um form no Formspree e troque o bloco abaixo por um
 // fetch('https://formspree.io/f/SEU_CODIGO', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-// Perguntas frequentes passando sozinhas no celular (param quando a pessoa toca)
+// Perguntas frequentes no celular: uma por vez, trocando sozinha a cada 3 segundos
+// (como no portfólio da Letícia). Se a pessoa tocar, pausa um pouco e depois continua.
 (function () {
   const faq = $('.faq');
+  const pontos = $('#faq-pontos');
   const celular = window.matchMedia('(max-width: 560px)');
-  if (!faq || reduzMovimento) return;
+  if (!faq) return;
+  const itens = faq.querySelectorAll('p');
+  pontos.innerHTML = [...itens].map(() => '<i></i>').join('');
+  const marcar = () => {
+    const i = Math.round(faq.scrollLeft / Math.max(1, faq.clientWidth));
+    pontos.querySelectorAll('i').forEach((p, n) => p.classList.toggle('ativo', n === i));
+  };
+  faq.addEventListener('scroll', marcar, { passive: true });
+  marcar();
+  if (reduzMovimento) return;
   let pausaAte = 0;
-  ['touchstart', 'pointerdown', 'wheel'].forEach(ev => faq.addEventListener(ev, () => { pausaAte = Date.now() + 8000; }, { passive: true }));
+  ['touchstart', 'pointerdown', 'wheel'].forEach(ev => faq.addEventListener(ev, () => { pausaAte = Date.now() + 6000; }, { passive: true }));
   setInterval(() => {
     if (!celular.matches || Date.now() < pausaAte || document.hidden) return;
-    const card = faq.querySelector('p');
-    if (!card) return;
-    const passo = card.getBoundingClientRect().width + 12;
-    const fim = faq.scrollWidth - faq.clientWidth;
+    const largura = faq.clientWidth;
     const inicio = faq.scrollLeft;
-    const atual = Math.round(inicio / passo);
-    const alvo = inicio >= fim - 4 ? 0 : Math.min(fim, (atual + 1) * passo);
-    const t0 = performance.now(), dur = 600;
+    const atual = Math.round(inicio / largura);
+    const alvo = atual >= itens.length - 1 ? 0 : (atual + 1) * largura;
+    const t0 = performance.now(), dur = 650;
     faq.style.scrollSnapType = 'none';
     const anima = () => {
       const p = Math.min((performance.now() - t0) / dur, 1);
       faq.scrollLeft = inicio + (alvo - inicio) * (1 - Math.pow(1 - p, 3));
-      if (p < 1) setTimeout(anima, 16); else faq.style.scrollSnapType = '';
+      if (p < 1) setTimeout(anima, 16); else { faq.style.scrollSnapType = ''; marcar(); }
     };
     anima();
-  }, 4000);
+  }, 3000);
 })();
 
 const form = $('#form-contato');
