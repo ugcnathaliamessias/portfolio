@@ -7,7 +7,7 @@
 <meta name="description" content="Portfólio de Nathalia Messias, criadora de conteúdo UGC em São Paulo. Vídeos com narrativa real e estética editorial para marcas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ===== PALETA: troque as cores aqui ===== */
   :root{
@@ -27,9 +27,7 @@
     --raio:14px;
     --sombra:0 1px 2px rgba(68,25,16,.05),0 14px 40px rgba(68,25,16,.10);
     --serif:'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;   /* títulos (Inter Tight) */
-    --elegante:'Bodoni Moda',Didot,Georgia,serif;        /* palavras em destaque (Bodoni Moda itálico) */
     --sans:'Work Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;   /* textos (Work Sans) */
-    --script:'Allura','Segoe Script',cursive;   /* letra cursiva (Allura: fina, com palavras em negrito) */
     --max:1180px;
     --topo-h:106px;          /* altura do topo: faixa Black Friday + menu */
   }
@@ -41,8 +39,7 @@
   a{color:inherit}
   h1,h2{font-family:var(--serif);font-weight:700;line-height:1.08;margin:0;letter-spacing:-.025em}
   h3{font-family:var(--sans);font-weight:700;line-height:1.15;margin:0;letter-spacing:-.01em}
-  em{font-family:var(--elegante);font-style:italic;font-weight:500;color:var(--rosa-forte)}   /* palavras em destaque: Bodoni itálico em tom rosado */
-  h1 em,h2 em{font-size:1.1em;letter-spacing:-.01em}
+  em{font-style:italic;color:var(--rosa-forte)}   /* palavras em destaque: itálico e tom rosado, na mesma letra */
   p{margin:0}
   :focus-visible{outline:2px solid var(--rosa-forte);outline-offset:3px;border-radius:4px}
   .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
@@ -105,7 +102,7 @@
   .topo.rolou{background:rgba(254,239,220,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linha)}
   .topo-nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
   .marca{font-family:var(--serif);font-size:1.3rem;text-decoration:none;white-space:nowrap;color:var(--vinho)}
-  .marca{font-weight:700;letter-spacing:-.02em}.marca em{font-family:var(--script);font-style:normal;font-weight:700;font-size:1.35em;letter-spacing:0;color:var(--rosa-forte)}
+  .marca{font-weight:700;letter-spacing:-.02em}.marca em{font-style:italic;color:var(--rosa-forte)}
   .menu ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
   .menu a{text-decoration:none;font-size:.86rem;font-weight:500;position:relative;padding:4px 0}
   .menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--vinho);transition:width .3s}
@@ -129,9 +126,8 @@
   .capa-grade{flex:1;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding-top:10px;padding-bottom:14px}
   .capa h1{margin:10px 0 12px}
   .titulo-forte{display:block;font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(4.6vw,6.6vh),4rem);line-height:1;letter-spacing:-.015em;color:var(--vinho)}
-  .titulo-script{display:block;font-family:var(--script);font-weight:400;font-size:clamp(2.6rem,min(5.8vw,7.6vh),5.2rem);line-height:1;color:var(--rosa-forte);margin-top:.02em;letter-spacing:0}
+  .titulo-script{display:block;font-family:var(--serif);font-style:italic;font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(4.6vw,6.6vh),4rem);line-height:1.05;letter-spacing:-.015em;color:var(--rosa-forte)}
   /* Cursiva fina com palavras em negrito (como "como <b>criar</b> para a <b>sua marca</b>") */
-  .titulo-script b,.titulo-cursivo b{font-weight:700;color:var(--vinho)}
   .capa-frase{font-size:.98rem;color:var(--tinta-2);max-width:570px}
   .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 16px}
   .capa-numeros{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:.93rem;color:var(--tinta-2)}
@@ -157,7 +153,7 @@
   .mid-4{background:linear-gradient(150deg,#FFF8EF 0%,#F6E3CC 100%)}
 
   /* Faixa de marcas (logos) */
-  .faixa{overflow:hidden;padding:12px 0 14px;background:var(--creme)}
+  .faixa{overflow:hidden;padding:14px 0 16px;background:var(--creme)}
   .faixa-titulo{display:flex;align-items:center;justify-content:center;gap:14px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--tinta);margin-bottom:8px}
   .faixa-titulo::before,.faixa-titulo::after{content:"";width:34px;height:1px;background:var(--vinho)}
   .faixa-trilho{display:flex;width:max-content;animation:correr 60s linear infinite}
@@ -179,8 +175,8 @@
   .sobre-texto p{color:var(--tinta-2);margin-bottom:14px;font-size:1.04rem}
   .promessas{list-style:none;padding:0;margin:28px 0 32px;display:grid;gap:12px}
   .promessas li{display:flex;gap:16px;align-items:baseline;padding-bottom:12px;border-bottom:1px solid var(--linha)}
-  .promessas b{font-family:var(--elegante);font-style:italic;font-weight:500;color:var(--rosa-forte);font-size:1.1rem;min-width:30px}
-  .assinatura{font-family:var(--script);font-size:2.4rem;color:var(--vinho);font-weight:700;line-height:1.15}
+  .promessas b{font-family:var(--serif);font-style:italic;font-weight:700;color:var(--rosa-forte);font-size:1.1rem;min-width:30px}
+  .assinatura{font-family:var(--serif);font-size:1.6rem;color:var(--vinho);font-weight:700;letter-spacing:-.02em;line-height:1.2}
   .assinatura small{display:block;font-family:var(--sans);font-style:normal;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2);margin-top:4px}
 
   /* ===== DESTAQUES ===== */
@@ -206,10 +202,10 @@
   .filtro small{font-size:.72rem;opacity:.7;margin-left:4px}
   .trab-cab{text-align:center;margin-bottom:28px}
   .trab-cab p{color:var(--tinta-2);max-width:520px;margin:6px auto 0}
-  .titulo-cursivo{font-family:var(--script);font-weight:400;font-size:clamp(3rem,6vw,4.8rem);line-height:1.1;color:var(--rosa-forte);margin-top:4px;letter-spacing:0}
+  .titulo-cursivo{font-family:var(--serif);font-weight:700;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.08;color:var(--tinta);margin-top:4px;letter-spacing:-.025em}
   #trabalhos .filtros{justify-content:center;margin-bottom:34px}
   .nicho-topo{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
-  .nicho-topo h3{font-family:var(--elegante);font-style:italic;font-weight:600;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--vinho)}
+  .nicho-topo h3{font-family:var(--serif);font-style:italic;font-weight:700;letter-spacing:-.02em;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--vinho)}
   .nicho-qtd{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-forte)}
   .car-setas{margin-left:auto;display:flex;gap:8px;align-self:center}
   .car-setas button{width:42px;height:42px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);color:var(--vinho);font-size:1.3rem;line-height:1;cursor:pointer;transition:background .2s,color .2s,opacity .2s}
@@ -288,23 +284,30 @@
   .resultado p{color:var(--tinta-2);font-size:.93rem}
   .depoimentos{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
   .depo{background:var(--rosa-claro);border-radius:var(--raio);padding:34px;margin:0}
-  .depo blockquote{margin:0 0 22px;font-family:var(--elegante);font-size:1.16rem;line-height:1.5;font-weight:350}
+  .depo blockquote{margin:0 0 22px;font-family:var(--serif);font-size:1.16rem;line-height:1.5;font-weight:350}
   .depo blockquote::before{content:"“";display:block;font-size:3rem;line-height:.6;color:var(--rosa-forte);margin-bottom:10px}
   .depo figcaption{font-size:.88rem}
   .depo figcaption b{display:block;color:var(--vinho)}
   .depo figcaption span{color:var(--tinta-2)}
 
   /* ===== CONTATO ===== */
-  .contato-grade{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}
-  .contato h2{font-size:clamp(2.6rem,5.6vw,4.4rem);margin:16px 0 20px}
-  .contato-texto p{color:var(--tinta-2);margin-bottom:30px;max-width:440px}
-  .canais{display:grid;gap:12px;max-width:380px}
-  .canal{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;border-radius:12px;background:var(--rosa-claro);text-decoration:none;transition:transform .25s,background .25s}
-  .canal:hover{transform:translateX(4px);background:var(--rosa)}
-  .canal small{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--vinho);font-weight:700}
-  .canal span{font-weight:600;word-break:break-all}
-  .canal i{font-style:normal;color:var(--vinho);font-size:1.2rem}
-  .form{background:var(--creme-2);padding:40px;border-radius:var(--raio)}
+  .contato{padding-bottom:0}
+  .contato-grade{display:grid;grid-template-columns:.95fr 1.25fr;gap:48px;align-items:end}
+  .contato .form{align-self:center;margin-bottom:72px}
+  .contato-lado{display:grid;grid-template-columns:1.25fr .8fr;gap:24px;align-items:end}
+  .contato-texto{padding-bottom:72px}
+  .contato h2{font-size:clamp(2.2rem,3.8vw,3.2rem);margin:14px 0 18px}
+  .contato-texto p{color:var(--tinta-2);margin-bottom:12px;font-size:.98rem}
+  .contato-lista{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px}
+  .contato-lista a{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-size:.92rem;font-weight:500;color:var(--tinta);word-break:break-all;transition:color .2s}
+  .contato-lista a:hover{color:var(--vinho)}
+  .contato-lista svg{flex:0 0 20px;width:20px;height:20px;fill:none;stroke:var(--vinho);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .contato-assina{margin-top:22px!important;font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.1rem;color:var(--rosa-forte)!important}
+  .contato-foto{align-self:end;border-radius:200px 200px 0 0;overflow:hidden;aspect-ratio:3/4.4;background:var(--rosa-claro)}
+  .contato-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+  .campos-dupla{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .form{background:var(--creme-2);padding:34px;border-radius:24px;border:1px solid var(--linha);box-shadow:var(--sombra)}
+  .campo label{text-transform:uppercase;font-size:.7rem!important;letter-spacing:.12em!important}
   .campo{margin-bottom:18px}
   .campo label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.06em;margin-bottom:8px}
   .campo input,.campo textarea{width:100%;font:inherit;font-size:1rem;color:var(--tinta);background:var(--papel);border:1px solid var(--linha);border-radius:10px;padding:13px 16px;transition:border-color .2s,box-shadow .2s}
@@ -316,15 +319,16 @@
   .confirmacao p{color:var(--tinta-2)}
 
   /* ===== RODAPÉ ===== */
-  .rodape{background:var(--vinho);color:var(--creme);padding:64px 0 32px;overflow:hidden}
-  .rodape-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:28px}
-  .rodape .marca{font-size:clamp(1.6rem,3.6vw,2.4rem);color:var(--creme)}
-  .rodape .marca em{color:var(--rosa)}
-  .redes{display:flex;gap:22px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
-  .redes a{text-decoration:none;font-size:.92rem;color:#F7DCE2}
-  .redes a:hover{color:#fff;text-decoration:underline}
-  .rodape-gigante{font-family:var(--script);font-weight:700;font-size:clamp(4.4rem,18vw,15rem);line-height:1.1;color:var(--rosa);margin:0 0 4px;white-space:nowrap}
-  .rodape-base{padding-top:20px;border-top:1px solid rgba(254,239,220,.2);font-size:.82rem;color:#F7DCE2;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .rodape{background:var(--vinho-escuro);color:var(--creme);padding:44px 0 26px}
+  .faq-titulo{font-size:1.4rem;color:var(--creme);margin-bottom:22px}
+  .faq-titulo em{color:var(--rosa)}
+  .faq{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-bottom:28px}
+  .faq p{font-size:.84rem;line-height:1.55;color:rgba(254,239,220,.72)}
+  .faq b{display:block;color:var(--creme);font-weight:700;margin-bottom:4px}
+  .redes{display:flex;gap:18px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+  .redes a{text-decoration:none;color:var(--creme)}
+  .redes a:hover{color:var(--rosa);text-decoration:underline}
+  .rodape-base{padding-top:18px;border-top:1px solid rgba(254,239,220,.18);font-size:.78rem;color:rgba(254,239,220,.72);display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap}
 
   /* ===== CARD DE CAPTURA ===== */
   .captura{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;background:rgba(68,25,16,.55);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
@@ -354,6 +358,13 @@
     .serv-grade{grid-template-columns:repeat(2,1fr)}
     .janela-corpo{padding:44px}
     .menu ul{gap:18px}
+    .faq{grid-template-columns:1fr 1fr}
+    .contato-grade{grid-template-columns:1fr 1fr;gap:36px}
+    .contato-lado{grid-template-columns:1fr}
+    .contato-foto{display:none}
+    .contato-texto{padding-bottom:0}
+    .contato{padding-bottom:84px}
+    .contato .form{margin-bottom:0}
   }
   @media (max-width:860px){
     .secao{padding:64px 0}
@@ -364,6 +375,8 @@
     .menu a{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--vinho)}
     .capa{min-height:0}
     .capa-grade,.sobre-grade,.contato-grade{grid-template-columns:1fr;gap:40px}
+    .contato-lado{order:-1}
+    .contato{padding-bottom:64px}
     .capa-foto{width:min(100%,340px)}
     .capa-card{position:static;width:auto;margin-top:10px}
     .sobre-grade .celular{margin:0 auto;width:100%}
@@ -386,6 +399,9 @@
     .metricas{grid-template-columns:1fr 1fr;gap:10px}
     .metrica{padding:22px 16px}
     .form{padding:24px 18px}
+    .campos-dupla{grid-template-columns:1fr;gap:0}
+    .faq{grid-template-columns:1fr;gap:16px}
+    .rodape-base{flex-direction:column;align-items:flex-start}
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
     .carrossel{grid-auto-columns:42%}
@@ -455,10 +471,10 @@
 <section class="capa" id="capa" aria-labelledby="titulo-capa">
   <div class="container capa-grade">
     <div>
-      <span class="sobretitulo revelar" data-en="Nathalia Messias · UGC Creator · São Paulo, Brazil">Nathalia Messias · UGC Creator · São Paulo</span>
+      <span class="sobretitulo revelar" data-en="UGC Creator · São Paulo, Brazil">UGC Creator · São Paulo</span>
       <h1 id="titulo-capa" class="revelar atraso-1">
         <span class="titulo-forte" data-en="Content that makes your brand">Conteúdo que faz sua marca</span>
-        <span class="titulo-script" data-en="be <b>chosen</b>">ser <b>escolhida</b></span>
+        <span class="titulo-script" data-en="be chosen">ser escolhida</span>
       </h1>
       <p class="capa-frase revelar atraso-2" data-en="Real-life stories with an editorial eye, from the first second to the buying decision, made for organic content and ads.">Vídeos com narrativa real e estética editorial, do primeiro segundo à decisão de compra, pensados para o orgânico e para anúncios.</p>
       <div class="capa-botoes revelar atraso-2">
@@ -485,7 +501,6 @@
 
   <!-- Faixa de marcas: os nomes e logos vêm do array "marcas" no script -->
   <div class="faixa" aria-label="Marcas que já criei" data-en-aria-label="Brands I have created for">
-    <span class="faixa-titulo" data-en="Brands I've created for">Marcas que já criei</span>
     <div class="faixa-trilho" id="faixa-trilho"></div>
   </div>
 </section>
@@ -505,14 +520,14 @@
         <div class="sobre-texto">
           <span class="sobretitulo" data-en="About me">Sobre mim</span>
           <h2 id="titulo-sobre" data-en="Real stories that <em>sell</em> with honesty">Histórias reais que <em>vendem</em> com verdade</h2>
-          <p data-en="Hi, I'm Nathalia. I'm a UGC creator focused on real storytelling, editorial aesthetics and videos designed around the consumer experience.">Oi, eu sou a Nathalia. Sou criadora de conteúdo UGC com foco em narrativas reais, estética editorial e vídeos pensados para a experiência do consumidor.</p>
+          <p data-en="Hi! I'm Nath. I'm a UGC creator focused on real storytelling, editorial aesthetics and videos designed around the consumer experience.">Oie! Eu sou a Nath. Sou criadora de conteúdo UGC com foco em narrativas reais, estética editorial e vídeos pensados para a experiência do consumidor.</p>
           <p data-en="I create content from everyday routine, behavior and the brand's intention, always aiming to build identification, trust and action, in organic content and in ads.">Crio conteúdos a partir da rotina, do comportamento e da intenção da marca, sempre buscando gerar identificação, confiança e ação, tanto no orgânico quanto em anúncios.</p>
           <ul class="promessas">
             <li><b>01</b><span data-en="Script approved by you before I film">Roteiro aprovado por você antes de eu gravar</span></li>
             <li><b>02</b><span data-en="One round of edits included in every delivery">Uma rodada de ajuste inclusa em cada entrega</span></li>
             <li><b>03</b><span data-en="Delivery within 72 business hours">Entrega em até 72 horas úteis</span></li>
           </ul>
-          <p class="assinatura">Nathalia Messias<small>UGC Creator · São Paulo</small></p>
+          <p class="assinatura">Nathalia <em>Messias</em><small>UGC Creator · São Paulo</small></p>
         </div>
       </div>
     </div>
@@ -545,7 +560,7 @@
     <div class="janela revelar" data-url="trabalhos">
       <div class="janela-corpo">
         <div class="trab-cab">
-          <h2 id="titulo-trabalhos" class="titulo-cursivo" data-en="my <b>content</b>">meus <b>conteúdos</b></h2>
+          <h2 id="titulo-trabalhos" class="titulo-cursivo" data-en="My <em>content</em>">Meus <em>conteúdos</em></h2>
           <p data-en="Pick a niche, swipe sideways and tap a video to watch it right here.">Escolha um nicho, deslize para o lado e toque no vídeo para assistir aqui mesmo.</p>
         </div>
         <div class="filtros" id="filtros" role="group" aria-label="Escolher nicho" data-en-aria-label="Choose a niche"></div>
@@ -562,7 +577,7 @@
 
         <!-- FOTOS UGC: as fotos vêm do array "fotos" no script (arquivos na pasta "fotos") -->
         <div class="fotos-cab">
-          <h3 class="titulo-cursivo" data-en="<b>UGC</b> photos">fotos <b>UGC</b></h3>
+          <h3 class="titulo-cursivo" data-en="UGC <em>photos</em>">Fotos <em>UGC</em></h3>
           <p data-en="All my content is shot and edited in the highest quality.">Todos os meus conteúdos são gravados e editados em altíssima qualidade.</p>
         </div>
         <div class="fotos-grade" id="fotos-grade"></div>
@@ -610,31 +625,40 @@
 </section>
 
 <!-- ===================== 7. BORA CRIAR JUNTOS ===================== -->
-<section class="secao contato fundo-marrom" id="contato" aria-labelledby="titulo-contato">
-  <div class="container">
-    <div class="janela revelar" data-url="contato">
-      <div class="janela-corpo contato-grade">
-        <div class="contato-texto">
-          <span class="sobretitulo" data-en="Contact">Contato</span>
-          <h2 id="titulo-contato" data-en="Shall we create <em>together?</em>">Bora criar <em>juntos?</em></h2>
-          <p data-en="Tell me about your brand and what you need. I reply within one business day with a proposal built around your goal.">Me conta sobre a sua marca e o que você precisa. Respondo em até um dia útil com uma proposta pensada para o seu objetivo.</p>
-          <div class="canais">
-            <a class="canal" href="https://wa.me/5511980869201" target="_blank" rel="noopener"><div><small>WhatsApp</small><span>(11) 98086-9201</span></div><i aria-hidden="true">↗</i></a>
-            <a class="canal" href="mailto:messiasmnathalia@gmail.com"><div><small>E-mail</small><span>messiasmnathalia@gmail.com</span></div><i aria-hidden="true">↗</i></a>
-            <a class="canal" href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener"><div><small>Instagram</small><span>@nathaliaamessiass</span></div><i aria-hidden="true">↗</i></a>
-          </div>
+<section class="secao contato" id="contato" aria-labelledby="titulo-contato">
+  <div class="container contato-grade">
+    <!-- FORMULÁRIO: hoje ele só mostra a confirmação na tela.
+         Para receber as mensagens de verdade, use um serviço como Formspree
+         (veja o comentário no script). -->
+    <div class="form revelar" id="form-caixa">
+      <form id="form-contato" novalidate>
+        <div class="campos-dupla">
+          <div class="campo"><label for="f-nome" data-en="Name">Nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" required placeholder="Seu nome" data-en-placeholder="Your name"></div>
+          <div class="campo"><label for="f-email" data-en="Email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="voce@marca.com" data-en-placeholder="you@brand.com"></div>
         </div>
-        <!-- FORMULÁRIO: hoje ele só mostra a confirmação na tela.
-             Para receber as mensagens de verdade, use um serviço como Formspree
-             (veja o comentário no script). -->
-        <div class="form" id="form-caixa">
-          <form id="form-contato" novalidate>
-            <div class="campo"><label for="f-nome" data-en="Name">Nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" required></div>
-            <div class="campo"><label for="f-email" data-en="Email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-            <div class="campo"><label for="f-msg" data-en="Message">Mensagem</label><textarea id="f-msg" name="mensagem" required placeholder="Conte sobre a sua marca, o produto e o prazo" data-en-placeholder="Tell me about your brand, the product and the deadline"></textarea></div>
-            <button class="btn btn-vinho" type="submit" data-en="Send message">Enviar mensagem</button>
-          </form>
-        </div>
+        <div class="campo"><label for="f-marca" data-en="Brand / company">Marca / empresa</label><input id="f-marca" name="marca" type="text" autocomplete="organization" placeholder="Nome da marca" data-en-placeholder="Brand name"></div>
+        <div class="campo"><label for="f-msg" data-en="Tell me about the project">Conta sobre o projeto</label><textarea id="f-msg" name="mensagem" required placeholder="Produto, formato, prazo, objetivo da campanha..." data-en-placeholder="Product, format, deadline, campaign goal..."></textarea></div>
+        <button class="btn btn-vinho" type="submit" data-en="Send message">Enviar mensagem</button>
+      </form>
+    </div>
+
+    <div class="contato-lado revelar atraso-1">
+      <div class="contato-texto">
+        <span class="sobretitulo" data-en="Contact">Contato</span>
+        <h2 id="titulo-contato" data-en="Shall we create <em>together?</em>">Vamos criar <em>juntos?</em></h2>
+        <p data-en="If you're looking for real, aesthetic content designed for performance, I'm ready to create for your brand.">Se você busca conteúdos reais, estéticos e pensados para performance, estou pronta para criar para a sua marca.</p>
+        <p data-en="Get in touch for proposals, briefings and partnerships. I reply within one business day.">Entre em contato para propostas, briefings e parcerias. Respondo em até um dia útil.</p>
+        <ul class="contato-lista">
+          <li><a href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@nathaliaamessiass</a></li>
+          <li><a href="https://wa.me/5511980869201" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/><path d="M9 8.6c.2-.5.6-.5.9-.5h.4c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.6c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.4c0 .3 0 .7-.5.9-.6.3-1.5.5-2.6.1a9 9 0 0 1-5.3-5.3c-.4-1.1-.2-2 .1-2.6z"/></svg>(11) 98086-9201</a></li>
+          <li><a href="mailto:messiasmnathalia@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>messiasmnathalia@gmail.com</a></li>
+          <li><a href="https://www.tiktok.com/@nathaliaamessiass" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg>TikTok @nathaliaamessiass</a></li>
+        </ul>
+        <p class="contato-assina" data-en="looking forward to it <span aria-hidden='true'>♡</span>">te aguardo <span aria-hidden="true">♡</span></p>
+      </div>
+      <!-- FOTO DO CONTATO: troque pelo arquivo da foto que você preferir (vertical, de preferência com fundo limpo) -->
+      <div class="contato-foto">
+        <img src="fotos/capa-widicare-phytomanga.jpg" alt="Nathalia Messias sorrindo" data-en-alt="Nathalia Messias smiling" loading="lazy">
       </div>
     </div>
   </div>
@@ -642,22 +666,25 @@
 
 </main>
 
-<!-- ===================== 8. RODAPÉ ===================== -->
+<!-- ===================== 8. RODAPÉ com perguntas frequentes ===================== -->
 <footer class="rodape">
   <div class="container">
-    <div class="rodape-topo">
-      <a class="marca" href="#capa">Nathalia <em>Messias</em></a>
+    <h2 class="faq-titulo" data-en="Frequently asked <em>questions</em>">Perguntas <em>frequentes</em></h2>
+    <div class="faq">
+      <p data-en="<b>How can I use the content?</b> On social media, paid traffic (ads), catalogs, websites, e-commerce and marketplaces."><b>Como posso usar o conteúdo?</b> Nas redes sociais, tráfego pago (ads), catálogos, sites, e-commerces e marketplaces.</p>
+      <p data-en="<b>For how long?</b> Lifetime use on social media and 3 months for paid traffic and similar (may vary by package)."><b>Por quanto tempo?</b> Uso vitalício para redes sociais e prazo de 3 meses para tráfego pago e afins (pode variar conforme o pacote).</p>
+      <p data-en="<b>Is there exclusivity?</b> To secure exclusivity in your niche, we need a conversation and an extra investment."><b>Tem exclusividade?</b> Para garantir exclusividade no seu nicho, é necessária uma conversa e um investimento extra.</p>
+      <p data-en="<b>Delivery time?</b> Content is delivered within 7 days after the product arrives at my home."><b>Tempo de entrega?</b> Os conteúdos são entregues em até 7 dias depois que o produto chega na minha casa.</p>
+    </div>
+    <div class="rodape-base">
+      <span>© <span id="ano"></span> Nathalia Messias. <span data-en="All rights reserved.">Todos os direitos reservados.</span></span>
       <ul class="redes">
         <li><a href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.tiktok.com/@nathaliaamessiass" target="_blank" rel="noopener">TikTok</a></li>
         <li><a href="https://wa.me/5511980869201" target="_blank" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:messiasmnathalia@gmail.com">E-mail</a></li>
       </ul>
-    </div>
-    <p class="rodape-gigante" aria-hidden="true">Messias</p>
-    <div class="rodape-base">
-      <span>© <span id="ano"></span> Nathalia Messias. <span data-en="All rights reserved.">Todos os direitos reservados.</span></span>
-      <span>UGC Creator · São Paulo</span>
+      <span data-en="UGC creator · São Paulo, Brazil">Criadora de conteúdo UGC · São Paulo, Brasil</span>
     </div>
   </div>
 </footer>
