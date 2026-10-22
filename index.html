@@ -223,6 +223,21 @@
   .trab-card p{font-size:.82rem;color:var(--tinta-2)}
   .trab-tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-forte);font-weight:600;margin-top:14px;display:block}
 
+  /* ===== FOTOS UGC ===== */
+  .fotos-cab{text-align:center;margin:64px 0 24px;padding-top:44px;border-top:1px solid var(--linha)}
+  .fotos-titulo{font-size:clamp(2.6rem,5vw,3.8rem);margin:0}
+  .fotos-cab p{color:var(--tinta-2);max-width:480px;margin:4px auto 0}
+  .fotos-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .foto-card{position:relative;display:block;width:100%;padding:0;border:0;background:var(--creme-2);border-radius:16px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4;box-shadow:var(--sombra)}
+  .foto-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .foto-card:hover img{transform:scale(1.04)}
+  .foto-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(31,13,18,.55) 100%)}
+  .foto-card .trab-marca{z-index:1}
+  .foto-legenda{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;color:#fff;font-size:.78rem;font-weight:600;text-align:left;line-height:1.3}
+  .player.modo-foto .player-caixa{width:min(92vw,calc(80vh * 3 / 4))}
+  .player.modo-foto .player-video{aspect-ratio:3/4}
+  .player-video img{width:100%;height:100%;object-fit:cover;display:block}
+
   /* ===== PLAYER DE VÍDEO (abre por cima da página) ===== */
   .player{position:fixed;inset:0;z-index:320;display:grid;place-items:center;padding:20px;background:rgba(31,13,18,.82);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
   .player.aberto{opacity:1;visibility:visible}
@@ -344,6 +359,7 @@
     .secao-cab p{justify-self:start}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
     .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
+    .fotos-grade{grid-template-columns:1fr 1fr}
     #trabalhos .filtros{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin:0 -24px 26px;padding:0 24px 6px;scrollbar-width:none}
     .filtro{flex:0 0 auto}
     .resultados{grid-template-columns:1fr}
@@ -361,6 +377,8 @@
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
     .carrossel{grid-auto-columns:42%}
+    .fotos-grade{grid-template-columns:1fr 1fr;gap:10px}
+    .fotos-cab{margin-top:44px;padding-top:32px}
     #trabalhos .filtros{margin:0 -18px 22px;padding:0 18px 6px}
     .car-setas{display:none}
     .selo-marca{width:72px;height:72px}
@@ -445,8 +463,8 @@
           <!-- FOTO DA CAPA: troque o span.legenda por
                <img src="foto-capa.jpg" alt="Nathalia Messias sorrindo segurando um produto">
                (formato vertical 4:5, de preferência .webp ou .jpg com até 300 KB) -->
-          <div class="midia" role="img" aria-label="Espaço para foto da creator" data-en-aria-label="Creator photo placeholder">
-            <span class="legenda" data-en="creator photo 4:5">foto da creator 4:5</span>
+          <div class="midia">
+            <img src="fotos/capa-widicare-phytomanga.jpg" alt="Nathalia Messias sorrindo com os produtos Phyto Manga da WidiCare" data-en-alt="Nathalia Messias smiling with WidiCare Phyto Manga products" style="object-position:50% 30%" fetchpriority="high">
           </div>
         </div>
       </div>
@@ -469,8 +487,8 @@
         <div class="celular">
           <!-- FOTO DO SOBRE: troque o span.legenda por
                <img src="foto-sobre.jpg" alt="Nathalia gravando um vídeo em casa"> (formato 4:5) -->
-          <div class="midia mid-2" role="img" aria-label="Espaço para foto de bastidores" data-en-aria-label="Behind the scenes photo placeholder">
-            <span class="legenda" data-en="behind the scenes 4:5">foto de bastidores 4:5</span>
+          <div class="midia mid-2">
+            <img src="fotos/sobre-nathalia.jpg" alt="Nathalia Messias sentada de olhos fechados, sorrindo, com cardigã listrado rosa e vermelho" data-en-alt="Nathalia Messias sitting with her eyes closed, smiling, wearing a pink and red striped cardigan" loading="lazy">
           </div>
         </div>
         <div class="sobre-texto">
@@ -531,6 +549,13 @@
           </div>
         </div>
         <div class="carrossel" id="trab-grade" aria-live="polite"></div>
+
+        <!-- FOTOS UGC: as fotos vêm do array "fotos" no script (arquivos na pasta "fotos") -->
+        <div class="fotos-cab">
+          <h3 class="titulo-cursivo fotos-titulo" data-en="UGC photos">Fotos UGC</h3>
+          <p data-en="Product photos with natural light and real life, ready for feed, website and ads.">Fotos de produto com luz natural e vida real, prontas para feed, site e anúncios.</p>
+        </div>
+        <div class="fotos-grade" id="fotos-grade"></div>
       </div>
     </div>
   </div>
@@ -748,33 +773,46 @@ const nichos = [
 // Trabalhos da galeria: um vídeo do YouTube por item.
 // video = link do YouTube (Shorts ou normal). A capa vem do próprio YouTube.
 // capa  = opcional: caminho de uma imagem vertical 9:16 para usar no lugar da capa do YouTube.
-// formato = o tipo do vídeo que aparece embaixo da marca.
+// formato = o tipo do vídeo (Storytelling, Review, Anúncio, Receita, Demonstração, Unboxing, Editorial, ASMR...).
+//           A tradução para o inglês fica no objeto "ui.en" lá embaixo.
 const trabalhos = [
-  { nicho: 'camping',     marca: 'Bestway',          video: 'https://youtube.com/shorts/0q-4tCV8TJY', formato: 'Vídeo UGC' },
-  { nicho: 'camping',     marca: 'Camping Zé Roque', video: 'https://youtube.com/shorts/72OwKxBbi48', formato: 'Vídeo UGC' },
-  { nicho: 'camping',     marca: 'GuardeMais',       video: 'https://youtube.com/shorts/t4fX-B6PC6I', formato: 'Vídeo UGC' },
-  { nicho: 'gastronomia', marca: '3 Corações',       video: 'https://youtube.com/shorts/PF-CSh8Ub6s', formato: 'Vídeo UGC' },
-  { nicho: 'gastronomia', marca: 'Hemmer',           video: 'https://youtube.com/shorts/wZNH8bubQTg', formato: 'Vídeo UGC' },
-  { nicho: 'gastronomia', marca: 'Arosa',            video: 'https://youtube.com/shorts/0hWZ4SaDxaU', formato: 'Vídeo UGC' },
-  { nicho: 'gastronomia', marca: 'Nestlé',           video: 'https://youtube.com/shorts/V_DATR9Ft6Y', formato: 'Vídeo UGC' },
-  { nicho: 'wellness',    marca: 'Mini Band',        video: 'https://youtube.com/shorts/t0O2BprP3rs', formato: 'Vídeo UGC' },
-  { nicho: 'wellness',    marca: 'New Millen',       video: 'https://youtube.com/shorts/I_GKaSfiGGw', formato: 'Vídeo UGC' },
-  { nicho: 'beleza',      marca: 'Isdin',            video: 'https://youtube.com/shorts/UfkdhxekSJg', formato: 'Vídeo UGC' },
-  { nicho: 'beleza',      marca: 'Felps',            video: 'https://youtube.com/shorts/qCX-SNKpQFs', formato: 'Vídeo UGC' },
-  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtube.com/shorts/HnmCzq6CmaQ', formato: 'Vídeo sensorial', en: { formato: 'Sensory video' } },
-  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtube.com/shorts/th3TTF4YBR0', formato: 'Vlog', en: { formato: 'Vlog' } },
-  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtu.be/5aKWuwLP_BQ',          formato: 'Problema x solução', en: { formato: 'Problem x solution' } },
-  { nicho: 'beleza',      marca: 'Principia',        video: 'https://youtube.com/shorts/ETxCZbWZ3Qo', formato: 'Vídeo UGC' },
-  { nicho: 'casa',        marca: 'PureCare',         video: 'https://youtube.com/shorts/PO3-Ip2v5CE', formato: 'Vídeo UGC' },
-  { nicho: 'casa',        marca: 'Shopee',           video: 'https://youtube.com/shorts/3YfqJuMgDjA', formato: 'Vídeo UGC' },
-  { nicho: 'apps',        marca: 'Méliuz',           video: 'https://youtube.com/shorts/yBZg-7v0uZs', formato: 'Vídeo UGC' },
-  { nicho: 'apps',        marca: 'Enjoei',           video: 'https://youtube.com/shorts/NAbYur3cZbc', formato: 'Vídeo UGC' },
-  { nicho: 'apps',        marca: 'Duolingo',         video: 'https://youtube.com/shorts/f1jwuJGsSpc', formato: 'Vídeo UGC' },
-  { nicho: 'moda',        marca: 'C&A',              video: 'https://youtube.com/shorts/-3oqHSE1FDs', formato: 'Vídeo UGC' },
-  { nicho: 'moda',        marca: 'Cotton On',        video: 'https://youtube.com/shorts/6PM0Ct6JKn4', formato: 'Vídeo UGC' },
-  { nicho: 'moda',        marca: 'Crocs',            video: 'https://youtube.com/shorts/yuMlUOF8Csw', formato: 'Vídeo UGC' },
-  { nicho: 'moda',        marca: 'Chilli Beans',     video: 'https://youtube.com/shorts/ogy--BgxfWk', formato: 'Vídeo UGC' },
-  { nicho: 'moda',        marca: 'Use Soffi',        video: 'https://youtube.com/shorts/nqgXRWrypKU', formato: 'Vídeo UGC' }
+  { nicho: 'camping',     marca: 'Bestway',          video: 'https://youtube.com/shorts/0q-4tCV8TJY', formato: 'Review' },
+  { nicho: 'camping',     marca: 'Camping Zé Roque', video: 'https://youtube.com/shorts/72OwKxBbi48', formato: 'Storytelling' },
+  { nicho: 'camping',     marca: 'GuardeMais',       video: 'https://youtube.com/shorts/t4fX-B6PC6I', formato: 'Anúncio' },
+  { nicho: 'gastronomia', marca: '3 Corações',       video: 'https://youtube.com/shorts/PF-CSh8Ub6s', formato: 'Review' },       // CONFIRA
+  { nicho: 'gastronomia', marca: 'Hemmer',           video: 'https://youtube.com/shorts/wZNH8bubQTg', formato: 'Storytelling' },
+  { nicho: 'gastronomia', marca: 'Arosa',            video: 'https://youtube.com/shorts/0hWZ4SaDxaU', formato: 'Receita' },      // CONFIRA
+  { nicho: 'gastronomia', marca: 'Nestlé',           video: 'https://youtube.com/shorts/V_DATR9Ft6Y', formato: 'Anúncio' },
+  { nicho: 'wellness',    marca: 'Mini Band',        video: 'https://youtube.com/shorts/t0O2BprP3rs', formato: 'Demonstração' },
+  { nicho: 'wellness',    marca: 'New Millen',       video: 'https://youtube.com/shorts/I_GKaSfiGGw', formato: 'Receita' },
+  { nicho: 'beleza',      marca: 'Isdin',            video: 'https://youtube.com/shorts/UfkdhxekSJg', formato: 'Demonstração' },
+  { nicho: 'beleza',      marca: 'Felps',            video: 'https://youtube.com/shorts/qCX-SNKpQFs', formato: 'Anúncio' },
+  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtube.com/shorts/HnmCzq6CmaQ', formato: 'ASMR' },
+  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtube.com/shorts/th3TTF4YBR0', formato: 'Vlog' },
+  { nicho: 'beleza',      marca: 'WidiCare',         video: 'https://youtu.be/5aKWuwLP_BQ',          formato: 'Problema x solução' },
+  { nicho: 'beleza',      marca: 'Principia',        video: 'https://youtube.com/shorts/ETxCZbWZ3Qo', formato: 'Editorial' },
+  { nicho: 'casa',        marca: 'PureCare',         video: 'https://youtube.com/shorts/PO3-Ip2v5CE', formato: 'Demonstração' },
+  { nicho: 'casa',        marca: 'Shopee',           video: 'https://youtube.com/shorts/3YfqJuMgDjA', formato: 'Anúncio' },
+  { nicho: 'apps',        marca: 'Méliuz',           video: 'https://youtube.com/shorts/yBZg-7v0uZs', formato: 'Anúncio' },
+  { nicho: 'apps',        marca: 'Enjoei',           video: 'https://youtube.com/shorts/NAbYur3cZbc', formato: 'Demonstração' },
+  { nicho: 'apps',        marca: 'Duolingo',         video: 'https://youtube.com/shorts/f1jwuJGsSpc', formato: 'Anúncio' },
+  { nicho: 'moda',        marca: 'C&A',              video: 'https://youtube.com/shorts/-3oqHSE1FDs', formato: 'Demonstração' },
+  { nicho: 'moda',        marca: 'Cotton On',        video: 'https://youtube.com/shorts/6PM0Ct6JKn4', formato: 'Demonstração' },
+  { nicho: 'moda',        marca: 'Crocs',            video: 'https://youtube.com/shorts/yuMlUOF8Csw', formato: 'Demonstração' },
+  { nicho: 'moda',        marca: 'Chilli Beans',     video: 'https://youtube.com/shorts/ogy--BgxfWk', formato: 'Unboxing' },
+  { nicho: 'moda',        marca: 'Use Soffi',        video: 'https://youtube.com/shorts/nqgXRWrypKU', formato: 'Demonstração' } // CONFIRA
+];
+
+// Fotos UGC (arquivos na pasta "fotos"). Para trocar, salve a foto na pasta e mude o "src".
+const fotos = [
+  { src: 'fotos/widicare-juba.jpg',      marca: 'WidiCare',     produto: 'Juba Butter Oil',
+    alt: 'Nathalia sorrindo de olhos fechados com o pote Juba Butter Oil da WidiCare', en: { alt: 'Nathalia smiling with her eyes closed, holding WidiCare Juba Butter Oil' } },
+  { src: 'fotos/felps-marula.jpg',       marca: 'Felps',        produto: 'Óleo Marula', en: { produto: 'Marula Oil', alt: 'Nathalia smiling and holding Felps Marula nutritive oil' },
+    alt: 'Nathalia sorrindo segurando o óleo nutritivo Marula da Felps' },
+  { src: 'fotos/isdin-fusion-water.jpg', marca: 'Isdin',        produto: 'Fusion Water Color',
+    alt: 'Nathalia segurando o protetor Isdin Fusion Water Color na frente do rosto', en: { alt: 'Nathalia holding Isdin Fusion Water Color sunscreen in front of her face' } },
+  { src: 'fotos/chillibeans-oculos.jpg', marca: 'Chilli Beans', produto: 'Óculos de sol', en: { produto: 'Sunglasses', alt: 'Pink Chilli Beans sunglasses on a phone screen showing Nathalia' },
+    alt: 'Óculos de sol rosa da Chilli Beans sobre a tela de um celular com a foto da Nathalia' }
 ];
 
 // Serviços
@@ -822,7 +860,7 @@ const ui = {
     titulo: 'Nathalia Messias | Portfólio UGC Creator',
     servico: 'Serviço', assistir: 'Assistir', novaAba: 'abre em nova aba',
     capaVideo: 'capa do vídeo 9:16', capaVideoAlt: 'Capa do vídeo', fotoTrabalho: 'foto do trabalho 4:5', trabalhoPara: 'Trabalho para',
-    'Vídeo UGC': 'Vídeo UGC', video: 'vídeo', videos: 'vídeos',
+    'Vídeo UGC': 'Vídeo UGC', video: 'vídeo', videos: 'vídeos', ampliarFoto: 'Ampliar foto',
     abrirMenu: 'Abrir menu', fecharMenu: 'Fechar menu',
     bfFaltam: (d) => d === 1 ? 'Falta <b>1 dia</b><span class="bf-extra"> pra Black Friday</span>' : d === 0 ? 'A Black Friday é <b>amanhã</b>' : `Faltam <b>${d} dias</b><span class="bf-extra"> pra Black Friday</span>`,
     bfHoje: 'É <b>Black Friday</b>!<span class="bf-extra"> Agenda aberta para a sua campanha</span>',
@@ -834,6 +872,8 @@ const ui = {
     servico: 'Service', assistir: 'Watch', novaAba: 'opens in a new tab',
     capaVideo: 'video cover 9:16', capaVideoAlt: 'Video cover', fotoTrabalho: 'work photo 4:5', trabalhoPara: 'Work for',
     'Vídeo UGC': 'UGC video', video: 'video', videos: 'videos',
+    'Anúncio': 'Ad', 'Receita': 'Recipe', 'Demonstração': 'Demo', 'Problema x solução': 'Problem x solution',
+    'Vídeo sensorial': 'Sensory video', ampliarFoto: 'Enlarge photo',
     abrirMenu: 'Open menu', fecharMenu: 'Close menu',
     bfFaltam: (d) => d === 1 ? '<b>1 day</b><span class="bf-extra"> to Black Friday</span>' : d === 0 ? 'Black Friday is <b>tomorrow</b>' : `<b>${d} days</b><span class="bf-extra"> to Black Friday</span>`,
     bfHoje: "It's <b>Black Friday</b>!<span class=\"bf-extra\"> Booking open for your campaign</span>",
@@ -955,6 +995,8 @@ function abrirPlayer(t) {
   const id = idYoutube(t.video);
   if (!id) { window.open(t.video, '_blank', 'noopener'); return; }
   focoAntesPlayer = document.activeElement;
+  player.classList.remove('modo-foto');
+  $('#player-link').hidden = false;
   $('#player-video').innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0" title="${esc(t.marca)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   $('#player-titulo').textContent = `${t.marca} · ${U(T(t, 'formato')) || T(t, 'formato')}`;
   $('#player-link').href = t.video;
@@ -974,6 +1016,23 @@ function fecharPlayer() {
 $('#trab-grade').addEventListener('click', (e) => {
   const b = e.target.closest('[data-trabalho]');
   if (b) abrirPlayer(trabalhos[+b.dataset.trabalho]);
+});
+
+// Fotos UGC: abrem ampliadas no mesmo visualizador dos vídeos
+function abrirFoto(f) {
+  focoAntesPlayer = document.activeElement;
+  player.classList.add('modo-foto');
+  $('#player-video').innerHTML = `<img src="${esc(f.src)}" alt="${esc(T(f, 'alt'))}">`;
+  $('#player-titulo').textContent = `${f.marca} · ${T(f, 'produto')}`;
+  $('#player-link').hidden = true;
+  player.classList.add('aberto');
+  player.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => $('#player-fechar').focus(), 60);
+}
+$('#fotos-grade').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-foto]');
+  if (b) abrirFoto(fotos[+b.dataset.foto]);
 });
 $('#player-fechar').addEventListener('click', fecharPlayer);
 player.addEventListener('click', (e) => { if (e.target === player) fecharPlayer(); });
@@ -1027,6 +1086,14 @@ function renderizar() {
   $('#filtros').innerHTML = nichos.map((n) => `<button class="filtro" type="button" data-nicho="${n.id}" aria-pressed="${n.id === nichoAtual}">${esc(T(n, 'nome'))}</button>`).join('');
   mostrarTrabalhos(nichoAtual);
 
+  // Fotos UGC
+  $('#fotos-grade').innerHTML = fotos.map((f, i) => `
+    <button class="foto-card" type="button" data-foto="${i}" aria-label="${esc(U('ampliarFoto'))}: ${esc(f.marca)}, ${esc(T(f, 'produto'))}">
+      <img src="${esc(f.src)}" alt="${esc(T(f, 'alt'))}" loading="lazy">
+      <span class="trab-marca">${esc(f.marca)}</span>
+      <span class="foto-legenda">${esc(T(f, 'produto'))}</span>
+    </button>`).join('');
+
   // Serviços (cards com aba)
   $('#serv-grade').innerHTML = servicos.map((s, i) => `
     <article class="serv">
@@ -1065,8 +1132,8 @@ function aplicarIdioma(novo) {
     if (el.dataset.pt === undefined) el.dataset.pt = el.innerHTML;
     el.innerHTML = novo === 'en' ? el.dataset.en : el.dataset.pt;
   });
-  [['enAriaLabel', 'aria-label'], ['enPlaceholder', 'placeholder']].forEach(([chave, atributo]) => {
-    document.querySelectorAll(`[data-${atributo === 'aria-label' ? 'en-aria-label' : 'en-placeholder'}]`).forEach(el => {
+  [['enAriaLabel', 'aria-label', 'en-aria-label'], ['enPlaceholder', 'placeholder', 'en-placeholder'], ['enAlt', 'alt', 'en-alt']].forEach(([chave, atributo, dataAttr]) => {
+    document.querySelectorAll(`[data-${dataAttr}]`).forEach(el => {
       const ptChave = chave + 'Pt';
       if (el.dataset[ptChave] === undefined) el.dataset[ptChave] = el.getAttribute(atributo) || '';
       el.setAttribute(atributo, novo === 'en' ? el.dataset[chave] : el.dataset[ptChave]);
