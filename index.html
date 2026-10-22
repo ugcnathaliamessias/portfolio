@@ -99,15 +99,15 @@
     background-color:var(--creme);
     background-image:linear-gradient(rgba(74,15,31,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(74,15,31,.045) 1px,transparent 1px);
     background-size:40px 40px}
-  .capa-grade{flex:1;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding-top:16px;padding-bottom:28px}
-  .capa h1{font-size:clamp(2.8rem,min(7.6vw,11vh),6.6rem);font-weight:350;line-height:.98;margin:14px 0 18px;color:var(--tinta)}
+  .capa-grade{flex:1;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding-top:8px;padding-bottom:16px}
+  .capa h1{font-size:clamp(2.6rem,min(7.2vw,9.5vh),6.4rem);font-weight:350;line-height:.98;margin:10px 0 14px;color:var(--tinta)}
   .capa h1 em{font-weight:300}
   .capa-frase{font-size:1.06rem;color:var(--tinta-2);max-width:500px}
-  .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 26px}
+  .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 20px}
   .capa-numeros{display:flex;gap:40px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--linha)}
   .capa-numeros strong{display:block;font-family:var(--serif);font-size:2rem;font-weight:400;line-height:1;color:var(--vinho)}
   .capa-numeros span{font-size:.8rem;color:var(--tinta-2);letter-spacing:.04em}
-  .capa-foto{position:relative;justify-self:center;width:min(100%,max(250px,calc((100svh - 300px) * .78)))}
+  .capa-foto{position:relative;justify-self:center;width:min(100%,max(220px,calc((100svh - 410px) * .78)))}
   .capa-foto .janela-corpo{padding:0}
   .capa-foto .midia{aspect-ratio:4/5;border-radius:0;box-shadow:none}
   .capa-selo{position:absolute;left:-30px;bottom:56px;background:var(--papel);border:1px solid var(--linha);padding:12px 18px;border-radius:12px;box-shadow:var(--sombra);font-size:.8rem;line-height:1.35;color:var(--tinta-2)}
@@ -123,16 +123,18 @@
   .mid-4{background:linear-gradient(150deg,#f8f2ee 0%,#e6d9d4 100%)}
 
   /* Faixa de marcas (logos) */
-  .faixa{border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);overflow:hidden;padding:14px 0;background:var(--papel)}
-  .faixa-titulo{display:block;text-align:center;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--tinta-2);margin-bottom:8px}
-  .faixa-trilho{display:flex;width:max-content;animation:correr 55s linear infinite}
+  .faixa{overflow:hidden;padding:12px 0 14px;background:var(--creme)}
+  .faixa-titulo{display:flex;align-items:center;justify-content:center;gap:14px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--tinta);margin-bottom:8px}
+  .faixa-titulo::before,.faixa-titulo::after{content:"";width:34px;height:1px;background:var(--vinho)}
+  .faixa-trilho{display:flex;width:max-content;animation:correr 60s linear infinite}
   .faixa:hover .faixa-trilho{animation-play-state:paused}
   .faixa ul{display:flex;align-items:center;list-style:none;margin:0;padding:0}
-  .faixa li{display:flex;align-items:center;height:52px;padding:0 30px}
-  .faixa li{overflow:hidden}
-  .faixa li img{height:30px;width:auto;max-width:130px;margin:-20px 0;object-fit:contain;filter:grayscale(1) contrast(1.15);opacity:.75;mix-blend-mode:multiply;transition:filter .3s,opacity .3s}
-  .faixa li img:hover{filter:none;opacity:1}
-  .logo-texto{font-family:var(--serif);font-size:1.2rem;white-space:nowrap;color:var(--vinho)}
+  .faixa li{padding:6px 10px}
+  /* Círculo branco de cada logo */
+  .selo-marca{width:86px;height:86px;border-radius:50%;background:#fff;box-shadow:0 4px 18px rgba(74,15,31,.08);display:grid;place-items:center;overflow:hidden;transition:transform .3s}
+  .selo-marca:hover{transform:translateY(-3px)}
+  .selo-marca img{max-width:66%;max-height:42%;object-fit:contain}
+  .logo-texto{font-family:var(--serif);font-size:.85rem;text-align:center;line-height:1.1;padding:0 8px;color:var(--vinho)}
   @keyframes correr{to{transform:translateX(-50%)}}
 
   /* ===== SOBRE ===== */
@@ -291,7 +293,8 @@
     .metrica{padding:22px 16px}
     .form{padding:24px 18px}
     .depo{padding:26px 20px}
-    .faixa li{padding:0 20px}
+    .faixa li{padding:4px 7px}
+    .selo-marca{width:72px;height:72px}
     .janela-corpo{padding:28px 18px}
     .setas{display:none}
   }
@@ -360,7 +363,7 @@
 
   <!-- Faixa de marcas: os nomes e logos vêm do array "marcas" no script -->
   <div class="faixa" aria-label="Marcas com quem já trabalhei">
-    <span class="faixa-titulo">Marcas que criei</span>
+    <span class="faixa-titulo">Marcas que já criei</span>
     <div class="faixa-trilho" id="faixa-trilho"></div>
   </div>
 </section>
@@ -556,28 +559,27 @@ const numerosCapa = [
 // LOGO: salve o arquivo na pasta "logos" do repositório (de preferência .svg ou .png
 // com fundo transparente) e escreva o caminho em "logo", por exemplo 'logos/shopee.svg'.
 // Enquanto "logo" estiver vazio, aparece o nome da marca escrito.
-// "altura" muda o tamanho do logo (1 = normal). "inverter: true" serve para logo claro em fundo escuro.
-// "escurecer: true" deixa mais escuro um logo de cor clara (só para logo com fundo transparente).
-// "contraste: true" faz o mesmo para logo com fundo branco.
+// "zoom" aumenta ou diminui o logo dentro do círculo (1 = normal).
+// "fundo" troca a cor do círculo (use para logo claro, que some no branco).
 const marcas = [
-  { nome: 'Bestway',      logo: 'logos/bestway.png', altura: 1.1 },
-  { nome: 'GuardeMais',   logo: 'logos/guardemais.png', altura: 1.15 },
-  { nome: 'Arosa',        logo: 'logos/arosa.png', altura: 0.85 },
-  { nome: 'Hemmer',       logo: 'logos/hemmer.png', altura: 1.5 },
-  { nome: 'Nestlé',       logo: 'logos/nestle.png', altura: 1.6, contraste: true },
-  { nome: '3 Corações',   logo: 'logos/3coracoes.png', altura: 1.5, contraste: true },
-  { nome: 'C&A',          logo: 'logos/cea.svg', altura: 1.1 },
-  { nome: 'Crocs',        logo: 'logos/crocs.png', altura: 2.4, escurecer: true },
-  { nome: 'Cotton On',    logo: 'logos/cottonon.png', altura: 1.6 },
-  { nome: 'Chilli Beans', logo: 'logos/chillibeans.svg', altura: 0.9 },
-  { nome: 'Principia',    logo: 'logos/principia.jpg', altura: 0.8, inverter: true },
-  { nome: 'WidiCare',     logo: 'logos/widicare.png', altura: 1.3, escurecer: true },
-  { nome: 'Felps',        logo: 'logos/felps.png', altura: 1.5 },
-  { nome: 'Isdin',        logo: 'logos/isdin.png', altura: 1.2 },
-  { nome: 'Duolingo',     logo: 'logos/duolingo.svg', altura: 0.9, escurecer: true },
+  { nome: 'Bestway',      logo: 'logos/bestway.png', zoom: 1.3 },
+  { nome: 'GuardeMais',   logo: 'logos/guardemais.png', zoom: 1.45 },
+  { nome: 'Arosa',        logo: 'logos/arosa.png', zoom: 1.25 },
+  { nome: 'Hemmer',       logo: 'logos/hemmer.png', zoom: 1.15 },
+  { nome: 'Nestlé',       logo: 'logos/nestle.png', zoom: 1.45 },
+  { nome: '3 Corações',   logo: 'logos/3coracoes.webp', zoom: 1.9 },
+  { nome: 'C&A',          logo: 'logos/cea.svg', zoom: 1.1 },
+  { nome: 'Crocs',        logo: 'logos/crocs.png', zoom: 1.6 },
+  { nome: 'Cotton On',    logo: 'logos/cottonon.png', zoom: 1.5 },
+  { nome: 'Chilli Beans', logo: 'logos/chillibeans.svg', zoom: 1.3 },
+  { nome: 'Principia',    logo: 'logos/principia.jpg', fundo: '#000', zoom: 1.2 },
+  { nome: 'WidiCare',     logo: 'logos/widicare.png', zoom: 1.25 },
+  { nome: 'Felps',        logo: 'logos/felps.png', zoom: 1.45 },
+  { nome: 'Isdin',        logo: 'logos/isdin.png', zoom: 1.3 },
+  { nome: 'Duolingo',     logo: 'logos/duolingo.svg', zoom: 1.4 },
   { nome: 'Méliuz',       logo: 'logos/meliuz.svg' },
-  { nome: 'Enjoei',       logo: 'logos/enjoei.svg', altura: 1.1 },
-  { nome: 'Shopee',       logo: 'logos/shopee.svg', altura: 1.1 }
+  { nome: 'Enjoei',       logo: 'logos/enjoei.svg', zoom: 1.3 },
+  { nome: 'Shopee',       logo: 'logos/shopee.svg', zoom: 1.35 }
 ];
 
 // Conteúdos de destaque.
@@ -694,8 +696,8 @@ $('#capa-numeros').innerHTML = numerosCapa.map(n => `<div><strong>${esc(n.valor)
 
 // Faixa de marcas com logo (ou nome, se ainda não tiver logo). Duplicada para o movimento contínuo.
 const itemMarca = (m) => m.logo
-  ? `<li><img src="${esc(m.logo)}" alt="${esc(m.nome)}" style="height:${30 * (m.altura || 1)}px;max-width:${150 * Math.max(1, m.altura || 1)}px${m.inverter ? ';filter:invert(1) grayscale(1)' : ''}${m.escurecer ? ';filter:grayscale(1) brightness(.35) contrast(3)' : ''}${m.contraste ? ';filter:grayscale(1) contrast(2.4)' : ''}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-texto',textContent:this.alt}))"></li>`
-  : `<li><span class="logo-texto">${esc(m.nome)}</span></li>`;
+  ? `<li><span class="selo-marca"${m.fundo ? ` style="background:${esc(m.fundo)}"` : ''}><img src="${esc(m.logo)}" alt="${esc(m.nome)}" style="transform:scale(${m.zoom || 1})" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-texto',textContent:this.alt}))"></span></li>`
+  : `<li><span class="selo-marca"><span class="logo-texto">${esc(m.nome)}</span></span></li>`;
 const listaMarcas = `<ul>${marcas.map(itemMarca).join('')}</ul>`;
 $('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul aria-hidden="true">');
 
