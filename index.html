@@ -999,6 +999,14 @@ $('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul ar
 // Trabalhos com filtro
 let nichoAtual = nichos[0].id;
 const nomeNicho = (id) => { const n = nichos.find(x => x.id === id); return n ? T(n, 'nome') : id; };
+// CAPAS DOS VÍDEOS: ficam na pasta "capas", com o código do vídeo no nome (ex.: capas/0q-4tCV8TJY.jpg).
+// Se um vídeo novo ainda não tiver capa na pasta, o site usa a capa do YouTube automaticamente.
+document.addEventListener('error', (e) => {
+  const img = e.target;
+  if (img.tagName !== 'IMG' || img.dataset.reserva) return;
+  const m = (img.getAttribute('src') || '').match(/^capas\/([\w-]{11})\.jpg$/);
+  if (m) { img.dataset.reserva = '1'; img.src = `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg`; }
+}, true);
 // Pega o código do vídeo de qualquer link do YouTube (shorts, youtu.be ou watch?v=)
 const idYoutube = (url) => (String(url).match(/(?:shorts\/|youtu\.be\/|[?&]v=|embed\/)([\w-]{11})/) || [])[1] || '';
 function mostrarTrabalhos(nicho) {
@@ -1009,7 +1017,7 @@ function mostrarTrabalhos(nicho) {
   const grade = $('#trab-grade');
   grade.innerHTML = lista.map(({ t, i }, n) => {
     const id = idYoutube(t.video);
-    const capa = t.capa || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '');
+    const capa = t.capa || (id ? `capas/${id}.jpg` : '');
     const formato = U(T(t, 'formato')) || T(t, 'formato');
     return `
     <article class="trab-card" style="animation-delay:${Math.min(n, 8) * 60}ms">
@@ -1146,7 +1154,7 @@ function renderizar() {
   // Destaques (capa dentro de moldura de celular)
   $('#dest-grade').innerHTML = destaques.map((d, i) => {
     const id = idYoutube(d.video);
-    const capa = d.capa || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '');
+    const capa = d.capa || (id ? `capas/${id}.jpg` : '');
     return `
     <button class="dest-card" type="button" data-destaque="${i}" aria-label="${esc(U('assistir'))}: ${esc(d.marca)}, ${esc(T(d, 'formato'))}">
       <span class="celular" style="position:relative;display:block">
