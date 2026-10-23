@@ -354,11 +354,18 @@
   /* ===== CARD DE CAPTURA ===== */
   .captura{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;background:rgba(68,25,16,.55);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
   .captura.aberta{opacity:1;visibility:visible}
-  .captura .janela{position:relative;width:100%;max-width:440px;box-shadow:0 30px 80px rgba(68,25,16,.35);transform:translateY(16px);transition:transform .35s}
+  .captura .janela{position:relative;width:100%;max-width:370px;max-height:calc(100vh - 32px);overflow-y:auto;box-shadow:0 30px 80px rgba(68,25,16,.35);transform:translateY(16px);transition:transform .35s}
   .captura.aberta .janela{transform:none}
-  .captura .janela-corpo{padding:34px 34px 32px}
-  .captura h2{font-size:2rem;margin:14px 0 10px}
-  .captura-texto{color:var(--tinta-2);margin-bottom:22px;font-size:.95rem}
+  .captura .janela-corpo{padding:22px 24px 24px}
+  .captura h2{font-size:1.5rem;margin:10px 0 8px}
+  .captura-texto{color:var(--tinta-2);margin-bottom:14px;font-size:.86rem;line-height:1.5}
+  .captura .campo{margin-bottom:10px}
+  .captura .campo label{margin-bottom:5px}
+  .captura .campo input{padding:9px 14px;font-size:.95rem}
+  .captura .btn{padding:12px 20px;margin-top:4px}
+  .captura .janela-barra{height:36px}
+  .form-erro{margin-top:10px;font-size:.84rem;color:var(--vinho)}
+  .form-erro a{color:var(--vinho);font-weight:700}
   .fechar{position:absolute;top:2px;right:6px;width:40px;height:40px;border-radius:50%;border:0;background:transparent;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--tinta);z-index:2}
   .fechar:hover{background:var(--papel)}
 
@@ -660,9 +667,7 @@
 <!-- ===================== 7. BORA CRIAR JUNTOS ===================== -->
 <section class="secao contato" id="contato" aria-labelledby="titulo-contato">
   <div class="container contato-grade">
-    <!-- FORMULÁRIO: hoje ele só mostra a confirmação na tela.
-         Para receber as mensagens de verdade, use um serviço como Formspree
-         (veja o comentário no script). -->
+    <!-- FORMULÁRIO: as mensagens vão para o seu e-mail pelo FormSubmit (veja "ENVIO DOS FORMULÁRIOS" no script). -->
     <div class="form revelar" id="form-caixa">
       <form id="form-contato" novalidate>
         <div class="campos-dupla">
@@ -930,7 +935,9 @@ const ui = {
     bfFaltam: (d) => d === 1 ? 'Falta <b>1 dia</b><span class="bf-extra"> pra Black Friday</span>' : d === 0 ? 'A Black Friday é <b>amanhã</b>' : `Faltam <b>${d} dias</b><span class="bf-extra"> pra Black Friday</span>`,
     bfHoje: 'É <b>Black Friday</b>!<span class="bf-extra"> Agenda aberta para a sua campanha</span>',
     enviada: 'Mensagem enviada', obrigada: 'Obrigada', recebi: 'Recebi a sua mensagem e respondo em até um dia útil.',
-    tudoCerto: 'Tudo certo', kitChega: 'Em breve minha tabela de valores e pacotes chega no seu e-mail.', fechar: 'Fechar'
+    tudoCerto: 'Tudo certo', kitChega: 'Em breve minha tabela de valores e pacotes chega no seu e-mail.', fechar: 'Fechar',
+    enviando: 'Enviando...',
+    erroEnvio: 'Não consegui enviar agora. Tente de novo ou me chame no <a href="https://wa.me/5511980869201" target="_blank" rel="noopener">WhatsApp</a> ou pelo <a href="mailto:messiasmnathalia@gmail.com">e-mail</a>.'
   },
   en: {
     titulo: 'Nathalia Messias | UGC Creator Portfolio',
@@ -943,7 +950,9 @@ const ui = {
     bfFaltam: (d) => d === 1 ? '<b>1 day</b><span class="bf-extra"> to Black Friday</span>' : d === 0 ? 'Black Friday is <b>tomorrow</b>' : `<b>${d} days</b><span class="bf-extra"> to Black Friday</span>`,
     bfHoje: "It's <b>Black Friday</b>!<span class=\"bf-extra\"> Booking open for your campaign</span>",
     enviada: 'Message sent', obrigada: 'Thank you', recebi: "I got your message and will reply within one business day.",
-    tudoCerto: 'All set', kitChega: 'My rates and packages will reach your inbox soon.', fechar: 'Close'
+    tudoCerto: 'All set', kitChega: 'My rates and packages will reach your inbox soon.', fechar: 'Close',
+    enviando: 'Sending...',
+    erroEnvio: 'I couldn\'t send it right now. Please try again or reach me on <a href="https://wa.me/5511980869201" target="_blank" rel="noopener">WhatsApp</a> or by <a href="mailto:messiasmnathalia@gmail.com">email</a>.'
   }
 };
 
@@ -1313,10 +1322,51 @@ if ('IntersectionObserver' in window && !reduzMovimento) {
   }, 3000);
 })();
 
+/* =====================================================================
+   ENVIO DOS FORMULÁRIOS PARA O SEU E-MAIL (serviço gratuito FormSubmit)
+   Na PRIMEIRA mensagem, o FormSubmit manda um e-mail para você com o botão
+   "Activate Form". Clique nele uma vez e, a partir daí, tudo chega no seu Gmail.
+   ===================================================================== */
+const emailDestino = 'messiasmnathalia@gmail.com';
+async function enviarFormulario(dados, botao) {
+  const textoOriginal = botao.textContent;
+  botao.disabled = true;
+  botao.textContent = U('enviando');
+  try {
+    const resposta = await fetch(`https://formsubmit.co/ajax/${emailDestino}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ ...dados, _template: 'table', _captcha: 'false' })
+    });
+    const json = await resposta.json().catch(() => ({}));
+    if (resposta.ok && String(json.success) === 'true') return true;
+    throw new Error(json.message || 'falhou');
+  } catch (erro) {
+    botao.disabled = false;
+    botao.textContent = textoOriginal;
+    return false;
+  }
+}
+function mostrarErro(formulario) {
+  let aviso = formulario.querySelector('.form-erro');
+  if (!aviso) { aviso = document.createElement('p'); aviso.className = 'form-erro'; aviso.setAttribute('role', 'alert'); formulario.appendChild(aviso); }
+  aviso.innerHTML = U('erroEnvio');
+}
+
 const form = $('#form-contato');
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   if (!form.checkValidity()) { form.reportValidity(); return; }
+  if (form._honey && form._honey.value) return; // proteção contra robôs
+  const ok = await enviarFormulario({
+    _subject: `Novo contato pelo portfólio: ${form.marca.value.trim() || form.nome.value.trim()}`,
+    origem: 'Formulário de contato',
+    nome: form.nome.value.trim(),
+    email: form.email.value.trim(),
+    marca: form.marca.value.trim(),
+    mensagem: form.mensagem.value.trim()
+  }, form.querySelector('button[type=submit]'));
+  if (!ok) { mostrarErro(form); return; }
   const nome = esc(form.nome.value.trim().split(' ')[0]);
   $('#form-caixa').innerHTML = `<div class="confirmacao" role="status" tabindex="-1"><span class="sobretitulo">${esc(U('enviada'))}</span><h3>${esc(U('obrigada'))}, <em>${nome}!</em></h3><p>${esc(U('recebi'))}</p></div>`;
   $('#form-caixa .confirmacao').focus();
@@ -1361,10 +1411,18 @@ document.addEventListener('keydown', (e) => {
     else if (!e.shiftKey && document.activeElement === ult) { e.preventDefault(); prim.focus(); }
   }
 });
-$('#form-captura').addEventListener('submit', (e) => {
+$('#form-captura').addEventListener('submit', async (e) => {
   e.preventDefault();
   const f = e.target;
   if (!f.checkValidity()) { f.reportValidity(); return; }
+  const ok = await enviarFormulario({
+    _subject: `Pedido de valores e pacotes: ${$('#c-marca').value.trim()}`,
+    origem: 'Pop-up Valores e pacotes',
+    nome: $('#c-nome').value.trim(),
+    marca: $('#c-marca').value.trim(),
+    email: $('#c-email').value.trim()
+  }, f.querySelector('button[type=submit]'));
+  if (!ok) { mostrarErro(f); return; }
   const nome = esc($('#c-nome').value.trim().split(' ')[0]);
   $('#captura-conteudo').innerHTML = `<span class="sobretitulo">${esc(U('tudoCerto'))}</span><h2 id="titulo-captura">${esc(U('obrigada'))}, <em>${nome}!</em></h2><p class="captura-texto">${esc(U('kitChega'))}</p><button class="btn btn-vinho" type="button" id="ok-captura" style="width:100%">${esc(U('fechar'))}</button>`;
   $('#ok-captura').addEventListener('click', fecharCaptura);
