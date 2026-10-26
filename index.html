@@ -135,10 +135,10 @@
   .capa-numeros{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:.93rem;color:var(--tinta-2)}
   .capa-numeros b{color:var(--tinta);font-weight:800}
   .capa-numeros .sep{color:var(--rosa-forte)}
-  .capa-foto{position:relative;justify-self:center;width:min(100%,max(300px,calc((100svh - 290px) * .8)))}
-  .capa-foto .janela-corpo{padding:0}
-  .capa-foto .midia{aspect-ratio:4/5;border-radius:0;box-shadow:none}
-  .capa-foto .midia img{object-position:50% 22%}
+  /* Foto recortada (sem fundo) apoiada na base da capa, como a da Lê */
+  .capa-foto{position:relative;justify-self:center;align-self:end;margin-bottom:-14px}
+  .capa-foto::before{content:"";position:absolute;z-index:0;left:50%;top:18%;width:88%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(224,152,172,.38) 0%,rgba(224,152,172,.14) 55%,transparent 72%)}
+  .capa-recorte{position:relative;z-index:1;display:block;width:auto;height:clamp(380px,calc(100svh - var(--topo-h) - 128px),680px);max-width:100%;object-fit:contain;filter:drop-shadow(0 18px 30px rgba(68,25,16,.12))}
   /* Destaques flutuando em volta da foto (vêm do array "destaquesCapa") */
   .capa-card{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;width:220px;background:rgba(255,248,239,.97);border:1px solid var(--linha);border-radius:14px;padding:10px 14px;box-shadow:var(--sombra);font-size:.78rem;line-height:1.35;color:var(--tinta-2)}
   .capa-card b{color:var(--vinho);font-weight:800}
@@ -412,7 +412,8 @@
     .capa-grade,.sobre-grade,.contato-grade{grid-template-columns:1fr;gap:40px}
     .contato-lado{order:-1}
     .contato{padding-bottom:64px}
-    .capa-foto{width:min(100%,340px)}
+    .capa-foto{width:min(100%,340px);margin-bottom:0}
+    .capa-recorte{width:min(82%,290px);height:auto;margin:0 auto}
     .capa-card{position:static;width:auto;margin-top:10px}
     .sobre-grade .celular{margin:0 auto;width:100%}
     .secao-cab{grid-template-columns:1fr;gap:14px;margin-bottom:36px}
@@ -533,16 +534,8 @@
       </div>
     </div>
     <div class="capa-foto revelar atraso-2" id="capa-foto">
-      <div class="janela" data-url="instagram.com/nathaliaamessiass">
-        <div class="janela-corpo">
-          <!-- FOTO DA CAPA: troque o span.legenda por
-               <img src="foto-capa.jpg" alt="Nathalia Messias sorrindo segurando um produto">
-               (formato vertical 4:5, de preferência .webp ou .jpg com até 300 KB) -->
-          <div class="midia">
-            <img src="fotos/capa-nath.jpg" alt="Nathalia Messias dando uma gargalhada e piscando, com blusa xadrez clara e calça jeans" data-en-alt="Nathalia Messias laughing and winking, wearing a light gingham top and jeans" fetchpriority="high">
-          </div>
-        </div>
-      </div>
+      <!-- FOTO DA CAPA: foto com o fundo removido (PNG ou WebP transparente) -->
+      <img class="capa-recorte" src="fotos/capa-nath-recorte.webp" width="760" height="1156" alt="Nathalia Messias sorrindo com as mãos na cintura, de blusa xadrez clara e calça jeans" data-en-alt="Nathalia Messias smiling with her hands on her hips, wearing a light gingham top and jeans" fetchpriority="high">
       <!-- Os cards flutuantes vêm do array "destaquesCapa" no script -->
     </div>
   </div>
