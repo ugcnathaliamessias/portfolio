@@ -143,8 +143,8 @@
   .capa-card{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;width:220px;background:rgba(255,248,239,.97);border:1px solid var(--linha);border-radius:14px;padding:10px 14px;box-shadow:var(--sombra);font-size:.78rem;line-height:1.35;color:var(--tinta-2)}
   .capa-card b{color:var(--vinho);font-weight:800}
   .capa-card i{flex:0 0 30px;height:30px;border-radius:50%;background:var(--rosa-claro);color:var(--vinho);display:grid;place-items:center;font-style:normal;font-size:.8rem}
-  .capa-card.c1{top:14%;right:-130px}
-  .capa-card.c2{top:50%;right:-150px}
+  .capa-card.c1{top:14%;right:-100px}
+  .capa-card.c2{top:50%;right:-115px}
   .capa-card.c3{bottom:6%;left:-160px}
 
   /* Blocos de mídia (placeholder com degradê) */
@@ -314,7 +314,7 @@
   .contato{padding-bottom:0}
   .contato-grade{display:grid;grid-template-columns:.95fr 1.25fr;gap:48px;align-items:end}
   .contato .form{align-self:center;margin-bottom:72px}
-  .contato-lado{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:end}
+  .contato-lado{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end}
   .contato-texto{padding-bottom:72px}
   .contato h2{font-size:clamp(2.2rem,3.8vw,3.2rem);margin:14px 0 18px}
   .contato-texto p{color:var(--tinta-2);margin-bottom:12px;font-size:.98rem}
@@ -323,8 +323,9 @@
   .contato-lista a:hover{color:var(--vinho)}
   .contato-lista svg{flex:0 0 20px;width:20px;height:20px;fill:none;stroke:var(--vinho);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
   .contato-assina{margin-top:22px!important;font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.1rem;color:var(--rosa-forte)!important}
-  .contato-foto{align-self:end;border-radius:22px 22px 0 0;overflow:hidden;aspect-ratio:9/14}
-  .contato-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+  /* Foto sem fundo apoiada na base da seção, como a da Lê */
+  .contato-foto{align-self:stretch;position:relative;min-height:420px}
+  .contato-foto img{position:absolute;bottom:0;right:-40px;pointer-events:none;height:calc(100% - 44px);width:auto;max-width:none}
   .campos-dupla{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .form{background:var(--creme-2);padding:34px;border-radius:24px;border:1px solid var(--linha);box-shadow:var(--sombra)}
   .campo label{text-transform:uppercase;font-size:.7rem!important;letter-spacing:.12em!important}
@@ -383,9 +384,10 @@
 
   /* ===== RESPONSIVO ===== */
   @media (max-width:1240px){
-    .capa-card.c1{right:-70px}
-    .capa-card.c2{right:-90px}
+    .capa-card.c1{right:-20px}
+    .capa-card.c2{right:-30px}
     .capa-card.c3{left:-110px}
+    .contato-foto img{right:-10px;height:calc(100% - 110px)}
   }
   @media (max-width:1024px){
     .carrossel{grid-auto-columns:calc((100% - 3 * 16px) / 4)}
@@ -535,7 +537,7 @@
     </div>
     <div class="capa-foto revelar atraso-2" id="capa-foto">
       <!-- FOTO DA CAPA: foto com o fundo removido (PNG ou WebP transparente) -->
-      <img class="capa-recorte" src="fotos/capa-nath-recorte.webp" width="760" height="1156" alt="Nathalia Messias sorrindo com as mãos na cintura, de blusa xadrez clara e calça jeans" data-en-alt="Nathalia Messias smiling with her hands on her hips, wearing a light gingham top and jeans" fetchpriority="high">
+      <img class="capa-recorte" src="fotos/capa-nath-cintura.webp" width="820" height="898" alt="Nathalia Messias sorrindo com as mãos na cintura, de blusa xadrez clara e calça jeans" data-en-alt="Nathalia Messias smiling with her hands on her hips, wearing a light gingham top and jeans" fetchpriority="high">
       <!-- Os cards flutuantes vêm do array "destaquesCapa" no script -->
     </div>
   </div>
@@ -555,7 +557,7 @@
           <!-- FOTO DO SOBRE: troque o span.legenda por
                <img src="foto-sobre.jpg" alt="Nathalia gravando um vídeo em casa"> (formato 4:5) -->
           <div class="midia mid-2">
-            <img src="fotos/sobre-nath.jpg" alt="Nathalia Messias sorrindo com as mãos na cintura, de blusa xadrez clara e calça jeans" data-en-alt="Nathalia Messias smiling with her hands on her hips, wearing a light gingham top and jeans" style="object-position:50% 20%" loading="lazy">
+            <img src="fotos/contato-nath.jpg" alt="Nathalia Messias rindo e olhando para o lado, com a mão na cintura" data-en-alt="Nathalia Messias laughing and looking to the side, with her hand on her hip" style="object-position:50% 20%" loading="lazy">
           </div>
         </div>
         <div class="sobre-texto">
@@ -699,7 +701,7 @@
       </div>
       <!-- FOTO DO CONTATO: troque pelo arquivo da foto que você preferir (vertical, de preferência com fundo limpo) -->
       <div class="contato-foto">
-        <img src="fotos/contato-nath.jpg" alt="Nathalia Messias rindo e olhando para o lado, com a mão na cintura" data-en-alt="Nathalia Messias laughing and looking to the side, with her hand on her hip" loading="lazy">
+        <img src="fotos/contato-nath-recorte.webp" width="700" height="1161" alt="Nathalia Messias dando uma gargalhada e piscando" data-en-alt="Nathalia Messias laughing and winking" loading="lazy">
       </div>
     </div>
   </div>
