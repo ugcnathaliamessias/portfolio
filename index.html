@@ -284,16 +284,27 @@
   .player-fechar:hover{background:rgba(255,255,255,.12)}
   @keyframes surgir{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-  /* ===== SERVIÇOS (cards com aba, estilo pasta) ===== */
-  .serv-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:56px 28px;padding-top:28px}
-  .serv{position:relative;background:var(--papel);color:var(--tinta);border-radius:0 16px 16px 16px;padding:34px 30px 38px;box-shadow:var(--sombra);transition:transform .35s}
-  .serv:nth-child(even){background:var(--vinho);color:var(--creme)}
-  .serv:hover{transform:translateY(-4px)}
-  .serv:nth-child(odd) .serv-num{color:var(--rosa-forte)}
-  .serv:nth-child(even) .serv-num{color:var(--rosa)}
-  .serv-num{position:absolute;left:0;bottom:100%;background:inherit;border-radius:12px 12px 0 0;padding:6px 20px 4px;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-  .serv h3{font-size:1.6rem;margin:0 0 12px}
-  .serv p{font-size:.95rem;opacity:.92}
+  /* ===== SERVIÇOS (blocos que abrem ao tocar, com chavinha) ===== */
+  .serv-lista{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;align-items:start;max-width:1000px;margin:0 auto}
+  .serv-col{display:grid;gap:14px;align-content:start}
+  .serv-item{background:var(--papel);border-radius:26px;box-shadow:0 8px 24px rgba(68,25,16,.1);overflow:hidden}
+  .serv-topo{display:flex;align-items:center;gap:16px;width:100%;padding:14px 20px 14px 14px;border:0;background:none;font:700 1.08rem var(--sans);color:var(--tinta);text-align:left;cursor:pointer}
+  .serv-icone{flex:0 0 52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--rosa)}
+  .serv-icone.c1{background:var(--azul)}
+  .serv-icone.c2{background:var(--creme-2)}
+  .serv-icone svg{width:24px;height:24px;fill:none;stroke:var(--vinho);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .serv-nome{flex:1}
+  .serv-chave{flex:0 0 48px;height:28px;border-radius:999px;background:var(--creme-2);position:relative;transition:background .25s}
+  .serv-chave::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(68,25,16,.25);transition:transform .25s}
+  .serv-topo[aria-expanded="true"] .serv-chave{background:var(--vinho)}
+  .serv-topo[aria-expanded="true"] .serv-chave::after{transform:translateX(20px)}
+  .serv-corpo{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+  .serv-item.aberto .serv-corpo{grid-template-rows:1fr}
+  .serv-corpo>div{overflow:hidden}
+  .serv-corpo p{margin:0;padding:0 24px 14px 82px;color:var(--tinta-2);font-size:.95rem}
+  .serv-whats{display:inline-flex;align-items:center;gap:8px;margin:0 24px 20px 82px;padding:10px 18px;border-radius:999px;background:var(--vinho);color:#fff;text-decoration:none;font:700 .85rem var(--sans);transition:background .2s}
+  .serv-whats:hover{background:var(--vinho-escuro)}
+  .serv-whats svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
   /* ===== NÚMEROS E DEPOIMENTOS ===== */
   .metricas{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:72px}
@@ -400,7 +411,6 @@
   @media (max-width:1024px){
     .carrossel{grid-auto-columns:calc((100% - 3 * 16px) / 4)}
     .metricas{grid-template-columns:repeat(2,1fr)}
-    .serv-grade{grid-template-columns:repeat(2,1fr)}
     .janela-corpo{padding:44px}
     .menu ul{gap:18px}
     .faq{grid-template-columns:1fr 1fr}
@@ -472,7 +482,12 @@
   @media (max-width:560px){
     .container{padding:0 16px}
     .capa-botoes .btn{flex:1 1 100%}
-    .serv-grade{grid-template-columns:1fr;gap:52px}
+    .serv-lista{grid-template-columns:1fr;gap:12px}
+    .serv-col{display:contents}
+    .serv-topo{padding:12px 16px 12px 12px;font-size:1rem;gap:14px}
+    .serv-icone{flex-basis:48px;height:48px}
+    .serv-corpo p{padding:0 20px 14px 20px}
+    .serv-whats{margin:0 20px 18px 20px}
     .metricas{grid-template-columns:1fr 1fr;gap:10px}
     .metrica{padding:22px 16px}
     .form{padding:24px 18px}
@@ -508,7 +523,6 @@
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
     .revelar{opacity:1;transform:none}
     .faixa-trilho{animation:none;flex-wrap:wrap;width:auto}
-    .serv{transform:none}
   }
 </style>
 </head>
@@ -678,9 +692,9 @@
         <span class="sobretitulo revelar" data-en="How I can help">Como eu te ajudo</span>
         <h2 id="titulo-servicos" class="revelar atraso-1" data-en="Formats for every <em>moment</em> of your brand">Formatos para cada <em>momento</em> da marca</h2>
       </div>
-      <p class="revelar atraso-2" data-en="From a single video to a monthly package, always with an approved script and delivery ready to post or run as ads.">Do vídeo único ao pacote mensal, tudo com roteiro aprovado e entrega pronta para postar ou anunciar.</p>
+      <p class="revelar atraso-2" data-en="Tap what interests you to see the details and talk to me straight on WhatsApp.">Toque no que te interessa para ver os detalhes e falar comigo direto no WhatsApp.</p>
     </div>
-    <div class="serv-grade" id="serv-grade"></div>
+    <div class="serv-lista" id="serv-grade"></div>
   </div>
 </section>
 
@@ -960,19 +974,28 @@ const fotos = [
 
 // Serviços
 const servicos = [
-  { titulo: 'Vídeo UGC', texto: 'Vídeo vertical com roteiro, gravação e edição, pensado para gerar identificação com quem assiste.',
+  { icone: 'video', titulo: 'Vídeo UGC', texto: 'Vídeo vertical com roteiro, gravação e edição, pensado para gerar identificação com quem assiste.',
     en: { titulo: 'UGC video', texto: 'A vertical video with script, filming and editing, designed to connect with whoever is watching.' } },
-  { titulo: 'Corte para anúncio', texto: 'Versões curtas com ganchos diferentes para você testar nos anúncios e escalar o que performa.',
+  { icone: 'anuncio', titulo: 'Corte para anúncio', texto: 'Versões curtas com ganchos diferentes para você testar nos anúncios e escalar o que performa.',
     en: { titulo: 'Ad cuts', texto: 'Short versions with different hooks so you can test them in ads and scale what performs.' } },
-  { titulo: 'Fotos do produto', texto: 'Fotos com estética editorial e luz natural, prontas para feed, site e catálogo.',
+  { icone: 'foto', titulo: 'Fotos do produto', texto: 'Fotos com estética editorial e luz natural, prontas para feed, site e catálogo.',
     en: { titulo: 'Product photos', texto: 'Editorial photos in natural light, ready for your feed, website and catalog.' } },
-  { titulo: 'Unboxing', texto: 'A primeira impressão real do produto, da embalagem ao uso, do jeito que o consumidor vive.',
+  { icone: 'caixa', titulo: 'Unboxing', texto: 'A primeira impressão real do produto, da embalagem ao uso, do jeito que o consumidor vive.',
     en: { titulo: 'Unboxing', texto: 'A real first impression of the product, from packaging to use, the way consumers experience it.' } },
-  { titulo: 'Publicação no meu perfil', texto: 'O conteúdo postado no meu Instagram em collab com a sua marca, para alcançar a minha audiência.',
+  { icone: 'insta', titulo: 'Publicação no meu perfil', texto: 'O conteúdo postado no meu Instagram em collab com a sua marca, para alcançar a minha audiência.',
     en: { titulo: 'Posting on my profile', texto: 'The content posted on my Instagram as a collab with your brand, to reach my audience.' } },
-  { titulo: 'Pacote mensal', texto: 'Uma quantidade fixa de conteúdos por mês, com calendário combinado e prioridade na agenda.',
+  { icone: 'calendario', titulo: 'Pacote mensal', texto: 'Uma quantidade fixa de conteúdos por mês, com calendário combinado e prioridade na agenda.',
     en: { titulo: 'Monthly package', texto: 'A fixed number of pieces per month, with an agreed calendar and priority booking.' } }
 ];
+// Desenhos dos ícones dos serviços (o "icone" de cada serviço acima escolhe um daqui)
+const iconesServico = {
+  video: '<rect x="3.5" y="5" width="13" height="14" rx="3"/><path d="m16.5 10 4-2.5v9l-4-2.5"/>',
+  anuncio: '<path d="M4 10v4a1 1 0 0 0 1 1h2l5 4V5L7 9H5a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/>',
+  foto: '<path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.5-2h6l1.5 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.5"/>',
+  caixa: '<path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="m4 7 8 4 8-4M12 11v10"/>',
+  insta: '<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><path d="M16.8 7.2h.01" stroke-width="2.4"/>',
+  calendario: '<rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path d="m9.5 14.5 1.8 1.8 3.4-3.4"/>'
+};
 
 // Métricas com contador (só números, o contador anima até "valor")
 const metricas = [
@@ -1002,6 +1025,7 @@ const ui = {
   pt: {
     titulo: 'Nathalia Messias | Portfólio UGC Creator',
     servico: 'Serviço', assistir: 'Assistir', novaAba: 'abre em nova aba',
+    queroEsse: 'Quero esse', msgWhats: (t) => `Oi, Nath! Vim pelo seu portfólio e tenho interesse em: ${t}`,
     capaVideo: 'capa do vídeo 9:16', capaVideoAlt: 'Capa do vídeo', fotoTrabalho: 'foto do trabalho 4:5', trabalhoPara: 'Trabalho para',
     'Vídeo UGC': 'Vídeo UGC', video: 'vídeo', videos: 'vídeos', ampliarFoto: 'Ampliar foto',
     abrirMenu: 'Abrir menu', fecharMenu: 'Fechar menu',
@@ -1015,6 +1039,7 @@ const ui = {
   en: {
     titulo: 'Nathalia Messias | UGC Creator Portfolio',
     servico: 'Service', assistir: 'Watch', novaAba: 'opens in a new tab',
+    queroEsse: 'I want this one', msgWhats: (t) => `Hi Nath! I found your portfolio and I'm interested in: ${t}`,
     capaVideo: 'video cover 9:16', capaVideoAlt: 'Video cover', fotoTrabalho: 'work photo 4:5', trabalhoPara: 'Work for',
     'Vídeo UGC': 'UGC video', video: 'video', videos: 'videos',
     'Anúncio': 'Ad', 'Receita': 'Recipe', 'Demonstração': 'Demo', 'Problema x solução': 'Problem x solution',
@@ -1257,13 +1282,26 @@ function renderizar() {
     </button>`;
   $('#fotos-grade').innerHTML = `<div class="fotos-trilho">${fotos.map((f, i) => cardFoto(f, i, false)).join('')}${fotos.map((f, i) => cardFoto(f, i, true)).join('')}</div>`;
 
-  // Serviços (cards com aba)
-  $('#serv-grade').innerHTML = servicos.map((s, i) => `
-    <article class="serv">
-      <span class="serv-num">${esc(U('servico'))} ${String(i + 1).padStart(2, '0')}</span>
-      <h3>${esc(T(s, 'titulo'))}</h3>
-      <p>${esc(T(s, 'texto'))}</p>
-    </article>`).join('');
+  // Serviços: blocos que abrem ao tocar, com botão para o WhatsApp
+  // Duas colunas independentes no computador (abrir um bloco não empurra a outra coluna)
+  const blocoServico = (s, i) => {
+    const titulo = T(s, 'titulo');
+    const link = `https://wa.me/5511980869201?text=${encodeURIComponent(U('msgWhats')(titulo))}`;
+    return `
+    <div class="serv-item" style="order:${i}">
+      <button class="serv-topo" type="button" aria-expanded="false" aria-controls="serv-corpo-${i}">
+        <span class="serv-icone c${i % 3}" aria-hidden="true"><svg viewBox="0 0 24 24">${iconesServico[s.icone] || ''}</svg></span>
+        <span class="serv-nome">${esc(titulo)}</span>
+        <span class="serv-chave" aria-hidden="true"></span>
+      </button>
+      <div class="serv-corpo" id="serv-corpo-${i}" inert><div>
+        <p>${esc(T(s, 'texto'))}</p>
+        <a class="serv-whats" href="${esc(link)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/></svg>${esc(U('queroEsse'))}</a>
+      </div></div>
+    </div>`;
+  };
+  const coluna = (resto) => `<div class="serv-col">${servicos.map((s, i) => i % 2 === resto ? blocoServico(s, i) : '').join('')}</div>`;
+  $('#serv-grade').innerHTML = coluna(0) + coluna(1);
 
   // Métricas, resultados e depoimentos
   $('#metricas').innerHTML = metricas.map((m) => `
@@ -1347,6 +1385,20 @@ function alternarMenu(abrir) {
 }
 sanduiche.addEventListener('click', () => alternarMenu(sanduiche.getAttribute('aria-expanded') !== 'true'));
 menu.addEventListener('click', (e) => { if (e.target.closest('a')) alternarMenu(false); });
+
+// Serviços: tocar num bloco abre os detalhes (e fecha o que estava aberto)
+$('#serv-grade').addEventListener('click', (e) => {
+  const b = e.target.closest('.serv-topo');
+  if (!b) return;
+  const abrir = b.getAttribute('aria-expanded') !== 'true';
+  document.querySelectorAll('#serv-grade .serv-item').forEach(item => {
+    const topo = item.querySelector('.serv-topo'), corpo = item.querySelector('.serv-corpo');
+    const este = topo === b && abrir;
+    item.classList.toggle('aberto', este);
+    topo.setAttribute('aria-expanded', este);
+    corpo.inert = !este;
+  });
+});
 
 // Barra de app no celular: marca a aba da parte da página que está na tela
 const appNav = $('#app-nav'), appMais = $('#app-mais'), appMaisBtn = $('#app-mais-btn');
