@@ -250,9 +250,15 @@
   .fotos-titulo em{color:var(--vinho)}
   .fotos-cab p{color:var(--tinta-2);max-width:520px;margin:6px auto 0}
   /* Faixa de fotos passando em "onda" (uma mais alta, outra mais baixa) */
-  .fotos-grade{overflow:hidden;padding:20px 0 24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-  .fotos-trilho{display:flex;gap:18px;padding-right:18px;width:max-content;animation:correr 50s linear infinite}
-  .fotos-grade:hover .fotos-trilho,.fotos-trilho:focus-within{animation-play-state:paused}
+  /* A faixa anda sozinha (pelo script) e as setas adiantam ou voltam uma foto */
+  .fotos-area{position:relative}
+  .fotos-grade{overflow:hidden;padding:20px 0 24px;touch-action:pan-y;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .fotos-trilho{display:flex;gap:18px;padding-right:18px;width:max-content;will-change:transform}
+  .fotos-seta{position:absolute;top:50%;z-index:3;width:48px;height:48px;margin-top:-24px;border-radius:50%;border:1px solid var(--linha);background:#fff;color:var(--vinho);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 22px rgba(68,25,16,.16);transition:background .2s,color .2s,transform .2s}
+  .fotos-seta:hover{background:var(--vinho);color:#fff;transform:scale(1.06)}
+  .fotos-seta svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .fotos-seta.ant{left:-8px}
+  .fotos-seta.prox{right:-8px}
   .fotos-trilho .foto-card{flex:0 0 220px;width:220px}
   .fotos-trilho .foto-card:nth-child(odd){transform:translateY(-12px)}
   .fotos-trilho .foto-card:nth-child(even){transform:translateY(12px)}
@@ -357,6 +363,8 @@
   /* ===== BOTÃO FIXO "VALORES E PACOTES" ===== */
   .btn-valores{position:fixed;right:20px;bottom:20px;z-index:250;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border:0;border-radius:999px;background:var(--vinho-escuro);color:var(--creme);font:700 .88rem var(--sans);cursor:pointer;box-shadow:0 10px 30px rgba(68,25,16,.3);transition:transform .25s,background .25s}
   .btn-valores:hover{transform:translateY(-2px);background:var(--vinho)}
+  /* Barra de app e gaveta "Mais": só aparecem no celular */
+  .app-nav,.app-mais{display:none}
   .btn-valores svg{width:18px;height:18px;fill:none;stroke:var(--rosa);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
   /* ===== CARD DE CAPTURA ===== */
@@ -432,6 +440,34 @@
     .depoimentos{grid-template-columns:1fr}
     .janela-corpo{padding:32px 24px}
     .bf-extra{display:none}
+
+    /* ===== FORMATO APP NO CELULAR ===== */
+    /* Topo vira um cartão flutuante */
+    .topo.rolou{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+    .topo-nav{width:auto;max-width:none;margin:8px 10px 0;height:60px;padding:0 8px 0 18px;background:var(--papel);border:1px solid var(--linha);border-radius:22px;box-shadow:0 10px 28px rgba(68,25,16,.13)}
+    /* Seções coloridas viram cartões arredondados */
+    .secao.fundo-azul,.secao.fundo-pink,.secao.fundo-vinho{margin:10px;border-radius:28px}
+    /* Barra de baixo */
+    .btn-valores{display:none}
+    .app-nav{display:grid;grid-template-columns:repeat(5,1fr);align-items:stretch;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:248;height:66px;padding:6px;background:var(--papel);border:1px solid var(--linha);border-radius:26px;box-shadow:0 12px 34px rgba(68,25,16,.2)}
+    .app-nav a,.app-nav>button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0;border:0;background:none;border-radius:18px;text-decoration:none;font:600 .7rem var(--sans);color:var(--tinta-2);cursor:pointer;transition:background .2s,color .2s}
+    .app-nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .app-nav .ativo{color:var(--vinho);background:var(--rosa-claro)}
+    .app-nav .app-parceria,.app-nav .app-parceria.ativo{position:relative;background:none}
+    .app-bolha{position:absolute;left:50%;bottom:2px;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:var(--rosa);color:var(--vinho);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-weight:700;border:5px solid var(--creme);box-shadow:0 8px 22px rgba(181,80,107,.35)}
+    .app-bolha svg{width:24px;height:24px}
+    /* Gaveta "Mais" */
+    .app-mais{display:block;position:fixed;inset:0;z-index:246;background:rgba(68,25,16,.35);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+    .app-mais.aberto{opacity:1;visibility:visible}
+    .app-folha{position:absolute;left:10px;right:10px;bottom:calc(90px + env(safe-area-inset-bottom));padding:10px;background:var(--papel);border-radius:26px;box-shadow:0 16px 40px rgba(68,25,16,.25);transform:translateY(16px);transition:transform .25s}
+    .app-mais.aberto .app-folha{transform:none}
+    .app-folha a,.app-folha button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:15px 16px;border:0;background:none;border-radius:16px;text-decoration:none;font:600 1rem var(--sans);color:var(--tinta);text-align:left;cursor:pointer}
+    .app-folha a:hover{background:var(--rosa-claro)}
+    .app-folha i{font-style:normal;color:var(--rosa-forte)}
+    .app-folha .app-destaque{justify-content:flex-start;gap:10px;margin-bottom:4px;background:var(--vinho-escuro);color:var(--creme)}
+    .app-destaque svg{width:20px;height:20px;fill:none;stroke:var(--rosa);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .app-folha hr{border:0;border-top:1px solid var(--linha);margin:6px 14px}
+    .rodape{padding-bottom:110px}
   }
   @media (max-width:560px){
     .container{padding:0 16px}
@@ -447,12 +483,13 @@
     .faq p{flex:0 0 100%;scroll-snap-align:start;padding-right:8px;font-size:.9rem}
     .faq-pontos{display:flex!important;gap:7px;padding-bottom:22px}
     .rodape-base{flex-direction:column;align-items:flex-start}
-    .rodape{padding-bottom:84px}
-    .btn-valores{right:12px;bottom:12px;padding:11px 16px;font-size:.82rem}
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
     .carrossel{grid-auto-columns:42%}
-    .fotos-trilho{gap:12px;padding-right:12px;animation-duration:38s}
+    .fotos-trilho{gap:12px;padding-right:12px}
+    .fotos-seta{width:40px;height:40px;margin-top:-20px}
+    .fotos-seta.ant{left:-6px}
+    .fotos-seta.prox{right:-6px}
     .fotos-trilho .foto-card{flex-basis:150px;width:150px}
     .fotos-cab{margin-top:44px;padding-top:32px}
     #trabalhos .filtros{margin:0 -18px 22px;padding:0 18px 6px}
@@ -471,8 +508,6 @@
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
     .revelar{opacity:1;transform:none}
     .faixa-trilho{animation:none;flex-wrap:wrap;width:auto}
-    .fotos-trilho{animation:none!important}
-    .fotos-grade{overflow-x:auto}
     .serv{transform:none}
   }
 </style>
@@ -621,11 +656,15 @@
         <div class="carrossel" id="trab-grade" aria-live="polite"></div>
 
         <!-- FOTOS UGC: as fotos vêm do array "fotos" no script (arquivos na pasta "fotos") -->
-        <div class="fotos-cab">
+        <div class="fotos-cab" id="fotos-ugc">
           <h3 class="titulo-cursivo" data-en="UGC <em>photos</em>">Fotos <em>UGC</em></h3>
           <p data-en="All my content is shot and edited in the highest quality.">Todos os meus conteúdos são gravados e editados em altíssima qualidade.</p>
         </div>
-        <div class="fotos-grade" id="fotos-grade"></div>
+        <div class="fotos-area">
+          <button class="fotos-seta ant" type="button" data-dir="-1" aria-label="Foto anterior" data-en-aria-label="Previous photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+          <div class="fotos-grade" id="fotos-grade"></div>
+          <button class="fotos-seta prox" type="button" data-dir="1" aria-label="Próxima foto" data-en-aria-label="Next photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
       </div>
     </div>
   </div>
@@ -738,6 +777,26 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
   <span data-en="Rates &amp; packages">Valores e pacotes</span>
 </button>
+
+<!-- ===================== BARRA DE APP (só no celular) ===================== -->
+<nav class="app-nav" id="app-nav" aria-label="Navegação rápida" data-en-aria-label="Quick navigation">
+  <a href="#capa" data-sec="capa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg><span data-en="Home">Início</span></a>
+  <a href="#destaques" data-sec="destaques"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span data-en="Highlights">Destaques</span></a>
+  <a href="#contato" class="app-parceria" data-sec="contato"><span class="app-bolha"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/><path d="M8.5 11.8h.01M12 11.8h.01M15.5 11.8h.01" stroke-width="2.6"/></svg><span data-en="Let's talk">Parceria</span></span></a>
+  <a href="#trabalhos" data-sec="trabalhos"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></svg><span data-en="Niches">Nichos</span></a>
+  <button type="button" id="app-mais-btn" data-sec="mais" aria-expanded="false" aria-controls="app-mais"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h.01M12 12h.01M18 12h.01" stroke-width="3"/></svg><span data-en="More">Mais</span></button>
+</nav>
+<div class="app-mais" id="app-mais" aria-hidden="true">
+  <div class="app-folha" role="dialog" aria-label="Mais opções" data-en-aria-label="More options">
+    <button class="app-destaque" type="button" id="app-valores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><span data-en="Rates &amp; packages">Valores e pacotes</span></button>
+    <a href="#sobre"><span data-en="About me">Sobre mim</span></a>
+    <a href="#servicos"><span data-en="How I can help">Como eu te ajudo</span></a>
+    <a href="#fotos-ugc"><span data-en="UGC photos">Fotos UGC</span></a>
+    <hr>
+    <a href="https://www.instagram.com/nathaliaamessiass/" target="_blank" rel="noopener">Instagram <i aria-hidden="true">↗</i></a>
+    <a href="https://wa.me/5511980869201" target="_blank" rel="noopener">WhatsApp <i aria-hidden="true">↗</i></a>
+  </div>
+</div>
 
 <!-- ===================== CARD DE CAPTURA (valores e pacotes) ===================== -->
 <div class="captura" id="captura" aria-hidden="true">
@@ -1289,6 +1348,33 @@ function alternarMenu(abrir) {
 sanduiche.addEventListener('click', () => alternarMenu(sanduiche.getAttribute('aria-expanded') !== 'true'));
 menu.addEventListener('click', (e) => { if (e.target.closest('a')) alternarMenu(false); });
 
+// Barra de app no celular: marca a aba da parte da página que está na tela
+const appNav = $('#app-nav'), appMais = $('#app-mais'), appMaisBtn = $('#app-mais-btn');
+const abaDaSecao = { capa: 'capa', sobre: 'mais', destaques: 'destaques', trabalhos: 'trabalhos', servicos: 'mais', contato: 'contato' };
+function marcarAba() {
+  let atual = 'capa';
+  Object.keys(abaDaSecao).forEach(id => {
+    const s = document.getElementById(id);
+    if (s && s.getBoundingClientRect().top <= innerHeight * 0.4) atual = id;
+  });
+  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) atual = 'contato';
+  appNav.querySelectorAll('[data-sec]').forEach(el => el.classList.toggle('ativo', el.dataset.sec === abaDaSecao[atual]));
+}
+window.addEventListener('scroll', marcarAba, { passive: true });
+marcarAba();
+// Gaveta "Mais"
+function alternarMais(abrir) {
+  appMais.classList.toggle('aberto', abrir);
+  appMais.setAttribute('aria-hidden', !abrir);
+  appMaisBtn.setAttribute('aria-expanded', abrir);
+  if (abrir) setTimeout(() => appMais.querySelector('button, a').focus(), 60);
+}
+appMaisBtn.addEventListener('click', () => alternarMais(!appMais.classList.contains('aberto')));
+appMais.addEventListener('click', (e) => {
+  if (e.target === appMais || e.target.closest('a')) alternarMais(false);
+});
+$('#app-valores').addEventListener('click', () => { alternarMais(false); abrirCaptura(true); });
+
 // Primeira montagem da página
 aplicarIdioma(idioma);
 setInterval(atualizarBF, 1000);
@@ -1307,6 +1393,69 @@ if ('IntersectionObserver' in window && !reduzMovimento) {
 } else {
   elementos.forEach(el => el.classList.add('visivel'));
 }
+
+// Fotos UGC: a faixa anda sozinha, para quando o mouse passa por cima,
+// e as setas (ou arrastar com o dedo no celular) adiantam ou voltam as fotos.
+(function () {
+  const area = $('.fotos-area'), grade = $('#fotos-grade');
+  if (!area || !grade) return;
+  let pos = 0, ultimo = 0, pausa = false, tween = null, arrasto = null, moveu = false;
+  const trilho = () => $('.fotos-trilho');
+  const velocidade = () => (innerWidth < 560 ? 30 : 40); // pixels por segundo
+  const meio = () => { const t = trilho(); return t ? t.scrollWidth / 2 : 0; };
+  const passo = () => {
+    const c = $('.fotos-trilho .foto-card');
+    return c ? c.offsetWidth + (parseFloat(getComputedStyle(trilho()).columnGap) || 18) : 240;
+  };
+  function desenhar() {
+    const t = trilho(), m = meio();
+    if (!t || !m) return;
+    t.style.transform = `translateX(${-(((pos % m) + m) % m)}px)`;
+  }
+  function quadro(agora) {
+    const dt = ultimo ? Math.min(agora - ultimo, 100) / 1000 : 0;
+    ultimo = agora;
+    if (tween) {
+      const p = Math.min((agora - tween.ini) / tween.dur, 1);
+      pos = tween.de + (tween.para - tween.de) * (1 - Math.pow(1 - p, 3));
+      if (p >= 1) tween = null;
+    } else if (!pausa && !arrasto && !reduzMovimento) {
+      pos += velocidade() * dt;
+    }
+    desenhar();
+    requestAnimationFrame(quadro);
+  }
+  requestAnimationFrame(quadro);
+
+  area.addEventListener('click', (e) => {
+    const s = e.target.closest('.fotos-seta');
+    if (!s) return;
+    const de = tween ? tween.para : pos;
+    tween = { de: pos, para: de + Number(s.dataset.dir) * passo(), ini: performance.now(), dur: reduzMovimento ? 1 : 500 };
+  });
+  grade.addEventListener('mouseenter', () => { pausa = true; });
+  grade.addEventListener('mouseleave', () => { pausa = false; });
+  grade.addEventListener('focusin', () => { pausa = true; });
+  grade.addEventListener('focusout', () => { pausa = false; });
+
+  // Arrastar com o dedo
+  grade.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse') return;
+    tween = null; moveu = false;
+    arrasto = { x: e.clientX, pos };
+  });
+  grade.addEventListener('pointermove', (e) => {
+    if (!arrasto) return;
+    const dx = e.clientX - arrasto.x;
+    if (Math.abs(dx) > 8) moveu = true;
+    pos = arrasto.pos - dx;
+  });
+  const soltar = () => { arrasto = null; };
+  grade.addEventListener('pointerup', soltar);
+  grade.addEventListener('pointercancel', soltar);
+  // Depois de arrastar, o toque não abre a foto
+  grade.addEventListener('click', (e) => { if (moveu) { e.stopPropagation(); e.preventDefault(); moveu = false; } }, true);
+})();
 
 // Formulário de contato: confirmação na tela.
 // Para receber as mensagens, crie um form no Formspree e troque o bloco abaixo por um
@@ -1426,6 +1575,7 @@ document.addEventListener('keydown', (e) => {
     if (player.classList.contains('aberto')) fecharPlayer();
     else if (captura.classList.contains('aberta')) fecharCaptura();
     else if (menu.classList.contains('aberto')) { alternarMenu(false); sanduiche.focus(); }
+    else if (appMais.classList.contains('aberto')) { alternarMais(false); appMaisBtn.focus(); }
   }
   // Mantém o foco dentro do card enquanto ele está aberto
   if (e.key === 'Tab' && captura.classList.contains('aberta')) {
