@@ -248,7 +248,13 @@
   .fotos-titulo{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.2;color:var(--tinta);max-width:640px;margin:14px auto 0}
   .fotos-titulo em{color:var(--vinho)}
   .fotos-cab p{color:var(--tinta-2);max-width:520px;margin:6px auto 0}
-  .fotos-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  /* Faixa de fotos passando em "onda" (uma mais alta, outra mais baixa) */
+  .fotos-grade{overflow:hidden;padding:20px 0 24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .fotos-trilho{display:flex;gap:18px;padding-right:18px;width:max-content;animation:correr 50s linear infinite}
+  .fotos-grade:hover .fotos-trilho,.fotos-trilho:focus-within{animation-play-state:paused}
+  .fotos-trilho .foto-card{flex:0 0 220px;width:220px}
+  .fotos-trilho .foto-card:nth-child(odd){transform:translateY(-12px)}
+  .fotos-trilho .foto-card:nth-child(even){transform:translateY(12px)}
   .foto-card{position:relative;display:block;width:100%;padding:0;border:0;background:var(--creme-2);border-radius:16px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4;box-shadow:var(--sombra)}
   .foto-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
   .foto-card:hover img{transform:scale(1.04)}
@@ -415,7 +421,7 @@
     .titulo-grande{font-size:clamp(2rem,9vw,3.4rem)}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
     .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
-    .fotos-grade{grid-template-columns:1fr 1fr}
+    .fotos-trilho .foto-card{flex-basis:180px;width:180px}
     #trabalhos .filtros{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin:0 -24px 26px;padding:0 24px 6px;scrollbar-width:none}
     .filtro{flex:0 0 auto}
     .resultados{grid-template-columns:1fr}
@@ -442,7 +448,8 @@
     .depo{padding:26px 20px}
     .faixa li{padding:4px 7px}
     .carrossel{grid-auto-columns:42%}
-    .fotos-grade{grid-template-columns:1fr 1fr;gap:10px}
+    .fotos-trilho{gap:12px;padding-right:12px;animation-duration:38s}
+    .fotos-trilho .foto-card{flex-basis:150px;width:150px}
     .fotos-cab{margin-top:44px;padding-top:32px}
     #trabalhos .filtros{margin:0 -18px 22px;padding:0 18px 6px}
     .car-setas{display:none}
@@ -460,6 +467,8 @@
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
     .revelar{opacity:1;transform:none}
     .faixa-trilho{animation:none;flex-wrap:wrap;width:auto}
+    .fotos-trilho{animation:none!important}
+    .fotos-grade{overflow-x:auto}
     .serv{transform:none}
   }
 </style>
@@ -874,13 +883,22 @@ const trabalhos = [
 ];
 
 // Fotos UGC (arquivos na pasta "fotos"). Para trocar, salve a foto na pasta e mude o "src".
+// As fotos passam sozinhas numa faixa (param quando o mouse passa por cima).
 const fotos = [
-  { src: 'fotos/widicare-juba.jpg',      marca: 'WidiCare',     produto: 'Juba Butter Oil',
-    alt: 'Nathalia sorrindo de olhos fechados com o pote Juba Butter Oil da WidiCare', en: { alt: 'Nathalia smiling with her eyes closed, holding WidiCare Juba Butter Oil' } },
+  { src: 'fotos/widicare-phytomanga.jpg', marca: 'WidiCare',     produto: 'Linha Phyto Manga', en: { produto: 'Phyto Manga line', alt: 'Nathalia laughing while holding the WidiCare Phyto Manga shampoo, conditioner and styling cream' },
+    alt: 'Nathalia rindo segurando shampoo, condicionador e creme de pentear Phyto Manga da WidiCare' },
   { src: 'fotos/felps-marula.jpg',       marca: 'Felps',        produto: 'Óleo Marula', en: { produto: 'Marula Oil', alt: 'Nathalia smiling and holding Felps Marula nutritive oil' },
     alt: 'Nathalia sorrindo segurando o óleo nutritivo Marula da Felps' },
+  { src: 'fotos/supreo-mini-band.jpg',   marca: 'Supreo',       produto: 'Mini band', en: { produto: 'Mini band', alt: 'Nathalia sitting on the floor stretching a pink Supreo mini band around her feet' },
+    alt: 'Nathalia sentada no chão esticando uma mini band rosa da Supreo nos pés' },
   { src: 'fotos/isdin-fusion-water.jpg', marca: 'Isdin',        produto: 'Fusion Water Color',
     alt: 'Nathalia segurando o protetor Isdin Fusion Water Color na frente do rosto', en: { alt: 'Nathalia holding Isdin Fusion Water Color sunscreen in front of her face' } },
+  { src: 'fotos/meliuz-app.jpg',         marca: 'Méliuz',       produto: 'App Méliuz', en: { produto: 'Méliuz app', alt: 'Hands holding a phone with the Méliuz app opening screen' },
+    alt: 'Mãos segurando um celular com a tela de abertura do app Méliuz' },
+  { src: 'fotos/widicare-juba.jpg',      marca: 'WidiCare',     produto: 'Juba Butter Oil',
+    alt: 'Nathalia sorrindo de olhos fechados com o pote Juba Butter Oil da WidiCare', en: { alt: 'Nathalia smiling with her eyes closed, holding WidiCare Juba Butter Oil' } },
+  { src: 'fotos/duolingo-app.jpg',       marca: 'Duolingo',     produto: 'App Duolingo', en: { produto: 'Duolingo app', alt: 'Nathalia in a green shirt holding a phone with the Duolingo app under her chin' },
+    alt: 'Nathalia de blusa verde segurando um celular com o app Duolingo abaixo do queixo' },
   { src: 'fotos/chillibeans-oculos.jpg', marca: 'Chilli Beans', produto: 'Óculos de sol', en: { produto: 'Sunglasses', alt: 'Pink Chilli Beans sunglasses on a phone screen showing Nathalia' },
     alt: 'Óculos de sol rosa da Chilli Beans sobre a tela de um celular com a foto da Nathalia' }
 ];
@@ -1175,12 +1193,14 @@ function renderizar() {
   mostrarTrabalhos(nichoAtual);
 
   // Fotos UGC
-  $('#fotos-grade').innerHTML = fotos.map((f, i) => `
-    <button class="foto-card" type="button" data-foto="${i}" aria-label="${esc(U('ampliarFoto'))}: ${esc(f.marca)}, ${esc(T(f, 'produto'))}">
-      <img src="${esc(f.src)}" alt="${esc(T(f, 'alt'))}" loading="lazy">
+  // A lista aparece duas vezes para a faixa passar sem emenda (a cópia fica escondida para leitores de tela)
+  const cardFoto = (f, i, copia) => `
+    <button class="foto-card" type="button" data-foto="${i}" ${copia ? 'tabindex="-1" aria-hidden="true"' : `aria-label="${esc(U('ampliarFoto'))}: ${esc(f.marca)}, ${esc(T(f, 'produto'))}"`}>
+      <img src="${esc(f.src)}" alt="${copia ? '' : esc(T(f, 'alt'))}" decoding="async">
       <span class="trab-marca">${esc(f.marca)}</span>
       <span class="foto-legenda">${esc(T(f, 'produto'))}</span>
-    </button>`).join('');
+    </button>`;
+  $('#fotos-grade').innerHTML = `<div class="fotos-trilho">${fotos.map((f, i) => cardFoto(f, i, false)).join('')}${fotos.map((f, i) => cardFoto(f, i, true)).join('')}</div>`;
 
   // Serviços (cards com aba)
   $('#serv-grade').innerHTML = servicos.map((s, i) => `
