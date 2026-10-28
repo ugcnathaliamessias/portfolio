@@ -217,7 +217,8 @@
   .trab-cab{text-align:center;margin-bottom:28px}
   .trab-cab p{color:var(--tinta-2);max-width:520px;margin:6px auto 0}
   .titulo-cursivo{font-family:var(--serif);font-weight:700;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.08;color:var(--tinta);margin-top:4px;letter-spacing:-.025em}
-  #trabalhos .filtros{justify-content:center;margin-bottom:34px}
+  #trabalhos .filtros{justify-content:center;gap:6px;margin-bottom:34px}
+  #trabalhos .filtro{padding:9px 13px;font-size:.84rem}
   .nicho-topo{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
   .nicho-topo h3{font-family:var(--serif);font-style:italic;font-weight:700;letter-spacing:-.02em;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--vinho)}
   .nicho-qtd{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-forte)}
@@ -229,6 +230,8 @@
   .carrossel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 4 * 16px) / 5);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
   .carrossel::-webkit-scrollbar{display:none}
   .carrossel .trab-card{scroll-snap-align:start}
+  .carrossel.grade-todos{grid-auto-flow:row;grid-template-columns:repeat(5,1fr);gap:22px 16px;overflow:visible;scroll-snap-type:none}
+  .car-setas[hidden]{display:none}
   .trab-marca{position:absolute;top:10px;left:10px;z-index:1;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(255,248,239,.94);color:var(--vinho);font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
   .trab-card{animation:surgir .45s ease both}
   .trab-video{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit}
@@ -410,6 +413,7 @@
   }
   @media (max-width:1024px){
     .carrossel{grid-auto-columns:calc((100% - 3 * 16px) / 4)}
+    .carrossel.grade-todos{grid-template-columns:repeat(4,1fr)}
     .metricas{grid-template-columns:repeat(2,1fr)}
     .janela-corpo{padding:44px}
     .menu ul{gap:18px}
@@ -443,6 +447,12 @@
     .titulo-grande{font-size:clamp(2rem,9vw,3.4rem)}
     .dest-grade{grid-template-columns:1fr;gap:48px;max-width:360px;margin:0 auto}
     .carrossel{grid-auto-columns:calc((100% - 2 * 12px) / 2.6);gap:12px}
+    .carrossel.grade-todos{grid-template-columns:repeat(3,1fr);gap:16px 10px}
+    /* Etiquetas menores para caber nos vídeos pequenos da grade */
+    .grade-todos .trab-marca{top:7px;left:6px;max-width:calc(100% - 12px);font-size:.5rem;letter-spacing:.06em;padding:4px 7px}
+    .grade-todos .trab-capa .trab-tag{left:4px;right:4px;bottom:9px;font-size:.5rem;letter-spacing:.06em}
+    .grade-todos .trab-capa .play{width:40px;height:40px;margin:-20px 0 0 -20px}
+    .grade-todos .trab-capa .play svg{width:14px;height:14px}
     .fotos-trilho .foto-card{flex-basis:180px;width:180px}
     #trabalhos .filtros{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin:0 -24px 26px;padding:0 24px 6px;scrollbar-width:none}
     .filtro{flex:0 0 auto}
@@ -655,7 +665,7 @@
       <div class="janela-corpo">
         <div class="trab-cab">
           <h2 id="titulo-trabalhos" class="titulo-cursivo" data-en="My <em>content</em>">Meus <em>conteúdos</em></h2>
-          <p data-en="Pick a niche, swipe sideways and tap a video to watch it right here.">Escolha um nicho, deslize para o lado e toque no vídeo para assistir aqui mesmo.</p>
+          <p data-en="See all my content or pick a niche, then tap a video to watch it right here.">Veja todos os meus conteúdos ou escolha um nicho, e toque no vídeo para assistir aqui mesmo.</p>
         </div>
         <div class="filtros" id="filtros" role="group" aria-label="Escolher nicho" data-en-aria-label="Choose a niche"></div>
         <!-- Um nicho por vez, numa fileira que desliza para o lado -->
@@ -908,7 +918,9 @@ const destaques = [
 ];
 
 // Nichos (aparece um por vez; o primeiro da lista abre primeiro)
+// "todos" é especial: mostra todos os vídeos numa grade só, rolando para baixo
 const nichos = [
+  { id: 'todos',       nome: 'Todos os conteúdos',  en: { nome: 'All content' } },
   { id: 'camping',     nome: 'Camping',             en: { nome: 'Camping' } },
   { id: 'gastronomia', nome: 'Gastronomia',         en: { nome: 'Food' } },
   { id: 'wellness',    nome: 'Wellness',            en: { nome: 'Wellness' } },
@@ -1109,10 +1121,14 @@ document.addEventListener('error', (e) => {
 const idYoutube = (url) => (String(url).match(/(?:shorts\/|youtu\.be\/|[?&]v=|embed\/)([\w-]{11})/) || [])[1] || '';
 function mostrarTrabalhos(nicho) {
   nichoAtual = nicho;
-  const lista = trabalhos.map((t, i) => ({ t, i })).filter(({ t }) => t.nicho === nicho);
+  const todos = nicho === 'todos';
+  const lista = trabalhos.map((t, i) => ({ t, i })).filter(({ t }) => todos || t.nicho === nicho);
   $('#nicho-nome').textContent = nomeNicho(nicho);
   $('#nicho-qtd').textContent = `${lista.length} ${U(lista.length === 1 ? 'video' : 'videos')}`;
   const grade = $('#trab-grade');
+  // Em "Todos os conteúdos" os vídeos ficam numa grade que desce; nos nichos, numa fileira com setas
+  grade.classList.toggle('grade-todos', todos);
+  $('.car-setas').hidden = todos;
   grade.innerHTML = lista.map(({ t, i }, n) => {
     const id = idYoutube(t.video);
     const capa = t.capa || (id ? `capas/${id}.jpg` : '');
