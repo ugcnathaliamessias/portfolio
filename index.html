@@ -12,6 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* Fonte cursiva Magnolia Script (licença livre OFL, arquivo na pasta "fontes") */
+  @font-face{font-family:'Magnolia Script';src:url('fontes/magnolia-script.otf') format('opentype');font-display:swap}
   /* ===== PALETA: troque as cores aqui ===== */
   :root{
     --creme:#FFFBEF;        /* off-white: fundo claro principal */
@@ -101,13 +103,20 @@
   .bf-link{color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4)}
   .bf-link:hover{border-color:#fff}
   html.sem-bf .bf-barra{display:none}
+  .bf-faixa{display:none}
+  .bf-correndo{display:flex;width:max-content;animation:bfCorre 18s linear infinite}
+  .bf-grupo{display:flex;align-items:center;gap:14px;padding-right:14px}
+  .bf-correndo b{color:var(--rosa)}
+  .bf-correndo .sep{color:rgba(255,251,239,.45)}
+  .bf-correndo .bf-extra{display:inline!important}
+  @keyframes bfCorre{to{transform:translateX(-50%)}}
 
   /* ===== MENU ===== */
   .topo{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .3s,box-shadow .3s}
   .topo.rolou{background:rgba(255,251,239,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linha)}
   .topo-nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
   .marca{font-family:var(--serif);font-size:1.3rem;text-decoration:none;white-space:nowrap;color:var(--vinho)}
-  .marca{font-weight:700;letter-spacing:-.02em}.marca em{font-style:italic;color:var(--rosa-forte)}
+  .marca{font-weight:700;letter-spacing:-.02em;font-size:1.85rem}.marca em{font-family:'Magnolia Script',cursive;font-style:normal;font-weight:400;font-size:1.2em;letter-spacing:0;margin-left:.06em;color:var(--rosa-forte)}
   .menu ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
   .menu a{text-decoration:none;font-size:.86rem;font-weight:500;position:relative;padding:4px 0}
   .menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--vinho);transition:width .3s}
@@ -130,8 +139,8 @@
     background-size:40px 40px}
   .capa-grade{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-top:10px;padding-bottom:14px}
   .capa h1{margin:10px 0 12px}
-  .titulo-forte{display:block;font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,min(5.4vw,9.4vh),5.6rem);line-height:.98;letter-spacing:-.025em;color:var(--vinho)}
-  .titulo-script{display:block;font-family:var(--serif);font-style:italic;font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,min(5.4vw,9.4vh),5.6rem);line-height:1.02;letter-spacing:-.025em;color:var(--rosa-forte)}
+  .titulo-forte{display:block;font-family:var(--serif);font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,min(5.4vw,9.4vh),5.6rem);line-height:1.08;letter-spacing:-.005em;color:var(--vinho)}
+  .titulo-script{display:block;font-family:'Magnolia Script',cursive;font-style:normal;font-weight:400;text-transform:lowercase;font-size:clamp(3.2rem,min(7.2vw,12vh),7.2rem);line-height:.9;margin-top:.02em;letter-spacing:0;color:var(--rosa-forte)}
   /* Cursiva fina com palavras em negrito (como "como <b>criar</b> para a <b>sua marca</b>") */
   .capa-frase{font-size:.98rem;color:var(--tinta-2);max-width:570px}
   .capa-botoes{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 16px}
@@ -526,10 +535,10 @@
     .janela-corpo{padding:28px 18px}
     .setas{display:none}
     .bf-conteudo{gap:10px;font-size:.74rem}
-    .bf-timer{display:none}
-    .bf-link{display:none}
-    .bf-expressa{border-right:0;padding-right:0}
-    .marca{font-size:1.15rem}
+    .bf-conteudo{justify-content:flex-start}
+    .bf-conteudo>.bf-texto,.bf-conteudo>.bf-expressa,.bf-timer,.bf-link{display:none}
+    .bf-faixa{display:block;flex:1;min-width:0;overflow:hidden;font-size:.78rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+    .marca{font-size:1.3rem}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -555,6 +564,8 @@
       <span class="bf-expressa" data-en="⚡ <span class='bf-extra'>Express delivery in </span><b>72 business hours</b>">⚡ <span class="bf-extra">Entrega expressa em </span><b>72h úteis</b></span>
       <span class="bf-timer" id="bf-timer" aria-hidden="true"></span>
       <a class="bf-link" href="#contato" data-en="book your slot →">reservar agenda →</a>
+      <!-- Só no celular: as frases passando para o lado (montadas pelo script) -->
+      <div class="bf-faixa"><div class="bf-correndo" id="bf-correndo"></div></div>
     </div>
   </div>
   <div class="container topo-nav">
@@ -1046,6 +1057,7 @@ const ui = {
     abrirMenu: 'Abrir menu', fecharMenu: 'Fechar menu',
     bfFaltam: (d) => d === 1 ? 'Falta <b>1 dia</b><span class="bf-extra"> pra Black Friday</span>' : d === 0 ? 'A Black Friday é <b>amanhã</b>' : `Faltam <b>${d} dias</b><span class="bf-extra"> pra Black Friday</span>`,
     bfHoje: 'É <b>Black Friday</b>!<span class="bf-extra"> Agenda aberta para a sua campanha</span>',
+    bfExpressa: '⚡ Entrega expressa em <b>72h úteis</b>', bfAgenda: 'Garanta sua vaga na agenda',
     enviada: 'Mensagem enviada', obrigada: 'Obrigada', recebi: 'Recebi a sua mensagem e respondo em até um dia útil.',
     tudoCerto: 'Tudo certo', kitChega: 'Em breve minha tabela de valores e pacotes chega no seu e-mail.', fechar: 'Fechar',
     enviando: 'Enviando...',
@@ -1062,6 +1074,7 @@ const ui = {
     abrirMenu: 'Open menu', fecharMenu: 'Close menu',
     bfFaltam: (d) => d === 1 ? '<b>1 day</b><span class="bf-extra"> to Black Friday</span>' : d === 0 ? 'Black Friday is <b>tomorrow</b>' : `<b>${d} days</b><span class="bf-extra"> to Black Friday</span>`,
     bfHoje: "It's <b>Black Friday</b>!<span class=\"bf-extra\"> Booking open for your campaign</span>",
+    bfExpressa: '⚡ Express delivery in <b>72 business hours</b>', bfAgenda: 'Book your slot now',
     enviada: 'Message sent', obrigada: 'Thank you', recebi: "I got your message and will reply within one business day.",
     tudoCerto: 'All set', kitChega: 'My rates and packages will reach your inbox soon.', fechar: 'Close',
     enviando: 'Sending...',
@@ -1380,12 +1393,21 @@ function atualizarBF() {
   if (agora >= ini) {
     $('#bf-texto').innerHTML = U('bfHoje');
     $('#bf-timer').textContent = '';
+    montarFaixaBF(U('bfHoje'));
     return;
   }
   const s = Math.floor((ini - agora) / 1000);
   const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
   $('#bf-texto').innerHTML = U('bfFaltam')(d);
   $('#bf-timer').textContent = `${d}d ${pad(h)}h ${pad(m)}m ${pad(s % 60)}s`;
+  montarFaixaBF(U('bfFaltam')(d));
+}
+// No celular, as frases da Black Friday passam para o lado (a lista aparece duas vezes para emendar sem corte)
+function montarFaixaBF(primeira) {
+  const faixa = $('#bf-correndo');
+  const itens = [primeira, U('bfExpressa'), U('bfAgenda')].map(t => `<span>${t}</span><span class="sep">•</span>`).join('');
+  const html = `<span class="bf-grupo">${itens}</span><span class="bf-grupo" aria-hidden="true">${itens}</span>`;
+  if (faixa.dataset.html !== html) { faixa.innerHTML = html; faixa.dataset.html = html; }
 }
 
 // Ano automático
