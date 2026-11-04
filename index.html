@@ -866,7 +866,7 @@ const blackFriday = {
 };
 
 // Destaques que flutuam em volta da foto da capa. Use **texto** para deixar em negrito.
-const destaquesCapa = [
+let destaquesCapa = [
   { texto: 'Já criei para **Nestlé, C&A, Shopee** e mais',
     en:  { texto: "I've created for **Nestlé, C&A, Shopee** and more" } },
   { texto: 'Roteiro aprovado antes de gravar e entrega em até **7 dias**',
@@ -881,7 +881,7 @@ const destaquesCapa = [
 // Enquanto "logo" estiver vazio, aparece o nome da marca escrito.
 // "zoom" aumenta ou diminui o logo dentro do círculo (1 = normal).
 // "fundo" troca a cor do círculo (use para logo claro, que some no branco).
-const marcas = [
+let marcas = [
   { nome: 'Bestway',      logo: 'logos/bestway.png', zoom: 1.3 },
   { nome: 'GuardeMais',   logo: 'logos/guardemais.png', zoom: 1.45 },
   { nome: 'Arosa',        logo: 'logos/arosa.png', zoom: 1.25 },
@@ -905,7 +905,7 @@ const marcas = [
 // Um produto, três formatos (máscara WidiCare). Texto baseado no post do Instagram:
 // https://www.instagram.com/p/DZVU_09EXti/
 // video = link do YouTube. capa = opcional, imagem vertical 9:16 no lugar da capa do YouTube.
-const destaques = [
+let destaques = [
   { video: 'https://youtu.be/5aKWuwLP_BQ', marca: 'WidiCare', formato: 'Problema x solução',
     texto: 'Para quem precisa entender um problema antes de enxergar valor na solução.',
     en: { formato: 'Problem x solution', texto: 'For people who need to understand a problem before they see the value in the solution.' } },
@@ -919,7 +919,7 @@ const destaques = [
 
 // Nichos (aparece um por vez; o primeiro da lista abre primeiro)
 // "todos" é especial: mostra todos os vídeos numa grade só, rolando para baixo
-const nichos = [
+let nichos = [
   { id: 'todos',       nome: 'Todos os conteúdos',  en: { nome: 'All content' } },
   { id: 'camping',     nome: 'Camping',             en: { nome: 'Camping' } },
   { id: 'gastronomia', nome: 'Gastronomia',         en: { nome: 'Food' } },
@@ -935,7 +935,7 @@ const nichos = [
 // capa  = opcional: caminho de uma imagem vertical 9:16 para usar no lugar da capa do YouTube.
 // formato = o tipo do vídeo (Storytelling, Review, Anúncio, Receita, Demonstração, Unboxing, Editorial, ASMR...).
 //           A tradução para o inglês fica no objeto "ui.en" lá embaixo.
-const trabalhos = [
+let trabalhos = [
   { nicho: 'camping',     marca: 'Bestway',          video: 'https://youtube.com/shorts/0q-4tCV8TJY', formato: 'Review' },
   { nicho: 'camping',     marca: 'Camping Zé Roque', video: 'https://youtube.com/shorts/72OwKxBbi48', formato: 'Storytelling' },
   { nicho: 'camping',     marca: 'GuardeMais',       video: 'https://youtube.com/shorts/t4fX-B6PC6I', formato: 'Anúncio' },
@@ -965,7 +965,7 @@ const trabalhos = [
 
 // Fotos UGC (arquivos na pasta "fotos"). Para trocar, salve a foto na pasta e mude o "src".
 // As fotos passam sozinhas numa faixa (param quando o mouse passa por cima).
-const fotos = [
+let fotos = [
   { src: 'fotos/widicare-phytomanga.jpg', marca: 'WidiCare',     produto: 'Linha Phyto Manga', en: { produto: 'Phyto Manga line', alt: 'Nathalia laughing while holding the WidiCare Phyto Manga shampoo, conditioner and styling cream' },
     alt: 'Nathalia rindo segurando shampoo, condicionador e creme de pentear Phyto Manga da WidiCare' },
   { src: 'fotos/felps-marula.jpg',       marca: 'Felps',        produto: 'Óleo Marula', en: { produto: 'Marula Oil', alt: 'Nathalia smiling and holding Felps Marula nutritive oil' },
@@ -1103,8 +1103,11 @@ function midia(img, alt, legenda, i) {
 const itemMarca = (m) => m.logo
   ? `<li><span class="selo-marca"${m.fundo ? ` style="background:${esc(m.fundo)}"` : ''}><img src="${esc(m.logo)}" alt="${esc(m.nome)}" style="transform:scale(${m.zoom || 1})" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-texto',textContent:this.alt}))"></span></li>`
   : `<li><span class="selo-marca"><span class="logo-texto">${esc(m.nome)}</span></span></li>`;
-const listaMarcas = `<ul>${marcas.map(itemMarca).join('')}</ul>`;
-$('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul aria-hidden="true">');
+function desenharMarcas() {
+  const listaMarcas = `<ul>${marcas.map(itemMarca).join('')}</ul>`;
+  $('#faixa-trilho').innerHTML = listaMarcas + listaMarcas.replace('<ul>', '<ul aria-hidden="true">');
+}
+desenharMarcas();
 
 // Trabalhos com filtro
 let nichoAtual = nichos[0].id;
@@ -1443,9 +1446,44 @@ appMais.addEventListener('click', (e) => {
 });
 $('#app-valores').addEventListener('click', () => { alternarMais(false); abrirCaptura(true); });
 
+// CONTEÚDO EDITADO PELO PAINEL ADMIN (Supabase, tabela port_dados).
+// O site abre com a última versão guardada no navegador (ou com as listas
+// lá de cima) e, em seguida, busca a versão mais nova. Se o painel estiver
+// fora do ar, fica tudo como está escrito neste arquivo.
+const PAINEL = { url: 'https://faiobgzgwduwtitjhsoq.supabase.co', chave: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaW9iZ3pnd2R1d3RpdGpoc29xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMDMyNTQsImV4cCI6MjEwODc3OTI1NH0.W78v4DBz8wM3_yQ-0JWabfAyRHmd5FKAcqy6qCHJNks' };
+function aplicarDadosPainel(d) {
+  if (!d || typeof d !== 'object') return false;
+  const ok = (v) => Array.isArray(v) && v.length;
+  let mudou = false;
+  if (ok(d.nichos)) { nichos = d.nichos; mudou = true; }
+  if (ok(d.trabalhos)) { trabalhos = d.trabalhos; mudou = true; }
+  if (ok(d.marcas)) { marcas = d.marcas; mudou = true; }
+  if (ok(d.fotos)) { fotos = d.fotos; mudou = true; }
+  if (ok(d.destaquesCapa)) { destaquesCapa = d.destaquesCapa; mudou = true; }
+  if (ok(d.destaques)) { destaques = d.destaques; mudou = true; }
+  if (!nichos.some((n) => n.id === nichoAtual)) nichoAtual = nichos[0].id;
+  return mudou;
+}
+let dadosGuardados = null;
+try { dadosGuardados = localStorage.getItem('portfolio_dados'); } catch (e) {}
+try { if (aplicarDadosPainel(JSON.parse(dadosGuardados || 'null'))) desenharMarcas(); } catch (e) {}
+
 // Primeira montagem da página
 aplicarIdioma(idioma);
 setInterval(atualizarBF, 1000);
+
+// Busca a versão mais nova do painel e redesenha só se mudou
+fetch(`${PAINEL.url}/rest/v1/port_dados?select=chave,valor`, { headers: { apikey: PAINEL.chave, Authorization: `Bearer ${PAINEL.chave}` } })
+  .then((r) => (r.ok ? r.json() : null))
+  .then((linhas) => {
+    if (!Array.isArray(linhas) || !linhas.length) return;
+    const d = Object.fromEntries(linhas.map((l) => [l.chave, l.valor]));
+    const novo = JSON.stringify(d);
+    if (novo === dadosGuardados) return;
+    try { localStorage.setItem('portfolio_dados', novo); } catch (e) {}
+    if (aplicarDadosPainel(d)) { desenharMarcas(); renderizar(); }
+  })
+  .catch(() => {});
 
 // Animação de entrada ao rolar
 const elementos = document.querySelectorAll('.revelar');
